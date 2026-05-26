@@ -29,19 +29,19 @@ export default async function ShopPage({ params }: Props) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <nav className="text-sm text-stone-500 mb-6">
-        <Link href="/" className="hover:text-brand-600">Home</Link>
-        <span className="mx-2">›</span>
-        <Link href={`/${stSlug}`} className="hover:text-brand-600">{stName}</Link>
-        <span className="mx-2">›</span>
-        <Link href={`/${stSlug}/${citySlug}`} className="hover:text-brand-600">{shop.city}</Link>
-        <span className="mx-2">›</span>
-        <span className="text-stone-800 font-medium">{shop.name}</span>
+      <nav className="text-sm text-stone-500 mb-6 flex flex-wrap items-center gap-x-1 gap-y-1">
+        <Link href="/" className="hover:text-brand-600 shrink-0">Home</Link>
+        <span className="shrink-0">›</span>
+        <Link href={`/${stSlug}`} className="hover:text-brand-600 shrink-0">{stName}</Link>
+        <span className="shrink-0">›</span>
+        <Link href={`/${stSlug}/${citySlug}`} className="hover:text-brand-600 shrink-0">{shop.city}</Link>
+        <span className="shrink-0">›</span>
+        <span className="text-stone-800 font-medium truncate">{shop.name}</span>
       </nav>
 
-      <div className="bg-white rounded-2xl border border-stone-200 p-8 space-y-6">
+      <div className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-8 space-y-6">
         <div className="flex items-start justify-between gap-4">
-          <h1 className="text-3xl font-bold leading-tight">{shop.name}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold leading-tight">{shop.name}</h1>
           {shop.rating && (
             <div className="shrink-0 text-center">
               <div className="text-2xl font-bold text-brand-600">{shop.rating.toFixed(1)}</div>

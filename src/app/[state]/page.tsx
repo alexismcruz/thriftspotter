@@ -69,7 +69,7 @@ export default async function StatePage({ params }: Props) {
       </div>
 
       {/* Interactive map */}
-      <div className="mb-10 rounded-xl overflow-hidden border border-stone-200 shadow-sm">
+      <div className="mb-10 h-[300px] sm:h-[420px] lg:h-[500px] rounded-xl overflow-hidden border border-stone-200 shadow-sm">
         <ShopMapWrapper shops={pins} center={center} zoom={zoom} />
       </div>
 

@@ -24,7 +24,7 @@ export default function SearchBar({ placeholder = "Search by city, zip, or store
       />
       <button
         type="submit"
-        className="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
+        className="shrink-0 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
       >
         Search
       </button>

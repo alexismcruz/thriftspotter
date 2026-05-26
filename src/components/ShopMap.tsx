@@ -40,7 +40,7 @@ export default function ShopMap({ shops, center, zoom }: Props) {
     <MapContainer
       center={center as LatLngExpression}
       zoom={zoom}
-      style={{ height: "480px", width: "100%", borderRadius: "12px" }}
+      style={{ height: "100%", width: "100%" }}
       scrollWheelZoom={false}
     >
       <TileLayer
