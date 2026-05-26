@@ -3,6 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { US_STATES, stateFromSlug, stateSlug } from "@/lib/utils";
 import ShopCard from "@/components/ShopCard";
+import FeaturedBanner from "@/components/FeaturedBanner";
 import type { Metadata } from "next";
 
 type Props = { params: { state: string; city: string } };
@@ -26,20 +27,25 @@ export default async function CityPage({ params }: Props) {
 
   const stateName = US_STATES[abbr];
   const citySlugInput = params.city;
+  const cityQuery = citySlugInput.replace(/-/g, " ");
 
-  const shops = await prisma.shop.findMany({
-    where: {
-      state: abbr,
-      active: true,
-      city: { equals: citySlugInput.replace(/-/g, " "), mode: "insensitive" },
-    },
-    orderBy: [{ featured: "desc" }, { rating: "desc" }],
-  });
+  const [shops, featuredShop] = await Promise.all([
+    prisma.shop.findMany({
+      where: { state: abbr, active: true, city: { equals: cityQuery, mode: "insensitive" } },
+      orderBy: [{ featured: "desc" }, { rating: "desc" }],
+    }),
+    prisma.shop.findFirst({
+      where: { state: abbr, active: true, featured: true, city: { equals: cityQuery, mode: "insensitive" } },
+      select: { id: true, name: true, slug: true, address: true, city: true, state: true, phone: true, website: true, description: true },
+    }),
+  ]);
 
   if (shops.length === 0) notFound();
 
   const cityName = shops[0].city;
   const stSlug = stateSlug(abbr);
+  const regularShops = shops.filter((s) => !s.featured);
+  const sponsoredShops = shops.filter((s) => s.featured);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
@@ -56,8 +62,29 @@ export default async function CityPage({ params }: Props) {
         <p className="text-stone-500 mt-1">{shops.length} shop{shops.length !== 1 ? "s" : ""} found</p>
       </div>
 
+      {/* Featured banner */}
+      <div className="mb-8">
+        <FeaturedBanner shop={featuredShop} locationLabel={`${cityName}, ${abbr}`} />
+      </div>
+
+      {/* Sponsored cards at top */}
+      {sponsoredShops.length > 0 && (
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xs font-bold text-accent-600 uppercase tracking-wider">Sponsored</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {sponsoredShops.map((shop) => (
+              <ShopCard key={shop.id} shop={{ ...shop, featured: true }} />
+            ))}
+          </div>
+          <hr className="my-6 border-stone-200" />
+        </div>
+      )}
+
+      {/* Regular listings */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {shops.map((shop) => (
+        {regularShops.map((shop) => (
           <ShopCard key={shop.id} shop={shop} />
         ))}
       </div>

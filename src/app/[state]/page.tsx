@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { US_STATES, stateFromSlug, slugify } from "@/lib/utils";
 import { STATE_CENTERS, getStateZoom } from "@/lib/state-centers";
 import ShopMapWrapper from "@/components/ShopMapWrapper";
+import FeaturedBanner from "@/components/FeaturedBanner";
 import SearchBar from "@/components/SearchBar";
 import type { Metadata } from "next";
 
@@ -27,7 +28,7 @@ export default async function StatePage({ params }: Props) {
 
   const stateName = US_STATES[abbr];
 
-  const [cities, shopsWithCoords] = await Promise.all([
+  const [cities, shopsWithCoords, featuredShop] = await Promise.all([
     prisma.shop.groupBy({
       by: ["city"],
       where: { state: abbr, active: true },
@@ -37,6 +38,10 @@ export default async function StatePage({ params }: Props) {
     prisma.shop.findMany({
       where: { state: abbr, active: true, lat: { not: null }, lng: { not: null } },
       select: { id: true, name: true, slug: true, address: true, city: true, state: true, lat: true, lng: true },
+    }),
+    prisma.shop.findFirst({
+      where: { state: abbr, active: true, featured: true },
+      select: { id: true, name: true, slug: true, address: true, city: true, state: true, phone: true, website: true, description: true },
     }),
   ]);
 
@@ -67,12 +72,16 @@ export default async function StatePage({ params }: Props) {
         <SearchBar placeholder={`Search in ${stateName}…`} />
       </div>
 
+      {/* Featured banner */}
+      <div className="mb-8">
+        <FeaturedBanner shop={featuredShop} locationLabel={stateName} />
+      </div>
+
       {/* Interactive map */}
       <div className="mb-10 h-[300px] sm:h-[420px] lg:h-[500px] rounded-xl overflow-hidden border border-stone-200 shadow-sm">
         <ShopMapWrapper shops={pins} center={center} zoom={zoom} />
       </div>
 
-      {/* City grid or empty state */}
       {isEmpty ? (
         <div className="text-center py-16 bg-white rounded-xl border border-stone-200">
           <p className="text-4xl mb-4">🛍️</p>

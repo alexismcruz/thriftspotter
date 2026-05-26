@@ -1,5 +1,5 @@
 /**
- * Seeds the database from scripts/data/overpass.json.
+ * Seeds the database from scripts/data/overpass.json (GeoJSON or raw Overpass format).
  * Run: node scripts/seed.mjs
  * Requires DATABASE_URL in .env
  */
@@ -26,6 +26,8 @@ const STATE_ABBR = {
   "Virginia":"VA","Washington":"WA","West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY",
 };
 
+const US_STATE_ABBRS = new Set(Object.values(STATE_ABBR));
+
 function slugify(text) {
   return text.toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-");
 }
@@ -38,65 +40,92 @@ function makeUniqueSlug(base, seen) {
   return slug;
 }
 
+function normalizeState(raw) {
+  if (!raw) return null;
+  const upper = raw.trim().toUpperCase();
+  if (US_STATE_ABBRS.has(upper)) return upper;
+  return STATE_ABBR[raw.trim()] ?? null;
+}
+
 function parseStateFromAddr(addr) {
+  const m = addr.match(/,\s*([A-Z]{2})\s*(\d{5})?/);
+  if (m && US_STATE_ABBRS.has(m[1])) return m[1];
   for (const [name, abbr] of Object.entries(STATE_ABBR)) {
-    if (addr.includes(`, ${name}`) || addr.includes(`, ${abbr},`) || addr.endsWith(`, ${abbr}`)) {
-      return abbr;
-    }
+    if (addr.includes(name)) return abbr;
   }
-  const m = addr.match(/,\s*([A-Z]{2})\s*\d{5}/);
-  return m ? m[1] : null;
+  return null;
+}
+
+function extractShops(data) {
+  // GeoJSON FeatureCollection format (from overpass-turbo export)
+  if (data.type === "FeatureCollection" && Array.isArray(data.features)) {
+    return data.features.map((f) => {
+      const tags = f.properties ?? {};
+      const [lng, lat] = f.geometry?.coordinates ?? [null, null];
+      return { tags, lat, lng };
+    });
+  }
+  // Raw Overpass API format
+  if (Array.isArray(data.elements)) {
+    return data.elements.map((el) => ({
+      tags: el.tags ?? {},
+      lat: el.lat ?? el.center?.lat ?? null,
+      lng: el.lon ?? el.center?.lon ?? null,
+    }));
+  }
+  return [];
 }
 
 async function seed() {
   const raw = JSON.parse(readFileSync(join(__dirname, "data/overpass.json"), "utf8"));
-  const elements = raw.elements ?? [];
+  const items = extractShops(raw);
 
-  console.log(`Processing ${elements.length} elements…`);
+  console.log(`Processing ${items.length} elements…`);
 
   const seen = new Set();
   const shops = [];
+  let skipped = 0;
 
-  for (const el of elements) {
-    const tags = el.tags ?? {};
+  for (const { tags, lat, lng } of items) {
     const name = tags.name;
-    if (!name) continue;
+    if (!name) { skipped++; continue; }
+
+    const city = tags["addr:city"];
+    const state = normalizeState(tags["addr:state"]) ??
+      (tags["addr:country"] === "US" || !tags["addr:country"]
+        ? parseStateFromAddr([tags["addr:city"], tags["addr:state"], tags["addr:postcode"]].filter(Boolean).join(", "))
+        : null);
+
+    if (!city || !state) { skipped++; continue; }
 
     const addr = [
       tags["addr:housenumber"],
       tags["addr:street"],
-      tags["addr:city"],
-      tags["addr:state"],
+      city,
+      state,
       tags["addr:postcode"],
     ].filter(Boolean).join(", ");
-
-    const city = tags["addr:city"];
-    const stateRaw = tags["addr:state"];
-    const state = stateRaw
-      ? (STATE_ABBR[stateRaw] ?? stateRaw.toUpperCase().slice(0, 2))
-      : parseStateFromAddr(addr);
-
-    if (!city || !state) continue;
-
-    const lat = el.lat ?? el.center?.lat ?? null;
-    const lng = el.lon ?? el.center?.lon ?? null;
 
     const slug = makeUniqueSlug(slugify(`${name}-${city}-${state}`), seen);
 
     shops.push({
-      name, slug,
+      name,
+      slug,
       address: addr || `${city}, ${state}`,
-      city, state,
+      city,
+      state,
       zip: tags["addr:postcode"] ?? null,
       phone: tags.phone ?? tags["contact:phone"] ?? null,
       website: tags.website ?? tags["contact:website"] ?? null,
-      lat, lng,
+      lat: typeof lat === "number" ? lat : null,
+      lng: typeof lng === "number" ? lng : null,
       categories: ["Thrift Store"],
       active: true,
     });
   }
 
-  console.log(`Upserting ${shops.length} shops…`);
+  console.log(`Valid shops: ${shops.length} | Skipped (no name/city/state): ${skipped}`);
+  console.log(`Upserting into database…`);
 
   let inserted = 0;
   for (const shop of shops) {
@@ -109,7 +138,7 @@ async function seed() {
     if (inserted % 100 === 0) console.log(`  ${inserted}/${shops.length}`);
   }
 
-  console.log(`Done. ${inserted} shops seeded.`);
+  console.log(`\nDone! ${inserted} shops seeded into the database.`);
   await prisma.$disconnect();
 }
 

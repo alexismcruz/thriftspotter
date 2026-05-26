@@ -13,6 +13,7 @@ type Shop = {
   rating: number | null;
   reviewCount: number | null;
   categories: string[];
+  featured?: boolean;
 };
 
 export default function ShopCard({ shop }: { shop: Shop }) {
@@ -20,13 +21,23 @@ export default function ShopCard({ shop }: { shop: Shop }) {
   const stSlug = stateSlug(shop.state);
 
   return (
-    <div className="bg-white rounded-xl border border-stone-200 p-5 hover:shadow-md transition-shadow flex flex-col gap-2">
-      <div className="flex items-start justify-between gap-2">
+    <div className={`relative rounded-xl border p-5 hover:shadow-md transition-all flex flex-col gap-2 ${
+      shop.featured
+        ? "bg-brand-50 border-brand-200 shadow-sm"
+        : "bg-white border-stone-200"
+    }`}>
+      {shop.featured && (
+        <span className="absolute top-3 right-3 text-xs bg-accent-500 text-white font-semibold px-2 py-0.5 rounded-full">
+          ⭐ Sponsored
+        </span>
+      )}
+
+      <div className="flex items-start justify-between gap-2 pr-16">
         <Link href={`/shop/${shop.slug}`} className="font-semibold text-stone-900 hover:text-brand-600 leading-tight">
           {shop.name}
         </Link>
         {shop.rating && (
-          <span className="shrink-0 text-xs bg-brand-50 text-brand-700 font-medium px-2 py-0.5 rounded-full">
+          <span className="shrink-0 text-xs bg-brand-50 text-brand-700 font-medium px-2 py-0.5 rounded-full border border-brand-200">
             ★ {shop.rating.toFixed(1)}
             {shop.reviewCount ? ` (${shop.reviewCount.toLocaleString()})` : ""}
           </span>
@@ -58,10 +69,7 @@ export default function ShopCard({ shop }: { shop: Shop }) {
         )}
       </div>
 
-      <Link
-        href={`/${stSlug}/${citySlug}`}
-        className="text-xs text-stone-400 hover:text-brand-600 mt-auto"
-      >
+      <Link href={`/${stSlug}/${citySlug}`} className="text-xs text-stone-400 hover:text-brand-600 mt-auto">
         {shop.city}, {shop.state}
       </Link>
     </div>

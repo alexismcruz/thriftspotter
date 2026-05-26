@@ -29,12 +29,15 @@ export default async function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-brand-600 to-brand-700 text-white py-12 sm:py-20 px-4">
+      <section className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white py-12 sm:py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
-            Find Thrift Stores Near You
+          <span className="inline-block bg-brand-500/40 text-brand-100 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-6">
+            Free · No sign-up needed
+          </span>
+          <h1 className="text-4xl sm:text-6xl font-heading font-bold mb-5 leading-tight tracking-tight">
+            Find Thrift Stores<br className="hidden sm:block" /> Near You
           </h1>
-          <p className="text-brand-100 mb-8 text-lg">
+          <p className="text-brand-100 mb-8 text-lg max-w-xl mx-auto">
             {totalShops > 0
               ? `Discover ${totalShops.toLocaleString()}+ thrift shops, consignment stores, and secondhand finds across the US.`
               : "Discover thrift shops, consignment stores, and secondhand finds across the US."}
@@ -46,13 +49,16 @@ export default async function HomePage() {
       </section>
 
       <div className="max-w-6xl mx-auto px-4 py-12 space-y-14">
-        {/* Featured shops */}
+        {/* Featured / Sponsored shops */}
         {featured.length > 0 && (
           <section>
-            <h2 className="text-2xl font-bold mb-6">Featured Shops</h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold">Featured Shops</h2>
+              <span className="text-xs text-stone-400 bg-stone-100 px-3 py-1 rounded-full">Sponsored</span>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {featured.map((shop) => (
-                <ShopCard key={shop.id} shop={shop} />
+                <ShopCard key={shop.id} shop={{ ...shop, featured: true }} />
               ))}
             </div>
           </section>
@@ -60,7 +66,8 @@ export default async function HomePage() {
 
         {/* Browse by state */}
         <section>
-          <h2 className="text-2xl font-bold mb-6">Browse by State</h2>
+          <h2 className="text-2xl font-bold mb-2">Browse by State</h2>
+          <p className="text-stone-500 text-sm mb-6">Click any state to explore thrift stores by city.</p>
           <StateGrid counts={counts} />
         </section>
       </div>

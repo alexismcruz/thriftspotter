@@ -10,12 +10,24 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          50: "#fdf4f0",
-          100: "#fae5d8",
-          500: "#e8703a",
-          600: "#d4581f",
-          700: "#b04518",
+          50:  "#f0fdfa",
+          100: "#ccfbf1",
+          200: "#99f6e4",
+          500: "#14b8a6",
+          600: "#0d9488",
+          700: "#0f766e",
+          800: "#115e59",
         },
+        accent: {
+          50:  "#fffbeb",
+          100: "#fef3c7",
+          400: "#fbbf24",
+          500: "#f59e0b",
+          600: "#d97706",
+        },
+      },
+      fontFamily: {
+        heading: ["var(--font-space-grotesk)", "sans-serif"],
       },
     },
   },
