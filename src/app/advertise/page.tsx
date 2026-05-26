@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Advertise on ThriftSpotter",
-  description: "Get your thrift store in front of thousands of shoppers actively looking for secondhand stores near them.",
+  description: "Get your thrift business in front of thousands of shoppers actively looking for secondhand stores near them.",
 };
 
 const PLANS = [
@@ -42,7 +42,7 @@ const PLANS = [
       "Everything in Featured",
       "State page banner placement",
       "Homepage featured section",
-      "Custom store description",
+      "Custom business description",
       "Monthly performance report",
     ],
     cta: "Go Premium",
@@ -59,7 +59,7 @@ export default function AdvertisePage() {
           For Business Owners
         </span>
         <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4 leading-tight">
-          Put your store in front of<br className="hidden sm:block" /> people ready to shop
+          Put your business in front of<br className="hidden sm:block" /> people ready to shop
         </h1>
         <p className="text-stone-500 text-lg max-w-2xl mx-auto">
           ThriftSpotter connects thousands of thrift shoppers with local stores every day.
@@ -70,7 +70,7 @@ export default function AdvertisePage() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-14 text-center">
         {[
-          { stat: "3,700+", label: "Stores listed" },
+          { stat: "3,700+", label: "Businesses listed" },
           { stat: "50", label: "States covered" },
           { stat: "100%", label: "Free to get started" },
         ].map(({ stat, label }) => (
@@ -133,9 +133,9 @@ export default function AdvertisePage() {
         <h2 className="text-2xl font-bold mb-8 text-center">How it works</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
           {[
-            { step: "1", title: "Email us", desc: "Tell us your store name, city, and the plan you want." },
+            { step: "1", title: "Email us", desc: "Tell us your business name, city, and the plan you want." },
             { step: "2", title: "We set it up", desc: "We feature your listing within 24 hours, no tech skills needed." },
-            { step: "3", title: "Shoppers find you", desc: "Your store appears at the top when people search your area." },
+            { step: "3", title: "Shoppers find you", desc: "Your business appears at the top when people search your area." },
           ].map(({ step, title, desc }) => (
             <div key={step}>
               <div className="w-12 h-12 rounded-full bg-brand-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-4">
