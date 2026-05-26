@@ -2,7 +2,6 @@
   "name": "thriftspotter",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,12 +10,12 @@
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "fetch:overpass": "node scripts/fetch-overpass.js",
-    "seed": "node scripts/seed.js"
+    "fetch:overpass": "node scripts/fetch-overpass.mjs",
+    "seed": "node scripts/seed.mjs"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
-    "next": "14.2.29",
+    "next": "^14.2.30",
     "react": "^18",
     "react-dom": "^18",
     "slugify": "^1.6.6"

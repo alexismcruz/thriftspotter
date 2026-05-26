@@ -1,6 +1,6 @@
 /**
  * Seeds the database from scripts/data/overpass.json.
- * Run: node scripts/seed.js
+ * Run: node scripts/seed.mjs
  * Requires DATABASE_URL in .env
  */
 
@@ -81,22 +81,16 @@ async function seed() {
     const lat = el.lat ?? el.center?.lat ?? null;
     const lng = el.lon ?? el.center?.lon ?? null;
 
-    const slug = makeUniqueSlug(
-      slugify(`${name}-${city}-${state}`),
-      seen
-    );
+    const slug = makeUniqueSlug(slugify(`${name}-${city}-${state}`), seen);
 
     shops.push({
-      name,
-      slug,
+      name, slug,
       address: addr || `${city}, ${state}`,
-      city,
-      state,
+      city, state,
       zip: tags["addr:postcode"] ?? null,
       phone: tags.phone ?? tags["contact:phone"] ?? null,
       website: tags.website ?? tags["contact:website"] ?? null,
-      lat,
-      lng,
+      lat, lng,
       categories: ["Thrift Store"],
       active: true,
     });

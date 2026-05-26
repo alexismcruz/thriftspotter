@@ -1,6 +1,6 @@
 /**
  * Fetches US thrift stores from OpenStreetMap Overpass API.
- * Run: node scripts/fetch-overpass.js
+ * Run: node scripts/fetch-overpass.mjs
  * Output: scripts/data/overpass.json
  */
 
