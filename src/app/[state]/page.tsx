@@ -40,8 +40,6 @@ export default async function StatePage({ params }: Props) {
     }),
   ]);
 
-  if (cities.length === 0) notFound();
-
   const center = STATE_CENTERS[abbr] ?? [39.5, -98.35];
   const zoom = getStateZoom(abbr);
   const pins = shopsWithCoords.filter((s) => s.lat !== null && s.lng !== null) as {
@@ -49,6 +47,7 @@ export default async function StatePage({ params }: Props) {
   }[];
 
   const totalShops = cities.reduce((a, c) => a + c._count.id, 0);
+  const isEmpty = cities.length === 0;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
@@ -62,7 +61,7 @@ export default async function StatePage({ params }: Props) {
         <div>
           <h1 className="text-3xl font-bold">Thrift Stores in {stateName}</h1>
           <p className="text-stone-500 mt-1">
-            {totalShops.toLocaleString()} shops across {cities.length} cities
+            {isEmpty ? "Listings coming soon" : `${totalShops.toLocaleString()} shops across ${cities.length} cities`}
           </p>
         </div>
         <SearchBar placeholder={`Search in ${stateName}…`} />
@@ -73,20 +72,33 @@ export default async function StatePage({ params }: Props) {
         <ShopMapWrapper shops={pins} center={center} zoom={zoom} />
       </div>
 
-      {/* City grid */}
-      <h2 className="text-xl font-semibold mb-4">Browse by City</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-        {cities.map(({ city, _count }) => (
-          <Link
-            key={city}
-            href={`/${params.state}/${slugify(city)}`}
-            className="bg-white rounded-lg border border-stone-200 px-4 py-3 hover:border-brand-400 hover:bg-brand-50 transition-colors"
-          >
-            <span className="font-medium block text-stone-900">{city}</span>
-            <span className="text-xs text-stone-500">{_count.id} shop{_count.id !== 1 ? "s" : ""}</span>
+      {/* City grid or empty state */}
+      {isEmpty ? (
+        <div className="text-center py-16 bg-white rounded-xl border border-stone-200">
+          <p className="text-4xl mb-4">🛍️</p>
+          <h2 className="text-xl font-semibold text-stone-700 mb-2">No listings yet for {stateName}</h2>
+          <p className="text-stone-500 text-sm mb-6">We&apos;re working on adding shops in this state. Check back soon!</p>
+          <Link href="/" className="inline-block bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors">
+            Browse other states
           </Link>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <>
+          <h2 className="text-xl font-semibold mb-4">Browse by City</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {cities.map(({ city, _count }) => (
+              <Link
+                key={city}
+                href={`/${params.state}/${slugify(city)}`}
+                className="bg-white rounded-lg border border-stone-200 px-4 py-3 hover:border-brand-400 hover:bg-brand-50 transition-colors"
+              >
+                <span className="font-medium block text-stone-900">{city}</span>
+                <span className="text-xs text-stone-500">{_count.id} shop{_count.id !== 1 ? "s" : ""}</span>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

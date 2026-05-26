@@ -15,14 +15,12 @@ export default function StateGrid({ counts }: { counts: StateCounts }) {
           <Link
             key={abbr}
             href={`/${slug}`}
-            className={`rounded-lg border px-3 py-2.5 text-sm transition-colors ${
-              count > 0
-                ? "border-stone-200 bg-white hover:border-brand-400 hover:bg-brand-50"
-                : "border-stone-100 bg-stone-50 text-stone-400 pointer-events-none"
-            }`}
+            className="rounded-lg border border-stone-200 bg-white px-3 py-2.5 text-sm transition-colors hover:border-brand-400 hover:bg-brand-50"
           >
             <span className="font-medium text-stone-900 block">{name}</span>
-            <span className="text-xs text-stone-500">{count > 0 ? `${count.toLocaleString()} shops` : "Coming soon"}</span>
+            <span className="text-xs text-stone-500">
+              {count > 0 ? `${count.toLocaleString()} shops` : "Browse shops"}
+            </span>
           </Link>
         );
       })}
