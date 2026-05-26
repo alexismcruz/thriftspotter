@@ -71,7 +71,7 @@ export default async function CityPage({ params }: Props) {
       {sponsoredShops.length > 0 && (
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-bold text-accent-600 uppercase tracking-wider">Sponsored</span>
+            <span className="text-xs font-bold text-brand-600 uppercase tracking-wider">Sponsored</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {sponsoredShops.map((shop) => (

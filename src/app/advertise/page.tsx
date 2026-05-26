@@ -55,7 +55,7 @@ export default function AdvertisePage() {
     <div className="max-w-5xl mx-auto px-4 py-12 sm:py-16">
       {/* Hero */}
       <div className="text-center mb-14">
-        <span className="inline-block bg-accent-100 text-accent-600 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+        <span className="inline-block bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
           For Business Owners
         </span>
         <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4 leading-tight">
@@ -94,7 +94,7 @@ export default function AdvertisePage() {
             }`}
           >
             {plan.highlighted && (
-              <span className="text-xs font-bold bg-accent-500 text-white px-3 py-1 rounded-full self-start mb-4">
+              <span className="text-xs font-bold bg-white text-brand-600 px-3 py-1 rounded-full self-start mb-4">
                 Most Popular
               </span>
             )}
@@ -110,7 +110,7 @@ export default function AdvertisePage() {
             <ul className="space-y-2 mb-8 flex-1">
               {plan.features.map((f) => (
                 <li key={f} className={`text-sm flex gap-2 ${plan.highlighted ? "text-brand-100" : "text-stone-600"}`}>
-                  <span className="text-accent-400 font-bold shrink-0">✓</span> {f}
+                  <span className="text-brand-400 font-bold shrink-0">✓</span> {f}
                 </li>
               ))}
             </ul>
@@ -153,7 +153,7 @@ export default function AdvertisePage() {
         <p className="text-stone-500 mb-4">Ready to get started? Send us a message.</p>
         <a
           href="mailto:advertise@thriftspotter.com"
-          className="inline-block bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-4 rounded-xl transition-colors text-lg"
+          className="inline-block bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-4 rounded-xl transition-colors text-lg"
         >
           advertise@thriftspotter.com
         </a>

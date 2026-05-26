@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
             <nav className="flex gap-6 text-sm text-stone-600">
               <Link href="/" className="hover:text-brand-600 transition-colors">Browse</Link>
-              <Link href="/advertise" className="hover:text-accent-600 transition-colors font-medium text-accent-600">Advertise</Link>
+              <Link href="/advertise" className="hover:text-brand-600 transition-colors font-medium text-brand-600">Advertise</Link>
               <Link href="/about" className="hover:text-brand-600 transition-colors">About</Link>
             </nav>
           </div>
@@ -38,15 +38,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
 
         {/* Advertise CTA */}
-        <section className="bg-gradient-to-r from-accent-500 to-accent-600 text-white py-10 px-4 mt-16">
+        <section className="bg-gradient-to-r from-brand-600 to-brand-700 text-white py-10 px-4 mt-16">
           <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
             <div>
               <h3 className="text-xl font-bold mb-1">Own a business?</h3>
-              <p className="text-amber-100 text-sm">Get featured on ThriftSpotter and drive more foot traffic to your business.</p>
+              <p className="text-brand-100 text-sm">Get featured on ThriftSpotter and drive more foot traffic to your business.</p>
             </div>
             <Link
               href="/advertise"
-              className="shrink-0 bg-white text-accent-600 hover:bg-amber-50 font-semibold px-6 py-3 rounded-lg transition-colors text-sm"
+              className="shrink-0 bg-white text-brand-600 hover:bg-brand-50 font-semibold px-6 py-3 rounded-lg transition-colors text-sm"
             >
               Get Featured →
             </Link>

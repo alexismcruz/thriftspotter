@@ -27,7 +27,7 @@ export default function ShopCard({ shop }: { shop: Shop }) {
         : "bg-white border-stone-200"
     }`}>
       {shop.featured && (
-        <span className="absolute top-3 right-3 text-xs bg-accent-500 text-white font-semibold px-2 py-0.5 rounded-full">
+        <span className="absolute top-3 right-3 text-xs bg-brand-600 text-white font-semibold px-2 py-0.5 rounded-full">
           ⭐ Sponsored
         </span>
       )}
