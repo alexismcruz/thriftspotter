@@ -5,6 +5,7 @@ import { US_STATES, stateFromSlug, slugify } from "@/lib/utils";
 import { STATE_CENTERS, getStateZoom } from "@/lib/state-centers";
 import ShopMapWrapper from "@/components/ShopMapWrapper";
 import FeaturedBanner from "@/components/FeaturedBanner";
+import BusinessRequestModal from "@/components/BusinessRequestModal";
 import SearchBar from "@/components/SearchBar";
 import type { Metadata } from "next";
 
@@ -69,7 +70,10 @@ export default async function StatePage({ params }: Props) {
             {isEmpty ? "Listings coming soon" : `${totalShops.toLocaleString()} shops across ${cities.length} cities`}
           </p>
         </div>
-        <SearchBar placeholder={`Search in ${stateName}…`} />
+        <div className="flex flex-col sm:flex-row gap-2">
+          <SearchBar placeholder={`Search in ${stateName}…`} />
+          <BusinessRequestModal stateName={stateName} stateAbbr={abbr} />
+        </div>
       </div>
 
       {/* Featured banner */}
