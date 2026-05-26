@@ -64,7 +64,7 @@ export default function BusinessRequestModal({ stateName, stateAbbr }: Props) {
             <div className="flex items-center justify-between p-6 border-b border-stone-200">
               <div>
                 <h2 className="text-xl font-bold">Add Your Business</h2>
-                <p className="text-sm text-stone-500 mt-0.5">List your thrift store in {stateName}</p>
+                <p className="text-sm text-stone-500 mt-0.5">List your thrift business in {stateName}</p>
               </div>
               <button onClick={close} className="text-stone-400 hover:text-stone-600 text-2xl leading-none">×</button>
             </div>
@@ -74,7 +74,7 @@ export default function BusinessRequestModal({ stateName, stateAbbr }: Props) {
                 <div className="text-5xl mb-4">🎉</div>
                 <h3 className="text-xl font-bold text-stone-900 mb-2">Request received!</h3>
                 <p className="text-stone-500 text-sm mb-6">
-                  We&apos;ll review your submission and add your store within 1–2 business days.
+                  We&apos;ll review your submission and add your business within 1–2 business days.
                 </p>
                 <button
                   onClick={close}
