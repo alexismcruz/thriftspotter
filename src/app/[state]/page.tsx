@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { US_STATES, stateFromSlug, slugify } from "@/lib/utils";
+import { STATE_CENTERS, getStateZoom } from "@/lib/state-centers";
+import ShopMapWrapper from "@/components/ShopMapWrapper";
 import SearchBar from "@/components/SearchBar";
 import type { Metadata } from "next";
 
@@ -25,14 +27,28 @@ export default async function StatePage({ params }: Props) {
 
   const stateName = US_STATES[abbr];
 
-  const cities = await prisma.shop.groupBy({
-    by: ["city"],
-    where: { state: abbr, active: true },
-    _count: { id: true },
-    orderBy: { _count: { id: "desc" } },
-  });
+  const [cities, shopsWithCoords] = await Promise.all([
+    prisma.shop.groupBy({
+      by: ["city"],
+      where: { state: abbr, active: true },
+      _count: { id: true },
+      orderBy: { _count: { id: "desc" } },
+    }),
+    prisma.shop.findMany({
+      where: { state: abbr, active: true, lat: { not: null }, lng: { not: null } },
+      select: { id: true, name: true, slug: true, address: true, city: true, state: true, lat: true, lng: true },
+    }),
+  ]);
 
   if (cities.length === 0) notFound();
+
+  const center = STATE_CENTERS[abbr] ?? [39.5, -98.35];
+  const zoom = getStateZoom(abbr);
+  const pins = shopsWithCoords.filter((s) => s.lat !== null && s.lng !== null) as {
+    id: number; name: string; slug: string; address: string; city: string; state: string; lat: number; lng: number;
+  }[];
+
+  const totalShops = cities.reduce((a, c) => a + c._count.id, 0);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
@@ -45,11 +61,20 @@ export default async function StatePage({ params }: Props) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-3xl font-bold">Thrift Stores in {stateName}</h1>
-          <p className="text-stone-500 mt-1">{cities.reduce((a, c) => a + c._count.id, 0).toLocaleString()} shops across {cities.length} cities</p>
+          <p className="text-stone-500 mt-1">
+            {totalShops.toLocaleString()} shops across {cities.length} cities
+          </p>
         </div>
         <SearchBar placeholder={`Search in ${stateName}…`} />
       </div>
 
+      {/* Interactive map */}
+      <div className="mb-10 rounded-xl overflow-hidden border border-stone-200 shadow-sm">
+        <ShopMapWrapper shops={pins} center={center} zoom={zoom} />
+      </div>
+
+      {/* City grid */}
+      <h2 className="text-xl font-semibold mb-4">Browse by City</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         {cities.map(({ city, _count }) => (
           <Link
