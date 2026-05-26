@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Advertise on ThriftSpotter",
-  description: "Get your thrift business in front of thousands of shoppers actively looking for secondhand stores near them.",
+  description: "Get your business in front of thousands of shoppers actively looking for secondhand stores near them.",
 };
 
 const PLANS = [

@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <section className="bg-gradient-to-r from-accent-500 to-accent-600 text-white py-10 px-4 mt-16">
           <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
             <div>
-              <h3 className="text-xl font-bold mb-1">Own a thrift business?</h3>
+              <h3 className="text-xl font-bold mb-1">Own a business?</h3>
               <p className="text-amber-100 text-sm">Get featured on ThriftSpotter and drive more foot traffic to your business.</p>
             </div>
             <Link
