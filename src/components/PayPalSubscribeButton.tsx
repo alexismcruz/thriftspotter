@@ -12,9 +12,9 @@ declare global {
   }
 }
 
-type Props = { planId: string; containerId: string };
+type Props = { planId: string; containerId: string; dark?: boolean };
 
-export default function PayPalSubscribeButton({ planId, containerId }: Props) {
+export default function PayPalSubscribeButton({ planId, containerId, dark = false }: Props) {
   const [success, setSuccess] = useState(false);
 
   function initButton() {
@@ -33,8 +33,8 @@ export default function PayPalSubscribeButton({ planId, containerId }: Props) {
     return (
       <div className="text-center py-4 px-2">
         <p className="text-3xl mb-2">🎉</p>
-        <p className="font-bold text-white">You&apos;re subscribed!</p>
-        <p className="text-sm text-brand-100 mt-1">
+        <p className={`font-bold ${dark ? "text-brand-700" : "text-white"}`}>You&apos;re subscribed!</p>
+        <p className={`text-sm mt-1 ${dark ? "text-stone-500" : "text-brand-100"}`}>
           We&apos;ll get your listing featured within 24 hours.
         </p>
       </div>

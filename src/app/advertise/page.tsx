@@ -120,6 +120,12 @@ export default function AdvertisePage() {
                 planId="P-9JJ64136PU5034937NILO52I"
                 containerId="paypal-featured"
               />
+            ) : plan.name === "Premium Sponsor" ? (
+              <PayPalSubscribeButton
+                planId="P-6BY101962J9092244NILO7YI"
+                containerId="paypal-premium"
+                dark
+              />
             ) : (
               <a
                 href="mailto:advertise@thriftspotter.com"
