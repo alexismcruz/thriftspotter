@@ -85,7 +85,7 @@ export default function AdvertisePage() {
 
       {/* Pricing */}
       <h2 className="text-2xl font-bold text-center mb-8">Simple, transparent pricing</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14 items-start">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14 items-stretch">
         {PLANS.map((plan) => (
           <div
             key={plan.name}
