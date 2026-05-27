@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PayPalSubscribeButton from "@/components/PayPalSubscribeButton";
 
 export const metadata: Metadata = {
   title: "Advertise on ThriftSpotter",
@@ -114,16 +115,23 @@ export default function AdvertisePage() {
                 </li>
               ))}
             </ul>
-            <a
-              href="mailto:advertise@thriftspotter.com"
-              className={`text-center font-semibold px-5 py-3 rounded-lg transition-colors text-sm ${
-                plan.highlighted
-                  ? "bg-white text-brand-600 hover:bg-brand-50"
-                  : "bg-brand-600 text-white hover:bg-brand-700"
-              } ${plan.price === "Free" ? "opacity-60 cursor-default pointer-events-none" : ""}`}
-            >
-              {plan.cta}
-            </a>
+            {plan.name === "Featured Listing" ? (
+              <PayPalSubscribeButton
+                planId="P-9JJ64136PU5034937NILO52I"
+                containerId="paypal-featured"
+              />
+            ) : (
+              <a
+                href="mailto:advertise@thriftspotter.com"
+                className={`text-center font-semibold px-5 py-3 rounded-lg transition-colors text-sm ${
+                  plan.highlighted
+                    ? "bg-white text-brand-600 hover:bg-brand-50"
+                    : "bg-brand-600 text-white hover:bg-brand-700"
+                } ${plan.price === "Free" ? "opacity-60 cursor-default pointer-events-none" : ""}`}
+              >
+                {plan.cta}
+              </a>
+            )}
           </div>
         ))}
       </div>
@@ -133,7 +141,7 @@ export default function AdvertisePage() {
         <h2 className="text-2xl font-bold mb-8 text-center">How it works</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
           {[
-            { step: "1", title: "Email us", desc: "Tell us your business name, city, and the plan you want." },
+            { step: "1", title: "Subscribe", desc: "Choose your plan and subscribe securely via PayPal. Takes less than 2 minutes." },
             { step: "2", title: "We set it up", desc: "We feature your listing within 24 hours, no tech skills needed." },
             { step: "3", title: "Shoppers find you", desc: "Your business appears at the top when people search your area." },
           ].map(({ step, title, desc }) => (
