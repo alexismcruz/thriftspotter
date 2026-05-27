@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PayPalSubscribeButton from "@/components/PayPalSubscribeButton";
+import ListingRequestButton from "@/components/ListingRequestButton";
 
 export const metadata: Metadata = {
   title: "Advertise on ThriftSpotter",
@@ -73,7 +74,7 @@ export default function AdvertisePage() {
         {[
           { stat: "3,700+", label: "Businesses listed" },
           { stat: "50", label: "States covered" },
-          { stat: "100%", label: "Free to get started" },
+          { stat: "100%", label: "Free to get listed" },
         ].map(({ stat, label }) => (
           <div key={label} className="bg-white rounded-xl border border-stone-200 py-6 px-4">
             <div className="text-3xl font-bold text-brand-600 mb-1">{stat}</div>
@@ -127,16 +128,7 @@ export default function AdvertisePage() {
                 dark
               />
             ) : (
-              <a
-                href="mailto:advertise@thriftspotter.com"
-                className={`text-center font-semibold px-5 py-3 rounded-lg transition-colors text-sm ${
-                  plan.highlighted
-                    ? "bg-white text-brand-600 hover:bg-brand-50"
-                    : "bg-brand-600 text-white hover:bg-brand-700"
-                } ${plan.price === "Free" ? "opacity-60 cursor-default pointer-events-none" : ""}`}
-              >
-                {plan.cta}
-              </a>
+              <ListingRequestButton />
             )}
           </div>
         ))}
