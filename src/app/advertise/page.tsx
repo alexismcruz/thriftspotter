@@ -85,13 +85,13 @@ export default function AdvertisePage() {
 
       {/* Pricing */}
       <h2 className="text-2xl font-bold text-center mb-8">Simple, transparent pricing</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14 items-start">
         {PLANS.map((plan) => (
           <div
             key={plan.name}
-            className={`rounded-2xl border p-6 flex flex-col ${
+            className={`group rounded-2xl border p-6 flex flex-col transition-all duration-200 hover:scale-105 hover:shadow-xl hover:bg-brand-600 hover:border-brand-500 ${
               plan.highlighted
-                ? "border-brand-500 bg-brand-600 text-white shadow-lg scale-105"
+                ? "border-brand-500 bg-brand-600 shadow-lg"
                 : "border-stone-200 bg-white"
             }`}
           >
@@ -100,19 +100,29 @@ export default function AdvertisePage() {
                 Most Popular
               </span>
             )}
-            <h3 className={`text-xl font-bold mb-1 ${plan.highlighted ? "text-white" : "text-stone-900"}`}>
+            <h3 className={`text-xl font-bold mb-1 ${
+              plan.highlighted ? "text-white" : "text-stone-900 group-hover:text-white"
+            }`}>
               {plan.name}
             </h3>
-            <div className={`text-3xl font-bold mb-2 ${plan.highlighted ? "text-white" : "text-brand-600"}`}>
+            <div className={`text-3xl font-bold mb-2 ${
+              plan.highlighted ? "text-white" : "text-brand-600 group-hover:text-white"
+            }`}>
               {plan.price}
             </div>
-            <p className={`text-sm mb-6 ${plan.highlighted ? "text-brand-100" : "text-stone-500"}`}>
+            <p className={`text-sm mb-6 ${
+              plan.highlighted ? "text-brand-100" : "text-stone-500 group-hover:text-brand-100"
+            }`}>
               {plan.description}
             </p>
             <ul className="space-y-2 mb-8 flex-1">
               {plan.features.map((f) => (
-                <li key={f} className={`text-sm flex gap-2 ${plan.highlighted ? "text-brand-100" : "text-stone-600"}`}>
-                  <span className="text-brand-400 font-bold shrink-0">✓</span> {f}
+                <li key={f} className={`text-sm flex gap-2 ${
+                  plan.highlighted ? "text-brand-100" : "text-stone-600 group-hover:text-brand-100"
+                }`}>
+                  <span className={`font-bold shrink-0 ${
+                    plan.highlighted ? "text-brand-200" : "text-brand-400 group-hover:text-brand-200"
+                  }`}>✓</span> {f}
                 </li>
               ))}
             </ul>
