@@ -36,7 +36,7 @@ const PLANS = [
   },
   {
     name: "Premium Sponsor",
-    price: "$79/mo",
+    price: "$59/mo",
     description: "Maximum visibility across the entire state.",
     features: [
       "Everything in Featured",
