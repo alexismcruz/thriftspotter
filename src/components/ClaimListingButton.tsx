@@ -54,7 +54,7 @@ export default function ClaimListingButton({ shopName, shopSlug }: Props) {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[2000] bg-black/60 flex items-center justify-center p-4"
           onClick={(e) => { if (e.target === e.currentTarget) close(); }}
         >
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
