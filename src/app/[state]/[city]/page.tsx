@@ -13,9 +13,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const stateName = abbr ? US_STATES[abbr] : null;
   if (!stateName) return {};
   const cityName = params.city.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const shopCount = await prisma.shop.count({
+    where: { state: abbr, active: true, city: { equals: params.city.replace(/-/g, " "), mode: "insensitive" } },
+  });
+  const canonical = `https://www.thriftspotter.com/${params.state}/${params.city}`;
   return {
     title: `Thrift Stores in ${cityName}, ${abbr}`,
-    description: `Find the best thrift stores and consignment shops in ${cityName}, ${stateName}.`,
+    description: `Find ${shopCount} thrift stores and consignment shops in ${cityName}, ${stateName}. Browse secondhand stores, view hours, addresses, and directions — free.`,
+    alternates: { canonical },
+    openGraph: {
+      title: `Thrift Stores in ${cityName}, ${abbr} | ThriftSpotter`,
+      description: `Find ${shopCount} thrift stores and consignment shops in ${cityName}, ${stateName}.`,
+      url: canonical,
+    },
   };
 }
 
@@ -45,9 +55,21 @@ export default async function CityPage({ params }: Props) {
   const cityName = shops[0].city;
   const stSlug = stateSlug(abbr);
   const regularShops = shops.filter((s) => !s.featured);
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.thriftspotter.com" },
+      { "@type": "ListItem", position: 2, name: stateName, item: `https://www.thriftspotter.com/${stSlug}` },
+      { "@type": "ListItem", position: 3, name: cityName },
+    ],
+  };
   const sponsoredShops = shops.filter((s) => s.featured);
 
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     <div className="max-w-6xl mx-auto px-4 py-10">
       <nav className="text-sm text-stone-500 mb-6">
         <Link href="/" className="hover:text-brand-600">Home</Link>
@@ -89,5 +111,6 @@ export default async function CityPage({ params }: Props) {
         ))}
       </div>
     </div>
+    </>
   );
 }

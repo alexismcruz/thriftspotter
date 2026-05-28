@@ -9,9 +9,22 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.thriftspotter.com"),
   title: { default: "ThriftSpotter — Find Thrift Stores Near You", template: "%s | ThriftSpotter" },
-  description: "Discover the best thrift stores, consignment shops, and secondhand stores across the United States.",
-  keywords: ["thrift store", "secondhand", "consignment", "thrifting", "used clothing"],
+  description: "Discover thrift stores, consignment shops, and secondhand stores across all 50 states. Free directory, no sign-up needed.",
+  alternates: { canonical: "https://www.thriftspotter.com" },
+  openGraph: {
+    type: "website",
+    siteName: "ThriftSpotter",
+    title: "ThriftSpotter — Find Thrift Stores Near You",
+    description: "Discover thrift stores, consignment shops, and secondhand stores across all 50 states. Free directory, no sign-up needed.",
+    url: "https://www.thriftspotter.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ThriftSpotter — Find Thrift Stores Near You",
+    description: "Discover thrift stores, consignment shops, and secondhand stores across all 50 states. Free directory, no sign-up needed.",
+  },
 };
 
 export const viewport = {

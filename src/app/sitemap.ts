@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/advertise`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
   ];
 
-  const [states, cities] = await Promise.all([
+  const [states, cities, shops] = await Promise.all([
     prisma.shop.findMany({
       where: { active: true },
       select: { state: true },
@@ -21,6 +21,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       where: { active: true },
       select: { state: true, city: true },
       distinct: ["state", "city"],
+    }),
+    prisma.shop.findMany({
+      where: { active: true },
+      select: { slug: true, updatedAt: true },
     }),
   ]);
 
@@ -38,5 +42,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...statePages, ...cityPages];
+  const shopPages: MetadataRoute.Sitemap = shops.map(({ slug, updatedAt }) => ({
+    url: `${BASE_URL}/shop/${slug}`,
+    lastModified: updatedAt,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...statePages, ...cityPages, ...shopPages];
 }

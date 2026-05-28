@@ -15,9 +15,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const abbr = stateFromSlug(params.state)?.toUpperCase();
   const stateName = abbr ? US_STATES[abbr] : null;
   if (!stateName) return {};
+  const [shopCount, cityCount] = await Promise.all([
+    prisma.shop.count({ where: { state: abbr, active: true } }),
+    prisma.shop.groupBy({ by: ["city"], where: { state: abbr, active: true } }).then((r) => r.length),
+  ]);
+  const canonical = `https://www.thriftspotter.com/${params.state}`;
   return {
     title: `Thrift Stores in ${stateName}`,
-    description: `Browse thrift stores and consignment shops across ${stateName}.`,
+    description: `Find ${shopCount}+ thrift stores and consignment shops across ${cityCount} cities in ${stateName}. Browse secondhand stores near you — free, no sign-up needed.`,
+    alternates: { canonical },
+    openGraph: {
+      title: `Thrift Stores in ${stateName} | ThriftSpotter`,
+      description: `Find ${shopCount}+ thrift stores and consignment shops across ${cityCount} cities in ${stateName}.`,
+      url: canonical,
+    },
   };
 }
 
@@ -52,10 +63,21 @@ export default async function StatePage({ params }: Props) {
     id: number; name: string; slug: string; address: string; city: string; state: string; lat: number; lng: number;
   }[];
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.thriftspotter.com" },
+      { "@type": "ListItem", position: 2, name: stateName },
+    ],
+  };
+
   const totalShops = cities.reduce((a, c) => a + c._count.id, 0);
   const isEmpty = cities.length === 0;
 
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     <div className="max-w-6xl mx-auto px-4 py-10">
       <nav className="text-sm text-stone-500 mb-6">
         <Link href="/" className="hover:text-brand-600">Home</Link>
@@ -113,5 +135,6 @@ export default async function StatePage({ params }: Props) {
         </>
       )}
     </div>
+    </>
   );
 }
