@@ -75,6 +75,14 @@ export default async function StatePage({ params }: Props) {
   const totalShops = cities.reduce((a, c) => a + c._count.id, 0);
   const isEmpty = cities.length === 0;
 
+  // Build unique intro from real data — top cities by shop count
+  const topCityNames = cities.slice(0, 3).map((c) => c.city);
+  const stateIntro = isEmpty
+    ? null
+    : topCityNames.length >= 2
+    ? `${stateName} has ${totalShops.toLocaleString()} thrift stores and consignment shops listed across ${cities.length} cities on ThriftSpotter. Popular thrifting spots include ${topCityNames.slice(0, -1).join(", ")} and ${topCityNames.at(-1)}. Browse by city below to find secondhand stores, view addresses, hours, and get directions — all free.`
+    : `${stateName} has ${totalShops.toLocaleString()} thrift stores and consignment shops across ${cities.length} ${cities.length === 1 ? "city" : "cities"} listed on ThriftSpotter. Browse below to find addresses, hours, and directions to secondhand stores near you — free, no sign-up needed.`;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
@@ -85,7 +93,7 @@ export default async function StatePage({ params }: Props) {
         <span className="text-stone-800 font-medium">{stateName}</span>
       </nav>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
         <div>
           <h1 className="text-3xl font-bold">Thrift Stores in {stateName}</h1>
           <p className="text-stone-500 mt-1">
@@ -97,6 +105,13 @@ export default async function StatePage({ params }: Props) {
           <BusinessRequestModal stateName={stateName} stateAbbr={abbr} />
         </div>
       </div>
+
+      {/* Intro paragraph — unique per state, keyword-rich for SEO */}
+      {stateIntro && (
+        <p className="text-stone-600 text-sm leading-relaxed mb-8 max-w-3xl">
+          {stateIntro}
+        </p>
+      )}
 
       {/* Featured banner */}
       <div className="mb-8">
