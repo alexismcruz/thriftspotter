@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { US_STATES, stateSlug, slugify, formatPhone } from "@/lib/utils";
 import ShopMapWrapper from "@/components/ShopMapWrapper";
 import ShopCard from "@/components/ShopCard";
+import ClaimListingButton from "@/components/ClaimListingButton";
 import type { Metadata } from "next";
 
 type Props = { params: { slug: string } };
@@ -170,20 +171,15 @@ export default async function ShopPage({ params }: Props) {
         <p className="text-2xl mb-3">🏪</p>
         <h3 className="font-bold text-stone-900 text-lg mb-2">Is this your business?</h3>
         <p className="text-stone-500 text-sm mb-5 max-w-md mx-auto">
-          Claim your listing to update your info, add photos, and get featured at the top of search results in {shop.city}.
+          Claim your listing to update your info and get featured at the top of search results in {shop.city}.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link
-            href="/advertise"
-            className="bg-terra-500 hover:bg-terra-600 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
-          >
-            Get Featured →
-          </Link>
+          <ClaimListingButton shopName={shop.name} shopSlug={shop.slug} />
           <Link
             href="/advertise"
             className="border border-stone-300 text-stone-600 hover:bg-stone-50 font-medium px-6 py-2.5 rounded-lg transition-colors text-sm"
           >
-            Learn more
+            View listing options
           </Link>
         </div>
       </div>
