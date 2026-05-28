@@ -63,7 +63,7 @@ export default function ShopCard({ shop }: { shop: Shop }) {
           </a>
         )}
         {shop.website && (
-          <a href={shop.website} target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:underline truncate">
+          <a href={shop.website} target="_blank" rel="noopener noreferrer nofollow" className="text-brand-600 hover:underline truncate">
             Website ↗
           </a>
         )}

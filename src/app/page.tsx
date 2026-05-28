@@ -43,7 +43,33 @@ export default async function HomePage() {
   const totalShops = Object.values(counts).reduce((a, b) => a + b, 0);
   const totalStates = Object.keys(counts).length;
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "ThriftSpotter",
+    url: "https://www.thriftspotter.com",
+    description: `Free directory of ${totalShops.toLocaleString()}+ thrift stores and consignment shops across all 50 US states.`,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", urlTemplate: "https://www.thriftspotter.com/?q={search_term_string}" },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ThriftSpotter",
+    url: "https://www.thriftspotter.com",
+    description: "Free online directory helping shoppers find thrift stores, consignment shops, and secondhand stores across the United States.",
+    email: "hello@thriftspotter.com",
+    sameAs: ["https://www.thriftspotter.com"],
+  };
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
     <div>
       {/* Hero */}
       <section className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white py-16 sm:py-28 px-4">
@@ -166,5 +192,6 @@ export default async function HomePage() {
 
       </div>
     </div>
+    </>
   );
 }

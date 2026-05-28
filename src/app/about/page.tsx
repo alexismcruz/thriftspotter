@@ -1,16 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { prisma } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "About ThriftSpotter",
-  description: "We help people find great thrift stores, consignment shops, and secondhand gems across the United States.",
+  description: "We help people find great thrift stores, consignment shops, and secondhand gems across the United States. Free directory, no sign-up needed.",
+  alternates: { canonical: "https://www.thriftspotter.com/about" },
+  openGraph: {
+    title: "About ThriftSpotter",
+    description: "We help people find great thrift stores, consignment shops, and secondhand gems across the United States.",
+    url: "https://www.thriftspotter.com/about",
+  },
 };
 
-export default function AboutPage() {
+export const revalidate = 3600;
+
+export default async function AboutPage() {
+  const totalShops = await prisma.shop.count({ where: { active: true } });
   return (
     <div className="max-w-2xl mx-auto px-4 py-10 sm:py-16">
       <h1 className="text-4xl font-bold mb-2">About ThriftSpotter</h1>
-      <p className="text-brand-600 font-medium mb-10">Find it. Love it. Give it a second life.</p>
+      <p className="text-brand-600 font-medium mb-4">Find it. Love it. Give it a second life.</p>
+      <p className="text-stone-500 text-sm mb-10">{totalShops.toLocaleString()}+ businesses listed across all 50 states.</p>
 
       <div className="space-y-8 text-stone-700 leading-relaxed">
         <p className="text-lg">
@@ -60,6 +71,19 @@ export default function AboutPage() {
           >
             Get in touch
           </a>
+        </div>
+
+        <div className="bg-terra-50 border border-terra-100 rounded-2xl p-6 mt-4">
+          <h2 className="text-lg font-bold text-stone-900 mb-1">Own a thrift or resale business?</h2>
+          <p className="text-stone-500 text-sm mb-4">
+            Your listing is already free on ThriftSpotter. Get featured at the top of your city page to drive more foot traffic.
+          </p>
+          <Link
+            href="/advertise"
+            className="inline-block bg-terra-500 hover:bg-terra-600 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors"
+          >
+            View listing options →
+          </Link>
         </div>
 
         <p className="text-sm text-stone-400 pt-4">

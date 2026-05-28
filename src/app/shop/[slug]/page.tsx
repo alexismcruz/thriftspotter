@@ -12,9 +12,17 @@ type Props = { params: { slug: string } };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const shop = await prisma.shop.findUnique({ where: { slug: params.slug } });
   if (!shop) return {};
+  const canonical = `https://www.thriftspotter.com/shop/${shop.slug}`;
+  const description = shop.description ?? `Thrift store in ${shop.city}, ${shop.state}.`;
   return {
     title: `${shop.name} — ${shop.city}, ${shop.state}`,
-    description: shop.description ?? `Thrift store in ${shop.city}, ${shop.state}.`,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title: `${shop.name} — ${shop.city}, ${shop.state}`,
+      description,
+      url: canonical,
+    },
   };
 }
 
@@ -151,7 +159,7 @@ export default async function ShopPage({ params }: Props) {
                 </a>
               )}
               {shop.website && (
-                <a href={shop.website} target="_blank" rel="noopener noreferrer" className="flex gap-2 text-brand-600 hover:underline">
+                <a href={shop.website} target="_blank" rel="noopener noreferrer nofollow" className="flex gap-2 text-brand-600 hover:underline">
                   <span>🌐</span>
                   <span className="break-all">{shop.website.replace(/^https?:\/\//, "")}</span>
                 </a>
