@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -54,7 +55,7 @@ export default function ListingRequestButton() {
         </button>
       </div>
 
-      {open && (
+      {open && createPortal(
         <div
           className="fixed inset-0 z-[2000] bg-black/60 flex items-center justify-center p-4"
           onClick={(e) => { if (e.target === e.currentTarget) close(); }}
@@ -156,7 +157,8 @@ export default function ListingRequestButton() {
               </form>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
