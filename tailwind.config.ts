@@ -25,6 +25,13 @@ const config: Config = {
           500: "#f59e0b",
           600: "#d97706",
         },
+        terra: {
+          50:  "#fdf4f1",
+          100: "#faeae4",
+          400: "#e07a5f",
+          500: "#d4634a",
+          600: "#b85240",
+        },
       },
       fontFamily: {
         heading: ["var(--font-space-grotesk)", "sans-serif"],

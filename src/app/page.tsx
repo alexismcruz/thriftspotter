@@ -2,6 +2,8 @@ import { prisma } from "@/lib/db";
 import SearchBar from "@/components/SearchBar";
 import StateGrid from "@/components/StateGrid";
 import ShopCard from "@/components/ShopCard";
+import Link from "next/link";
+import { stateSlug, slugify } from "@/lib/utils";
 
 async function getStateCounts(): Promise<Record<string, number>> {
   const rows = await prisma.shop.groupBy({
@@ -20,16 +22,31 @@ async function getFeaturedShops() {
   });
 }
 
+async function getPopularCities() {
+  return prisma.shop.groupBy({
+    by: ["city", "state"],
+    where: { active: true },
+    _count: { id: true },
+    orderBy: { _count: { id: "desc" } },
+    take: 8,
+  });
+}
+
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  const [counts, featured] = await Promise.all([getStateCounts(), getFeaturedShops()]);
+  const [counts, featured, popularCities] = await Promise.all([
+    getStateCounts(),
+    getFeaturedShops(),
+    getPopularCities(),
+  ]);
   const totalShops = Object.values(counts).reduce((a, b) => a + b, 0);
+  const totalStates = Object.keys(counts).length;
 
   return (
     <div>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white py-12 sm:py-24 px-4">
+      <section className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white py-16 sm:py-28 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <span className="inline-block bg-brand-500/40 text-brand-100 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-6">
             Free · No sign-up needed
@@ -39,7 +56,7 @@ export default async function HomePage() {
           </h1>
           <p className="text-brand-100 mb-8 text-lg max-w-xl mx-auto">
             {totalShops > 0
-              ? `Discover ${totalShops.toLocaleString()}+ thrift shops, consignment stores, and secondhand finds across the US.`
+              ? `Discover ${totalShops.toLocaleString()}+ thrift shops, consignment stores, and secondhand finds across all ${totalStates} states.`
               : "Discover thrift shops, consignment stores, and secondhand finds across the US."}
           </p>
           <div className="flex justify-center">
@@ -48,13 +65,33 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 py-12 space-y-14">
+      {/* Stats strip */}
+      <section className="bg-white border-b border-stone-200">
+        <div className="max-w-4xl mx-auto px-4 py-6 grid grid-cols-3 divide-x divide-stone-200 text-center">
+          {[
+            { stat: `${totalShops.toLocaleString()}+`, label: "Businesses listed" },
+            { stat: `${totalStates}`, label: "States covered" },
+            { stat: "100%", label: "Free to use" },
+          ].map(({ stat, label }) => (
+            <div key={label} className="px-4">
+              <div className="text-2xl font-bold text-brand-600">{stat}</div>
+              <div className="text-xs text-stone-500 mt-0.5">{label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="max-w-6xl mx-auto px-4 py-12 space-y-16">
+
         {/* Featured / Sponsored shops */}
         {featured.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">Featured Shops</h2>
-              <span className="text-xs text-stone-400 bg-stone-100 px-3 py-1 rounded-full">Sponsored</span>
+              <div>
+                <h2 className="text-2xl font-bold">Featured Businesses</h2>
+                <p className="text-stone-500 text-sm mt-1">Sponsored listings from local business owners</p>
+              </div>
+              <span className="text-xs text-terra-600 bg-terra-50 border border-terra-100 px-3 py-1 rounded-full font-medium">⭐ Sponsored</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {featured.map((shop) => (
@@ -64,12 +101,69 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* How it works */}
+        <section className="bg-brand-50 rounded-2xl p-8 sm:p-12">
+          <h2 className="text-2xl font-bold text-center mb-10">How ThriftSpotter works</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+            {[
+              { emoji: "🔍", title: "Search your area", desc: "Type your city or state to instantly find nearby thrift stores and consignment shops." },
+              { emoji: "📍", title: "Explore listings", desc: "Browse shop details, addresses, phone numbers, descriptions and open in Google Maps." },
+              { emoji: "🛍️", title: "Go thrifting", desc: "Find your next great deal. New businesses are added regularly across all 50 states." },
+            ].map(({ emoji, title, desc }) => (
+              <div key={title}>
+                <div className="text-4xl mb-4">{emoji}</div>
+                <h3 className="font-bold text-stone-900 mb-2">{title}</h3>
+                <p className="text-sm text-stone-500 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Popular cities */}
+        <section>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold">Popular Cities</h2>
+              <p className="text-stone-500 text-sm mt-1">Most active thrifting destinations</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {popularCities.map(({ city, state, _count }) => (
+              <Link
+                key={`${city}-${state}`}
+                href={`/${stateSlug(state)}/${slugify(city)}`}
+                className="bg-white rounded-xl border border-stone-200 px-4 py-4 hover:border-brand-400 hover:bg-brand-50 transition-colors group"
+              >
+                <div className="font-semibold text-stone-900 group-hover:text-brand-700 leading-tight">{city}</div>
+                <div className="text-xs text-stone-400 mt-0.5">{state} · {_count.id} shops</div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Browse by state */}
         <section>
           <h2 className="text-2xl font-bold mb-2">Browse by State</h2>
           <p className="text-stone-500 text-sm mb-6">Click any state to explore thrift stores by city.</p>
           <StateGrid counts={counts} />
         </section>
+
+        {/* Business owner CTA */}
+        <section className="bg-gradient-to-r from-terra-400 to-terra-500 rounded-2xl p-8 sm:p-12 text-white text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3">Own a thrift or resale business?</h2>
+          <p className="text-terra-100 mb-6 max-w-xl mx-auto">
+            Get your business in front of thousands of shoppers actively looking for stores in your area. Free to list, no sign-up required.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/advertise"
+              className="bg-white text-terra-600 hover:bg-terra-50 font-bold px-6 py-3 rounded-xl transition-colors text-sm"
+            >
+              View listing options →
+            </Link>
+          </div>
+        </section>
+
       </div>
     </div>
   );
