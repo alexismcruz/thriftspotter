@@ -40,7 +40,51 @@ export default async function ShopPage({ params }: Props) {
     ? [{ id: shop.id, name: shop.name, slug: shop.slug, address: shop.address, city: shop.city, state: shop.state, lat: shop.lat, lng: shop.lng }]
     : [];
 
+  // JSON-LD structured data
+  const storeSchema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    name: shop.name,
+    url: `https://thriftspotter.com/shop/${shop.slug}`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: shop.address,
+      addressLocality: shop.city,
+      addressRegion: shop.state,
+      ...(shop.zip ? { postalCode: shop.zip } : {}),
+      addressCountry: "US",
+    },
+    ...(shop.description ? { description: shop.description } : {}),
+    ...(shop.phone ? { telephone: shop.phone } : {}),
+    ...(shop.website ? { sameAs: shop.website } : {}),
+    ...(shop.lat && shop.lng ? {
+      geo: { "@type": "GeoCoordinates", latitude: shop.lat, longitude: shop.lng },
+    } : {}),
+    ...(shop.rating ? {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: shop.rating.toFixed(1),
+        ...(shop.reviewCount ? { reviewCount: shop.reviewCount } : {}),
+      },
+    } : {}),
+    priceRange: "$",
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://thriftspotter.com" },
+      { "@type": "ListItem", position: 2, name: stName, item: `https://thriftspotter.com/${stSlug}` },
+      { "@type": "ListItem", position: 3, name: shop.city, item: `https://thriftspotter.com/${stSlug}/${citySlug}` },
+      { "@type": "ListItem", position: 4, name: shop.name },
+    ],
+  };
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(storeSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* Breadcrumb */}
       <nav className="text-sm text-stone-500 mb-6 flex flex-wrap items-center gap-x-1 gap-y-1">
@@ -184,5 +228,6 @@ export default async function ShopPage({ params }: Props) {
         </div>
       </div>
     </div>
+    </>
   );
 }
