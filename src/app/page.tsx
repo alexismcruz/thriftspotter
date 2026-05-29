@@ -174,6 +174,35 @@ export default async function HomePage() {
           <StateGrid counts={counts} />
         </section>
 
+        {/* SEO content block */}
+        <section className="bg-white rounded-2xl border border-stone-200 p-8 sm:p-12">
+          <h2 className="text-2xl font-bold mb-4">Find Thrift Stores Across the US — Free</h2>
+          <div className="prose prose-stone max-w-none text-stone-600 text-sm leading-relaxed space-y-4">
+            <p>
+              ThriftSpotter is a free online directory of thrift stores, consignment shops, vintage stores, and secondhand
+              retailers across all 50 US states. Whether you&apos;re hunting for vintage clothing, affordable furniture,
+              used books, or everyday household items at a fraction of retail price — ThriftSpotter helps you find the
+              best local spots without any sign-up or fees.
+            </p>
+            <p>
+              With over {totalShops.toLocaleString()} businesses listed across {totalStates} states, ThriftSpotter covers
+              everything from large national chains like Goodwill and Salvation Army to hidden-gem independent thrift
+              boutiques in your neighborhood. Each listing includes the store&apos;s address, phone number, website, and
+              a direct link to Google Maps so you can get directions instantly.
+            </p>
+            <p>
+              Thrift shopping is one of the best ways to save money, reduce waste, and find one-of-a-kind items you
+              won&apos;t see anywhere else. Inventory at thrift stores rotates constantly — which means visiting
+              regularly always turns up something new. Use ThriftSpotter to discover stores you never knew existed
+              in your city or state.
+            </p>
+            <p>
+              Are you a thrift store or resale shop owner? <a href="/advertise" className="text-brand-600 hover:underline font-medium">Get your business listed for free</a> on
+              ThriftSpotter and get in front of thousands of shoppers actively searching for secondhand stores near them.
+            </p>
+          </div>
+        </section>
+
         {/* Business owner CTA */}
         <section className="bg-gradient-to-r from-terra-400 to-terra-500 rounded-2xl p-8 sm:p-12 text-white text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3">Own a thrift or resale business?</h2>

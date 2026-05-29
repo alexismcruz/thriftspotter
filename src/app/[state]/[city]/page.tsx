@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `Find ${shopCount} thrift stores and consignment shops in ${cityName}, ${stateName}.`,
       url: canonical,
     },
+    ...(shopCount < 3 ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
@@ -74,15 +75,22 @@ export default async function CityPage({ params }: Props) {
     .slice(0, 3)
     .map(([cat]) => cat);
 
-  // Build unique intro paragraph from real data
+  // Build unique intro paragraph using real shop names for variety
   const storeWord = shops.length === 1 ? "store" : "stores";
-  const catText = topCategories.length >= 2
-    ? ` — from ${topCategories[0].toLowerCase()} to ${topCategories[1].toLowerCase()}`
-    : topCategories.length === 1 ? ` specialising in ${topCategories[0].toLowerCase()}` : "";
+  const topShopNames = shops.slice(0, 3).map(s => s.name);
+  const uniqueCategories = [...new Set(shops.flatMap(s => s.categories))].filter(c => c !== "Thrift Store").slice(0, 2);
+  const catText = uniqueCategories.length > 0
+    ? ` including ${uniqueCategories.map(c => c.toLowerCase()).join(" and ")}`
+    : "";
+  const shopNameText = topShopNames.length >= 2
+    ? ` Popular spots include ${topShopNames.slice(0, -1).join(", ")} and ${topShopNames.at(-1)}.`
+    : topShopNames.length === 1 ? ` ${topShopNames[0]} is the go-to spot for secondhand finds in the area.` : "";
   const sizeText = shops.length >= 20
     ? `${cityName} is one of ${stateName}'s top thrifting destinations, with ${shops.length} thrift ${storeWord} and consignment shops${catText} listed on ThriftSpotter.`
-    : `${cityName}, ${stateName} has ${shops.length} secondhand ${storeWord}${catText} listed on ThriftSpotter.`;
-  const cityIntro = `${sizeText} Browse below to find addresses, phone numbers, hours, and directions — all free, no sign-up needed.`;
+    : shops.length >= 5
+    ? `${cityName}, ${stateName} has ${shops.length} thrift ${storeWord} and secondhand shops${catText} listed on ThriftSpotter.`
+    : `${cityName}, ${stateName} has ${shops.length} secondhand ${storeWord} listed on ThriftSpotter.`;
+  const cityIntro = `${sizeText}${shopNameText} Browse below to find addresses, phone numbers, hours, and directions — all free, no sign-up needed.`;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
