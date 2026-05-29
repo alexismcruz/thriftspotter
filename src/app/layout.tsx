@@ -43,10 +43,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="flex items-center gap-2 font-heading font-bold text-brand-600 tracking-tight text-xl">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" className="w-8 h-8 shrink-0">
                 <rect width="240" height="240" rx="44" fill="#0d9488"/>
-                <path d="M 80,28 Q 64,28 64,44 L 64,162 L 120,202 L 176,162 L 176,44 Q 176,28 160,28 Z" fill="white"/>
-                <circle cx="120" cy="57" r="12" fill="#0d9488"/>
-                <circle cx="111" cy="114" r="27" fill="none" stroke="#0d9488" stroke-width="11"/>
-                <line x1="130" y1="133" x2="154" y2="157" stroke="#0d9488" stroke-width="11" stroke-linecap="round"/>
+                <path d="M 120,90 C 120,66 134,50 152,48 C 170,46 181,61 175,76 C 169,89 155,92 140,90" fill="none" stroke="white" strokeWidth="13" strokeLinecap="round"/>
+                <path d="M 120,90 Q 74,112 32,185" fill="none" stroke="white" strokeWidth="13" strokeLinecap="round"/>
+                <path d="M 120,90 Q 166,112 208,185" fill="none" stroke="white" strokeWidth="13" strokeLinecap="round"/>
+                <line x1="23" y1="185" x2="217" y2="185" stroke="white" strokeWidth="13" strokeLinecap="round"/>
+                <line x1="120" y1="90" x2="120" y2="115" stroke="white" strokeWidth="5" strokeDasharray="3,3"/>
+                <rect x="108" y="115" width="24" height="18" rx="3" fill="white"/>
+                <circle cx="120" cy="115" r="3" fill="#0d9488"/>
               </svg>
               ThriftSpotter
             </Link>
