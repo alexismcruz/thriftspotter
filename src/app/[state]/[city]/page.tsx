@@ -6,7 +6,9 @@ import ShopCard from "@/components/ShopCard";
 import FeaturedBanner from "@/components/FeaturedBanner";
 import type { Metadata } from "next";
 
-type Props = { params: { state: string; city: string } };
+const PAGE_SIZE = 21;
+
+type Props = { params: { state: string; city: string }; searchParams?: { page?: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const abbr = stateFromSlug(params.state)?.toUpperCase();
@@ -32,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export const revalidate = 3600;
 
-export default async function CityPage({ params }: Props) {
+export default async function CityPage({ params, searchParams }: Props) {
   const abbr = stateFromSlug(params.state)?.toUpperCase();
   if (!abbr || !US_STATES[abbr]) notFound();
 
@@ -40,13 +42,24 @@ export default async function CityPage({ params }: Props) {
   const citySlugInput = params.city;
   const cityQuery = citySlugInput.replace(/-/g, " ");
 
-  const [shops, featuredShop, nearbyCities] = await Promise.all([
+  const page = Math.max(1, parseInt(searchParams?.page ?? "1") || 1);
+  const skip = (page - 1) * PAGE_SIZE;
+
+  const cityWhere = { state: abbr, active: true, city: { equals: cityQuery, mode: "insensitive" as const } };
+
+  const [totalCount, featuredShops, regularShops, featuredShop, nearbyCities] = await Promise.all([
+    prisma.shop.count({ where: { ...cityWhere, featured: false } }),
+    page === 1
+      ? prisma.shop.findMany({ where: { ...cityWhere, featured: true }, orderBy: { rating: "desc" } })
+      : Promise.resolve([]),
     prisma.shop.findMany({
-      where: { state: abbr, active: true, city: { equals: cityQuery, mode: "insensitive" } },
-      orderBy: [{ featured: "desc" }, { rating: "desc" }],
+      where: { ...cityWhere, featured: false },
+      orderBy: { rating: "desc" },
+      skip,
+      take: PAGE_SIZE,
     }),
     prisma.shop.findFirst({
-      where: { state: abbr, active: true, featured: true, city: { equals: cityQuery, mode: "insensitive" } },
+      where: { ...cityWhere, featured: true },
       select: { id: true, name: true, slug: true, address: true, city: true, state: true, phone: true, website: true, description: true },
     }),
     prisma.shop.groupBy({
@@ -58,14 +71,16 @@ export default async function CityPage({ params }: Props) {
     }),
   ]);
 
-  if (shops.length === 0) notFound();
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+  const totalShops = totalCount + featuredShops.length;
 
-  const cityName = shops[0].city;
+  if (totalShops === 0) notFound();
+
+  const cityName = regularShops[0]?.city || featuredShops[0]?.city || cityQuery.replace(/\b\w/g, c => c.toUpperCase());
   const stSlug = stateSlug(abbr);
-  const regularShops = shops.filter((s) => !s.featured);
 
-  // Aggregate top categories from all shops in this city
-  const allCategories = shops.flatMap((s) => s.categories);
+  // Aggregate top categories from all fetched shops
+  const allCategories = [...featuredShops, ...regularShops].flatMap((s) => s.categories);
   const categoryCounts = allCategories.reduce<Record<string, number>>((acc, cat) => {
     acc[cat] = (acc[cat] ?? 0) + 1;
     return acc;
@@ -75,21 +90,21 @@ export default async function CityPage({ params }: Props) {
     .slice(0, 3)
     .map(([cat]) => cat);
 
-  // Build unique intro paragraph using real shop names for variety
-  const storeWord = shops.length === 1 ? "store" : "stores";
-  const topShopNames = shops.slice(0, 3).map(s => s.name);
-  const uniqueCategories = Array.from(new Set(shops.flatMap(s => s.categories))).filter(c => c !== "Thrift Store").slice(0, 2);
+  // Build unique intro paragraph (page 1 only)
+  const topShopNames = [...featuredShops, ...regularShops].slice(0, 3).map(s => s.name);
+  const uniqueCategories = Array.from(new Set([...featuredShops, ...regularShops].flatMap(s => s.categories))).filter(c => c !== "Thrift Store").slice(0, 2);
   const catText = uniqueCategories.length > 0
     ? ` including ${uniqueCategories.map(c => c.toLowerCase()).join(" and ")}`
     : "";
   const shopNameText = topShopNames.length >= 2
     ? ` Popular spots include ${topShopNames.slice(0, -1).join(", ")} and ${topShopNames.at(-1)}.`
     : topShopNames.length === 1 ? ` ${topShopNames[0]} is the go-to spot for secondhand finds in the area.` : "";
-  const sizeText = shops.length >= 20
-    ? `${cityName} is one of ${stateName}'s top thrifting destinations, with ${shops.length} thrift ${storeWord} and consignment shops${catText} listed on ThriftSpotter.`
-    : shops.length >= 5
-    ? `${cityName}, ${stateName} has ${shops.length} thrift ${storeWord} and secondhand shops${catText} listed on ThriftSpotter.`
-    : `${cityName}, ${stateName} has ${shops.length} secondhand ${storeWord} listed on ThriftSpotter.`;
+  const storeWord = totalShops === 1 ? "store" : "stores";
+  const sizeText = totalShops >= 20
+    ? `${cityName} is one of ${stateName}'s top thrifting destinations, with ${totalShops} thrift ${storeWord} and consignment shops${catText} listed on ThriftSpotter.`
+    : totalShops >= 5
+    ? `${cityName}, ${stateName} has ${totalShops} thrift ${storeWord} and secondhand shops${catText} listed on ThriftSpotter.`
+    : `${cityName}, ${stateName} has ${totalShops} secondhand ${storeWord} listed on ThriftSpotter.`;
   const cityIntro = `${sizeText}${shopNameText} Browse below to find addresses, phone numbers, hours, and directions — all free, no sign-up needed.`;
 
   const breadcrumbSchema = {
@@ -106,8 +121,8 @@ export default async function CityPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: `Thrift Stores in ${cityName}, ${abbr}`,
-    numberOfItems: shops.length,
-    itemListElement: shops.slice(0, 10).map((s, i) => ({
+    numberOfItems: totalShops,
+    itemListElement: [...featuredShops, ...regularShops].slice(0, 10).map((s, i) => ({
       "@type": "ListItem",
       position: i + 1,
       name: s.name,
@@ -115,7 +130,7 @@ export default async function CityPage({ params }: Props) {
     })),
   };
 
-  const sponsoredShops = shops.filter((s) => s.featured);
+  const baseUrl = `/${stSlug}/${citySlugInput}`;
 
   return (
     <>
@@ -132,27 +147,31 @@ export default async function CityPage({ params }: Props) {
 
       <div className="mb-4">
         <h1 className="text-3xl font-bold">Thrift Stores in {cityName}, {abbr}</h1>
-        <p className="text-stone-500 mt-1">{shops.length} shop{shops.length !== 1 ? "s" : ""} found</p>
+        <p className="text-stone-500 mt-1">{totalShops} shop{totalShops !== 1 ? "s" : ""} found</p>
       </div>
 
-      {/* Intro paragraph — unique per city, keyword-rich for SEO */}
-      <p className="text-stone-600 text-sm leading-relaxed mb-8 max-w-3xl">
-        {cityIntro}
-      </p>
+      {/* Intro paragraph — only on page 1 */}
+      {page === 1 && (
+        <p className="text-stone-600 text-sm leading-relaxed mb-8 max-w-3xl">
+          {cityIntro}
+        </p>
+      )}
 
-      {/* Featured banner */}
-      <div className="mb-8">
-        <FeaturedBanner shop={featuredShop} locationLabel={`${cityName}, ${abbr}`} />
-      </div>
+      {/* Featured banner — only on page 1 */}
+      {page === 1 && (
+        <div className="mb-8">
+          <FeaturedBanner shop={featuredShop} locationLabel={`${cityName}, ${abbr}`} />
+        </div>
+      )}
 
-      {/* Sponsored cards at top */}
-      {sponsoredShops.length > 0 && (
+      {/* Sponsored cards — only on page 1 */}
+      {page === 1 && featuredShops.length > 0 && (
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xs font-bold text-brand-600 uppercase tracking-wider">Sponsored</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {sponsoredShops.map((shop) => (
+            {featuredShops.map((shop) => (
               <ShopCard key={shop.id} shop={{ ...shop, featured: true }} />
             ))}
           </div>
@@ -166,6 +185,43 @@ export default async function CityPage({ params }: Props) {
           <ShopCard key={shop.id} shop={shop} />
         ))}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2 mt-12">
+          {page > 1 && (
+            <Link
+              href={`${baseUrl}${page - 1 === 1 ? "" : `?page=${page - 1}`}`}
+              className="px-4 py-2 rounded-lg border border-stone-200 text-sm hover:border-brand-400 hover:text-brand-600 transition-colors"
+            >
+              ← Previous
+            </Link>
+          )}
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            <Link
+              key={p}
+              href={`${baseUrl}${p === 1 ? "" : `?page=${p}`}`}
+              className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm border transition-colors ${
+                p === page
+                  ? "bg-brand-600 text-white border-brand-600 font-semibold"
+                  : "border-stone-200 hover:border-brand-400 hover:text-brand-600"
+              }`}
+            >
+              {p}
+            </Link>
+          ))}
+
+          {page < totalPages && (
+            <Link
+              href={`${baseUrl}?page=${page + 1}`}
+              className="px-4 py-2 rounded-lg border border-stone-200 text-sm hover:border-brand-400 hover:text-brand-600 transition-colors"
+            >
+              Next →
+            </Link>
+          )}
+        </div>
+      )}
 
       {/* Nearby cities — internal linking */}
       {nearbyCities.length > 0 && (

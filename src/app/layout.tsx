@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import Link from "next/link";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
@@ -68,18 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </section>
 
-        <footer className="border-t border-stone-200 bg-white text-center py-8 text-sm text-stone-500">
-          <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <span>© {new Date().getFullYear()} ThriftSpotter</span>
-            <div className="flex gap-6">
-              <Link href="/about" className="hover:text-brand-600">About</Link>
-              <Link href="/advertise" className="hover:text-brand-600">Advertise</Link>
-              <a href="mailto:hello@thriftspotter.com" className="hover:text-brand-600">Contact</a>
-              <Link href="/privacy" className="hover:text-brand-600">Privacy Policy</Link>
-            </div>
-            <span>Data from OpenStreetMap</span>
-          </div>
-        </footer>
+        <Footer />
         <Analytics />
         {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-1S2P6TH1XT" strategy="afterInteractive" />
