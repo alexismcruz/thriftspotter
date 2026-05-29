@@ -38,7 +38,11 @@ export default function ListingRequestButton() {
 
   function close() {
     setOpen(false);
-    setTimeout(() => { setStatus("idle"); setErrorMsg(""); }, 300);
+    setTimeout(() => {
+      setStatus("idle");
+      setErrorMsg("");
+      setForm({ businessName: "", city: "", state: "", phone: "", email: "", website: "" });
+    }, 300);
   }
 
   return (
@@ -117,7 +121,7 @@ export default function ListingRequestButton() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-stone-700 mb-1">
-                    Phone Number <span className="text-red-500">*</span>
+                    Business Number <span className="text-red-500">*</span>
                   </label>
                   <input
                     name="phone" value={form.phone} onChange={change} required type="tel"
