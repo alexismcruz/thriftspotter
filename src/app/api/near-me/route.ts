@@ -46,6 +46,7 @@ export async function GET(req: NextRequest) {
       categories: true,
       featured: true,
       rating: true,
+      reviewCount: true,
       lat: true,
       lng: true,
     },

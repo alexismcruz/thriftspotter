@@ -17,6 +17,7 @@ type NearbyShop = {
   categories: string[];
   featured: boolean;
   rating: number | null;
+  reviewCount: number | null;
   lat: number | null;
   lng: number | null;
   distanceMiles: number;
