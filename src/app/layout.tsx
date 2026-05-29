@@ -74,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/about" className="hover:text-brand-600">About</Link>
               <Link href="/advertise" className="hover:text-brand-600">Advertise</Link>
               <a href="mailto:hello@thriftspotter.com" className="hover:text-brand-600">Contact</a>
+              <Link href="/privacy" className="hover:text-brand-600">Privacy Policy</Link>
             </div>
             <span>Data from OpenStreetMap</span>
           </div>
