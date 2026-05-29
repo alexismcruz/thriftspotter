@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const body = await req.json();
-    const { businessName, address, city, state, phone, website, instagram, facebook, other } = body;
+    const { businessName, address, city, state, phone, email, website, instagram, facebook, other } = body;
 
     if (!businessName || !city || !state || !phone) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
       `City: ${city}`,
       `State: ${state}`,
       `Phone: ${phone}`,
+      email ? `Email: ${email}` : null,
       website   ? `Website: ${website}`   : null,
       instagram ? `Instagram: ${instagram}` : null,
       facebook  ? `Facebook: ${facebook}`  : null,
@@ -25,8 +26,9 @@ export async function POST(req: NextRequest) {
 
     await resend.emails.send({
       from: "ThriftSpotter <noreply@thriftspotter.com>",
-      to: "aalexismcruz@gmail.com",
-      subject: "New Business Listing",
+      to: "hello@thriftspotter.com",
+      replyTo: email || undefined,
+      subject: "New Business Listing Request",
       text: `A business owner has requested to be listed on ThriftSpotter.\n\n${lines}`,
     });
 

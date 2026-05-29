@@ -10,7 +10,7 @@ export default function ListingRequestButton() {
   const [status, setStatus] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState({
-    businessName: "", city: "", state: "", phone: "", website: "",
+    businessName: "", city: "", state: "", phone: "", email: "", website: "",
   });
 
   function change(e: React.ChangeEvent<HTMLInputElement>) {
@@ -122,6 +122,16 @@ export default function ListingRequestButton() {
                   <input
                     name="phone" value={form.phone} onChange={change} required type="tel"
                     placeholder="(555) 000-0000"
+                    className="w-full border border-stone-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-stone-700 mb-1">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="email" value={form.email} onChange={change} required type="email"
+                    placeholder="you@yourstore.com"
                     className="w-full border border-stone-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                   />
                 </div>
