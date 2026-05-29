@@ -13,14 +13,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const shop = await prisma.shop.findUnique({ where: { slug: params.slug } });
   if (!shop) return {};
   const canonical = `https://www.thriftspotter.com/shop/${shop.slug}`;
-  const description = shop.description ?? `Thrift store in ${shop.city}, ${shop.state}.`;
+  const metaDescription = `${shop.name} is a thrift store in ${shop.city}, ${shop.state}. Find directions, contact info, and hours on ThriftSpotter — the free secondhand store directory.`;
+  const title = `${shop.name} | Thrift Store in ${shop.city}, ${shop.state}`;
   return {
-    title: `${shop.name} — ${shop.city}, ${shop.state}`,
-    description,
+    title,
+    description: metaDescription,
     alternates: { canonical },
     openGraph: {
-      title: `${shop.name} — ${shop.city}, ${shop.state}`,
-      description,
+      title,
+      description: metaDescription,
       url: canonical,
     },
   };
@@ -89,10 +90,40 @@ export default async function ShopPage({ params }: Props) {
     ],
   };
 
+  const faqAnswers: { question: string; answer: string }[] = [
+    {
+      question: `Where is ${shop.name} located?`,
+      answer: `${shop.name} is located at ${shop.address}, ${shop.city}, ${shop.state}${shop.zip ? " " + shop.zip : ""}.`,
+    },
+    {
+      question: `What does ${shop.name} sell?`,
+      answer: shop.description ?? `${shop.name} sells a rotating selection of secondhand clothing, furniture, household items, books, and more at affordable prices.`,
+    },
+    ...(shop.phone ? [{
+      question: `What is the phone number for ${shop.name}?`,
+      answer: `You can reach ${shop.name} by phone at ${shop.phone}.`,
+    }] : []),
+    {
+      question: `Is ${shop.name} on ThriftSpotter?`,
+      answer: `Yes! ${shop.name} is listed on ThriftSpotter at thriftspotter.com/shop/${shop.slug}. ThriftSpotter is a free US thrift store directory.`,
+    },
+  ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqAnswers.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(storeSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* Breadcrumb */}
       <nav className="text-sm text-stone-500 mb-6 flex flex-wrap items-center gap-x-1 gap-y-1">
