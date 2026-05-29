@@ -34,8 +34,15 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <Link href="/" className="text-white font-bold text-lg">
-              🛍️ ThriftSpotter
+            <Link href="/" className="flex items-center gap-2 text-white font-bold text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" className="w-8 h-8 shrink-0">
+                <rect width="240" height="240" rx="44" fill="#0f766e"/>
+                <path d="M 80,28 Q 64,28 64,44 L 64,162 L 120,202 L 176,162 L 176,44 Q 176,28 160,28 Z" fill="white"/>
+                <circle cx="120" cy="57" r="12" fill="#0f766e"/>
+                <circle cx="111" cy="114" r="27" fill="none" stroke="#0f766e" stroke-width="11"/>
+                <line x1="130" y1="133" x2="154" y2="157" stroke="#0f766e" stroke-width="11" stroke-linecap="round"/>
+              </svg>
+              ThriftSpotter
             </Link>
             <p className="text-sm mt-3 leading-relaxed">
               Free directory of thrift stores, consignment shops, and secondhand retailers across all 50 US states.

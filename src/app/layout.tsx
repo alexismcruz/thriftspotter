@@ -40,8 +40,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
         <header className="bg-white border-b border-stone-200 sticky top-0 z-50">
           <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-            <Link href="/" className="text-xl font-heading font-bold text-brand-600 tracking-tight">
-              🛍️ ThriftSpotter
+            <Link href="/" className="flex items-center gap-2 font-heading font-bold text-brand-600 tracking-tight text-xl">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" className="w-8 h-8 shrink-0">
+                <rect width="240" height="240" rx="44" fill="#0d9488"/>
+                <path d="M 80,28 Q 64,28 64,44 L 64,162 L 120,202 L 176,162 L 176,44 Q 176,28 160,28 Z" fill="white"/>
+                <circle cx="120" cy="57" r="12" fill="#0d9488"/>
+                <circle cx="111" cy="114" r="27" fill="none" stroke="#0d9488" stroke-width="11"/>
+                <line x1="130" y1="133" x2="154" y2="157" stroke="#0d9488" stroke-width="11" stroke-linecap="round"/>
+              </svg>
+              ThriftSpotter
             </Link>
             <nav className="flex gap-6 text-sm text-stone-600">
               <Link href="/" className="hover:text-brand-600 transition-colors">Browse</Link>

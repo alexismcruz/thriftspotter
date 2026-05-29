@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Teal rounded background -->
+  <rect width="240" height="240" rx="44" fill="#0d9488"/>
+
+  <!-- White price tag body -->
+  <path d="M 80,28 Q 64,28 64,44 L 64,162 L 120,202 L 176,162 L 176,44 Q 176,28 160,28 Z"
+        fill="white"/>
+
+  <!-- Tag hole -->
+  <circle cx="120" cy="57" r="12" fill="#0d9488"/>
+
+  <!-- Magnifying glass circle -->
+  <circle cx="111" cy="114" r="27" fill="none" stroke="#0d9488" stroke-width="11"/>
+
+  <!-- Magnifying glass handle -->
+  <line x1="130" y1="133" x2="154" y2="157" stroke="#0d9488" stroke-width="11" stroke-linecap="round"/>
+</svg>
