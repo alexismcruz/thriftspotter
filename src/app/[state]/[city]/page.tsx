@@ -78,7 +78,7 @@ export default async function CityPage({ params }: Props) {
   // Build unique intro paragraph using real shop names for variety
   const storeWord = shops.length === 1 ? "store" : "stores";
   const topShopNames = shops.slice(0, 3).map(s => s.name);
-  const uniqueCategories = [...new Set(shops.flatMap(s => s.categories))].filter(c => c !== "Thrift Store").slice(0, 2);
+  const uniqueCategories = Array.from(new Set(shops.flatMap(s => s.categories))).filter(c => c !== "Thrift Store").slice(0, 2);
   const catText = uniqueCategories.length > 0
     ? ` including ${uniqueCategories.map(c => c.toLowerCase()).join(" and ")}`
     : "";
