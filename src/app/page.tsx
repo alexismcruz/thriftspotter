@@ -93,8 +93,9 @@ export default async function HomePage() {
     <div>
 
       {/* Hero */}
-      <section className="hero-dots bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white py-20 sm:py-32 px-4">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="relative bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white py-20 sm:py-32 px-4 overflow-hidden">
+        <div className="absolute inset-0 opacity-20" style={{backgroundImage: 'radial-gradient(rgba(255,255,255,0.6) 1.5px, transparent 1.5px)', backgroundSize: '22px 22px'}} />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
           <span className="inline-block bg-white/20 text-white text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
             Free · No sign-up needed
           </span>
@@ -113,6 +114,7 @@ export default async function HomePage() {
             Popular: <Link href="/illinois/chicago" className="underline hover:text-white transition-colors">Chicago</Link> · <Link href="/california/los-angeles" className="underline hover:text-white transition-colors">Los Angeles</Link> · <Link href="/texas/austin" className="underline hover:text-white transition-colors">Austin</Link> · <Link href="/oregon/portland" className="underline hover:text-white transition-colors">Portland</Link>
           </p>
         </div>
+      </div>
       </section>
 
       {/* Stats strip */}
