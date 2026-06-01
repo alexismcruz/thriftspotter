@@ -29,7 +29,7 @@ export function stateSlug(abbr: string): string {
 }
 
 export function stateFromSlug(slug: string): string | undefined {
-  return STATE_ABBR[slug.toLowerCase()];
+  return STATE_ABBR[slug.toLowerCase().replace(/-/g, " ")];
 }
 
 export function formatPhone(phone: string): string {
