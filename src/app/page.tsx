@@ -32,13 +32,33 @@ async function getPopularCities() {
   });
 }
 
+async function getRecentShops() {
+  return prisma.shop.findMany({
+    where: { active: true },
+    orderBy: { createdAt: "desc" },
+    take: 6,
+  });
+}
+
 export const revalidate = 3600;
 
+const CATEGORIES = [
+  { name: "Thrift Store",       emoji: "🛍️", color: "bg-teal-50 border-teal-200 text-teal-700 hover:bg-teal-100" },
+  { name: "Clothing Resale",    emoji: "👗", color: "bg-violet-50 border-violet-200 text-violet-700 hover:bg-violet-100" },
+  { name: "Furniture & Home",   emoji: "🛋️", color: "bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100" },
+  { name: "Vintage Store",      emoji: "✨", color: "bg-rose-50 border-rose-200 text-rose-700 hover:bg-rose-100" },
+  { name: "Books & Media",      emoji: "📚", color: "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100" },
+  { name: "Nonprofit Resale",   emoji: "💚", color: "bg-green-50 border-green-200 text-green-700 hover:bg-green-100" },
+  { name: "Electronics",        emoji: "💻", color: "bg-indigo-50 border-indigo-200 text-indigo-700 hover:bg-indigo-100" },
+  { name: "Consignment Shop",   emoji: "🏷️", color: "bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100" },
+];
+
 export default async function HomePage() {
-  const [counts, featured, popularCities] = await Promise.all([
+  const [counts, featured, popularCities, recentShops] = await Promise.all([
     getStateCounts(),
     getFeaturedShops(),
     getPopularCities(),
+    getRecentShops(),
   ]);
   const totalShops = Object.values(counts).reduce((a, b) => a + b, 0);
   const totalStates = Object.keys(counts).length;
@@ -71,35 +91,40 @@ export default async function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
     <div>
+
       {/* Hero */}
-      <section className="bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white py-16 sm:py-28 px-4">
+      <section className="hero-dots bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white py-20 sm:py-32 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block bg-brand-500/40 text-brand-100 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-6">
+          <span className="inline-block bg-white/20 text-white text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
             Free · No sign-up needed
           </span>
-          <h1 className="text-4xl sm:text-6xl font-heading font-bold mb-5 leading-tight tracking-tight">
+          <h1 className="text-5xl sm:text-7xl font-heading font-bold mb-5 leading-tight tracking-tight">
             Find Thrift Stores<br className="hidden sm:block" /> Near You
           </h1>
-          <p className="text-brand-100 mb-8 text-lg max-w-xl mx-auto">
+          <p className="text-brand-100 mb-10 text-xl max-w-xl mx-auto leading-relaxed">
             {totalShops > 0
-              ? `Discover ${totalShops.toLocaleString()}+ thrift shops, consignment stores, and secondhand finds across all ${totalStates} states.`
+              ? `${totalShops.toLocaleString()}+ thrift shops across all ${totalStates} states — free to search, no sign-up.`
               : "Discover thrift shops, consignment stores, and secondhand finds across the US."}
           </p>
-          <div className="flex justify-center">
+          <div className="flex justify-center px-4">
             <SearchBar />
           </div>
+          <p className="text-brand-200 text-sm mt-5">
+            Popular: <Link href="/illinois/chicago" className="underline hover:text-white transition-colors">Chicago</Link> · <Link href="/california/los-angeles" className="underline hover:text-white transition-colors">Los Angeles</Link> · <Link href="/texas/austin" className="underline hover:text-white transition-colors">Austin</Link> · <Link href="/oregon/portland" className="underline hover:text-white transition-colors">Portland</Link>
+          </p>
         </div>
       </section>
 
       {/* Stats strip */}
-      <section className="bg-white border-b border-stone-200">
+      <section className="bg-white border-b border-stone-200 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-6 grid grid-cols-3 divide-x divide-stone-200 text-center">
           {[
-            { stat: `${totalShops.toLocaleString()}+`, label: "Businesses listed" },
-            { stat: `${totalStates}`, label: "States covered" },
-            { stat: "100%", label: "Free to use" },
-          ].map(({ stat, label }) => (
+            { stat: `${totalShops.toLocaleString()}+`, label: "Businesses listed", emoji: "🏪" },
+            { stat: `${totalStates}`, label: "States covered", emoji: "🗺️" },
+            { stat: "100%", label: "Free to use", emoji: "💸" },
+          ].map(({ stat, label, emoji }) => (
             <div key={label} className="px-4">
+              <div className="text-2xl mb-1">{emoji}</div>
               <div className="text-2xl font-bold text-brand-600">{stat}</div>
               <div className="text-xs text-stone-500 mt-0.5">{label}</div>
             </div>
@@ -107,7 +132,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 py-12 space-y-16">
+      <div className="max-w-6xl mx-auto px-4 py-14 space-y-20">
+
+        {/* Browse by Category */}
+        <section>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2">What are you looking for?</h2>
+            <p className="text-stone-500">Browse by the type of secondhand store near you</p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {CATEGORIES.map(({ name, emoji, color }) => (
+              <Link
+                key={name}
+                href={`/search?q=${encodeURIComponent(name)}`}
+                className={`card-lift flex flex-col items-center gap-2 px-4 py-5 rounded-2xl border text-center font-semibold text-sm transition-all ${color}`}
+              >
+                <span className="text-3xl">{emoji}</span>
+                <span>{name}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Featured / Sponsored shops */}
         {featured.length > 0 && (
@@ -127,8 +172,26 @@ export default async function HomePage() {
           </section>
         )}
 
+        {/* Recently added */}
+        {recentShops.length > 0 && (
+          <section>
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold">Recently Added</h2>
+                <p className="text-stone-500 text-sm mt-1">New stores added to the directory</p>
+              </div>
+              <span className="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded-full font-medium">🆕 New</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {recentShops.map((shop) => (
+                <ShopCard key={shop.id} shop={shop} />
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* How it works */}
-        <section className="bg-brand-50 rounded-2xl p-8 sm:p-12">
+        <section className="bg-gradient-to-br from-brand-50 to-teal-50 rounded-3xl p-8 sm:p-12 border border-brand-100">
           <h2 className="text-2xl font-bold text-center mb-10">How ThriftSpotter works</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             {[
@@ -136,8 +199,10 @@ export default async function HomePage() {
               { emoji: "📍", title: "Explore listings", desc: "Browse shop details, addresses, phone numbers, descriptions and open in Google Maps." },
               { emoji: "🛍️", title: "Go thrifting", desc: "Find your next great deal. New businesses are added regularly across all 50 states." },
             ].map(({ emoji, title, desc }) => (
-              <div key={title}>
-                <div className="text-4xl mb-4">{emoji}</div>
+              <div key={title} className="flex flex-col items-center">
+                <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-3xl mb-4 border border-brand-100">
+                  {emoji}
+                </div>
                 <h3 className="font-bold text-stone-900 mb-2">{title}</h3>
                 <p className="text-sm text-stone-500 leading-relaxed">{desc}</p>
               </div>
@@ -158,9 +223,10 @@ export default async function HomePage() {
               <Link
                 key={`${city}-${state}`}
                 href={`/${stateSlug(state)}/${slugify(city)}`}
-                className="bg-white rounded-xl border border-stone-200 px-4 py-4 hover:border-brand-400 hover:bg-brand-50 transition-colors group"
+                className="card-lift bg-white rounded-2xl border border-stone-200 px-4 py-5 hover:border-brand-400 hover:bg-brand-50 transition-all group"
               >
-                <div className="font-semibold text-stone-900 group-hover:text-brand-700 leading-tight">{city}</div>
+                <div className="text-2xl mb-2">🏙️</div>
+                <div className="font-bold text-stone-900 group-hover:text-brand-700 leading-tight">{city}</div>
                 <div className="text-xs text-stone-400 mt-0.5">{state} · {_count.id} shops</div>
               </Link>
             ))}
@@ -170,12 +236,12 @@ export default async function HomePage() {
         {/* Browse by state */}
         <section>
           <h2 className="text-2xl font-bold mb-2">Browse by State</h2>
-          <p className="text-stone-500 text-sm mb-6">Click any state to explore thrift stores by city.</p>
+          <p className="text-stone-500 text-sm mb-6">Click any state to explore thrift stores by city. The bar shows relative shop density.</p>
           <StateGrid counts={counts} />
         </section>
 
         {/* SEO content block */}
-        <section className="bg-white rounded-2xl border border-stone-200 p-8 sm:p-12">
+        <section className="bg-white rounded-3xl border border-stone-200 p-8 sm:p-12">
           <h2 className="text-2xl font-bold mb-4">Find Thrift Stores Across the US — Free</h2>
           <div className="prose prose-stone max-w-none text-stone-600 text-sm leading-relaxed space-y-4">
             <p>
@@ -204,19 +270,17 @@ export default async function HomePage() {
         </section>
 
         {/* Business owner CTA */}
-        <section className="bg-gradient-to-r from-terra-400 to-terra-500 rounded-2xl p-8 sm:p-12 text-white text-center">
+        <section className="bg-gradient-to-r from-terra-400 to-terra-500 rounded-3xl p-8 sm:p-12 text-white text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3">Own a thrift or resale business?</h2>
           <p className="text-terra-100 mb-6 max-w-xl mx-auto">
             Get your business in front of thousands of shoppers actively looking for stores in your area. Free to list, no sign-up required.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/advertise"
-              className="bg-white text-terra-600 hover:bg-terra-50 font-bold px-6 py-3 rounded-xl transition-colors text-sm"
-            >
-              View listing options →
-            </Link>
-          </div>
+          <Link
+            href="/advertise"
+            className="inline-block bg-white text-terra-600 hover:bg-terra-50 font-bold px-8 py-4 rounded-xl transition-colors text-sm shadow-sm"
+          >
+            View listing options →
+          </Link>
         </section>
 
       </div>

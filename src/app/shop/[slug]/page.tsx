@@ -42,7 +42,7 @@ export default async function ShopPage({ params }: Props) {
   const nearbyShops = await prisma.shop.findMany({
     where: { active: true, city: shop.city, state: shop.state, slug: { not: shop.slug } },
     orderBy: [{ featured: "desc" }, { rating: "desc" }],
-    take: 3,
+    take: 6,
   });
 
   const mapPin = shop.lat && shop.lng

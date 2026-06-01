@@ -136,16 +136,22 @@ export default async function StatePage({ params }: Props) {
         <>
           <h2 className="text-xl font-semibold mb-4">Browse by City</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {cities.map(({ city, _count }) => (
+            {cities.map(({ city, _count }) => {
+              const maxCount = cities[0]?._count.id ?? 1;
+              const pct = Math.max(8, Math.round((_count.id / maxCount) * 100));
+              return (
               <Link
                 key={city}
                 href={`/${params.state}/${slugify(city)}`}
-                className="bg-white rounded-lg border border-stone-200 px-4 py-3 hover:border-brand-400 hover:bg-brand-50 transition-colors"
+                className="card-lift bg-white rounded-xl border border-stone-200 px-4 py-3 hover:border-brand-400 hover:shadow-md transition-all group"
               >
-                <span className="font-medium block text-stone-900">{city}</span>
-                <span className="text-xs text-stone-500">{_count.id} shop{_count.id !== 1 ? "s" : ""}</span>
+                <span className="font-semibold block text-stone-900 group-hover:text-brand-600 transition-colors">{city}</span>
+                <span className="text-xs text-stone-500 block mb-2">{_count.id} shop{_count.id !== 1 ? "s" : ""}</span>
+                <div className="h-1 w-full bg-stone-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-brand-400 rounded-full group-hover:bg-brand-500 transition-colors" style={{ width: `${pct}%` }} />
+                </div>
               </Link>
-            ))}
+            );})}
           </div>
         </>
       )}

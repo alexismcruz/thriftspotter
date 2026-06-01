@@ -10,3 +10,17 @@
     @apply font-heading;
   }
 }
+
+@layer utilities {
+  .hero-dots {
+    background-image: radial-gradient(rgba(255,255,255,0.18) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+  .card-lift {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.10);
+  }
+}
