@@ -114,7 +114,6 @@ export default async function HomePage() {
             Popular: <Link href="/illinois/chicago" className="underline hover:text-white transition-colors">Chicago</Link> · <Link href="/california/los-angeles" className="underline hover:text-white transition-colors">Los Angeles</Link> · <Link href="/texas/austin" className="underline hover:text-white transition-colors">Austin</Link> · <Link href="/oregon/portland" className="underline hover:text-white transition-colors">Portland</Link>
           </p>
         </div>
-      </div>
       </section>
 
       {/* Stats strip */}
