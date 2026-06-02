@@ -72,7 +72,7 @@ export default function AdvertisePage() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-14 text-center">
         {[
-          { stat: "3,700+", label: "Businesses listed" },
+          { stat: "5,600+", label: "Businesses listed" },
           { stat: "50", label: "States covered" },
           { stat: "100%", label: "Free to get listed" },
         ].map(({ stat, label }) => (
