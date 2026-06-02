@@ -43,14 +43,14 @@ async function getRecentShops() {
 export const revalidate = 3600;
 
 const CATEGORIES = [
-  { name: "Thrift Store",       emoji: "🛍️", color: "bg-teal-50 border-teal-200 text-teal-700 hover:bg-teal-100" },
-  { name: "Clothing Resale",    emoji: "👗", color: "bg-violet-50 border-violet-200 text-violet-700 hover:bg-violet-100" },
-  { name: "Furniture & Home",   emoji: "🛋️", color: "bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100" },
-  { name: "Vintage Store",      emoji: "✨", color: "bg-rose-50 border-rose-200 text-rose-700 hover:bg-rose-100" },
-  { name: "Books & Media",      emoji: "📚", color: "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100" },
-  { name: "Nonprofit Resale",   emoji: "💚", color: "bg-green-50 border-green-200 text-green-700 hover:bg-green-100" },
-  { name: "Electronics",        emoji: "💻", color: "bg-indigo-50 border-indigo-200 text-indigo-700 hover:bg-indigo-100" },
-  { name: "Consignment Shop",   emoji: "🏷️", color: "bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100" },
+  { name: "Thrift Store",       emoji: "🛍️", color: "bg-teal-50 border-teal-200 text-teal-700 hover:bg-teal-100",     slug: "thrift-store" },
+  { name: "Clothing Resale",    emoji: "👗", color: "bg-violet-50 border-violet-200 text-violet-700 hover:bg-violet-100", slug: "clothing-resale" },
+  { name: "Furniture & Home",   emoji: "🛋️", color: "bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100",  slug: "furniture-home" },
+  { name: "Vintage Store",      emoji: "✨", color: "bg-rose-50 border-rose-200 text-rose-700 hover:bg-rose-100",      slug: "vintage-store" },
+  { name: "Books & Media",      emoji: "📚", color: "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100",      slug: "books-media" },
+  { name: "Nonprofit Resale",   emoji: "💚", color: "bg-green-50 border-green-200 text-green-700 hover:bg-green-100",  slug: "nonprofit-resale" },
+  { name: "Electronics",        emoji: "💻", color: "bg-indigo-50 border-indigo-200 text-indigo-700 hover:bg-indigo-100", slug: "electronics" },
+  { name: "Consignment Shop",   emoji: "🏷️", color: "bg-orange-50 border-orange-200 text-orange-700 hover:bg-orange-100", slug: "consignment-shop" },
 ];
 
 export default async function HomePage() {
@@ -142,10 +142,10 @@ export default async function HomePage() {
             <p className="text-stone-500">Browse by the type of secondhand store near you</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {CATEGORIES.map(({ name, emoji, color }) => (
+            {CATEGORIES.map(({ name, emoji, color, slug }) => (
               <Link
                 key={name}
-                href={`/search?q=${encodeURIComponent(name)}`}
+                href={`/category/${slug}`}
                 className={`card-lift flex flex-col items-center gap-2 px-4 py-5 rounded-2xl border text-center font-semibold text-sm transition-all ${color}`}
               >
                 <span className="text-3xl">{emoji}</span>
