@@ -132,10 +132,33 @@ export default async function CityPage({ params, searchParams }: Props) {
 
   const baseUrl = `/${stSlug}/${citySlugInput}`;
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `How many thrift stores are in ${cityName}, ${abbr}?`,
+        acceptedAnswer: { "@type": "Answer", text: `There are ${totalShops} thrift stores and secondhand shops listed in ${cityName}, ${stateName} on ThriftSpotter.` },
+      },
+      {
+        "@type": "Question",
+        name: `Where can I find thrift stores in ${cityName}, ${stateName}?`,
+        acceptedAnswer: { "@type": "Answer", text: `ThriftSpotter lists all thrift stores, consignment shops, and secondhand retailers in ${cityName}, ${abbr}. Browse all ${totalShops} locations, get directions via Google Maps, and find contact information — free.` },
+      },
+      {
+        "@type": "Question",
+        name: `Are thrift stores in ${cityName} free to browse on ThriftSpotter?`,
+        acceptedAnswer: { "@type": "Answer", text: `Yes — ThriftSpotter is completely free. No sign-up, no account, no fees. Simply browse thrift store listings in ${cityName} and go thrifting.` },
+      },
+    ],
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
     <div className="max-w-6xl mx-auto px-4 py-10">
       <nav className="text-sm text-stone-500 mb-6">
         <Link href="/" className="hover:text-brand-600">Home</Link>
@@ -220,6 +243,67 @@ export default async function CityPage({ params, searchParams }: Props) {
               Next →
             </Link>
           )}
+        </div>
+      )}
+
+      {/* SEO content + FAQ — only on page 1 */}
+      {page === 1 && (
+        <div className="mt-14 space-y-10">
+
+          {/* Keyword-rich summary block */}
+          <section className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8">
+            <h2 className="text-xl font-bold mb-3">Thrift Stores in {cityName}, {abbr} — Free Directory</h2>
+            <div className="text-stone-600 text-sm leading-relaxed space-y-3">
+              <p>
+                ThriftSpotter lists {totalShops} thrift {totalShops === 1 ? "store" : "stores"} and secondhand shops in {cityName}, {stateName}.
+                Each listing includes the store address, phone number, website, and a direct link to Google Maps so you can get directions instantly — all free, no sign-up needed.
+              </p>
+              <p>
+                Whether you&apos;re looking for gently used clothing, affordable furniture, vintage finds, books, electronics, or everyday household items,
+                {cityName}&apos;s thrift scene has something for every budget. Inventory at thrift stores rotates constantly, so visiting regularly always turns up something new.
+              </p>
+              <p>
+                Own a thrift store or resale shop in {cityName}? <Link href="/advertise" className="text-brand-600 hover:underline font-medium">Get your business listed for free</Link> and
+                get in front of shoppers actively searching for secondhand stores in your area.
+              </p>
+            </div>
+          </section>
+
+          {/* FAQ section */}
+          <section>
+            <h2 className="text-xl font-bold mb-4">Frequently Asked Questions</h2>
+            <div className="space-y-3">
+              {[
+                {
+                  q: `How many thrift stores are in ${cityName}, ${abbr}?`,
+                  a: `There are ${totalShops} thrift ${totalShops === 1 ? "store" : "stores"} and secondhand shops listed in ${cityName}, ${stateName} on ThriftSpotter. Browse all listings above for addresses, phone numbers, and directions.`,
+                },
+                {
+                  q: `Where can I find thrift stores in ${cityName}, ${stateName}?`,
+                  a: `ThriftSpotter lists all the thrift stores, consignment shops, and secondhand retailers in ${cityName}, ${abbr}. You can browse all ${totalShops} locations above, get directions via Google Maps, and find contact information — completely free.`,
+                },
+                {
+                  q: `What types of secondhand stores are in ${cityName}?`,
+                  a: `${cityName} has a variety of secondhand stores including ${Array.from(new Set([...featuredShops, ...regularShops].flatMap(s => s.categories))).slice(0, 4).join(", ") || "thrift stores, consignment shops, and vintage stores"}. Browse the listings above to find the type of store you're looking for.`,
+                },
+                {
+                  q: `Are thrift stores in ${cityName} free to browse on ThriftSpotter?`,
+                  a: `Yes — ThriftSpotter is completely free to use. No sign-up, no account, no fees. Simply browse thrift store listings in ${cityName}, get directions, and go thrifting.`,
+                },
+              ].map(({ q, a }) => (
+                <details key={q} className="group bg-white border border-stone-200 rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between px-5 py-4 cursor-pointer font-medium text-stone-800 text-sm hover:bg-stone-50 transition-colors list-none">
+                    {q}
+                    <span className="text-stone-400 group-open:rotate-180 transition-transform shrink-0 ml-3">▾</span>
+                  </summary>
+                  <div className="px-5 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                    {a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+
         </div>
       )}
 
