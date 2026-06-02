@@ -3,17 +3,13 @@
 import { useState } from "react";
 
 type FormState = "idle" | "loading" | "success" | "error";
-
-type Props = {
-  shopName: string;
-  shopSlug: string;
-};
+type Props = { shopName: string; shopSlug: string };
 
 export default function ClaimListingButton({ shopName, shopSlug }: Props) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  const [form, setForm] = useState({ ownerName: "", email: "", phone: "", message: "" });
+  const [form, setForm] = useState({ ownerName: "", email: "", message: "" });
 
   function change(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -40,7 +36,11 @@ export default function ClaimListingButton({ shopName, shopSlug }: Props) {
 
   function close() {
     setOpen(false);
-    setTimeout(() => { setStatus("idle"); setErrorMsg(""); }, 300);
+    setTimeout(() => {
+      setStatus("idle");
+      setErrorMsg("");
+      setForm({ ownerName: "", email: "", message: "" });
+    }, 300);
   }
 
   return (
@@ -60,29 +60,30 @@ export default function ClaimListingButton({ shopName, shopSlug }: Props) {
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
 
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-stone-200">
+            <div className="flex items-center justify-between p-6 border-b border-stone-100">
               <div>
                 <h2 className="text-lg font-bold">Claim your listing</h2>
-                <p className="text-sm text-stone-500 mt-0.5">
-                  We&apos;ll verify and update your listing within 1–2 business days.
-                </p>
+                <p className="text-sm text-stone-500 mt-0.5">Takes 30 seconds. We&apos;ll handle the rest.</p>
               </div>
-              <button
-                onClick={close}
-                className="text-stone-400 hover:text-stone-600 text-2xl leading-none ml-4"
-              >
-                ×
-              </button>
+              <button onClick={close} className="text-stone-400 hover:text-stone-600 text-2xl leading-none ml-4">×</button>
             </div>
 
             {/* Success */}
             {status === "success" ? (
               <div className="p-8 text-center">
                 <div className="text-5xl mb-4">🎉</div>
-                <h3 className="text-xl font-bold text-stone-900 mb-2">Request received!</h3>
-                <p className="text-stone-500 text-sm mb-6">
-                  We&apos;ll reach out within 1–2 business days to verify and set up your listing.
+                <h3 className="text-xl font-bold text-stone-900 mb-2">You&apos;re all set!</h3>
+                <p className="text-stone-500 text-sm mb-5">
+                  We&apos;ve sent a confirmation to your email. We&apos;ll verify and update your listing within 1–2 business days.
                 </p>
+                <div className="bg-brand-50 border border-brand-100 rounded-xl p-4 text-left mb-5">
+                  <p className="text-xs font-semibold text-brand-700 mb-2">What happens next:</p>
+                  <ol className="text-xs text-brand-600 space-y-1 list-decimal list-inside">
+                    <li>We verify your ownership</li>
+                    <li>We update your listing with correct info</li>
+                    <li>You get featured placement in your city — free</li>
+                  </ol>
+                </div>
                 <button
                   onClick={close}
                   className="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
@@ -94,16 +95,9 @@ export default function ClaimListingButton({ shopName, shopSlug }: Props) {
               <form onSubmit={handleSubmit} className="p-6 space-y-4">
 
                 {/* Business name — readonly */}
-                <div>
-                  <label className="block text-sm font-medium text-stone-700 mb-1">
-                    Business Name
-                  </label>
-                  <input
-                    type="text"
-                    value={shopName}
-                    readOnly
-                    className="w-full border border-stone-200 rounded-lg px-3 py-2.5 text-sm bg-stone-50 text-stone-500 cursor-not-allowed"
-                  />
+                <div className="bg-stone-50 border border-stone-200 rounded-lg px-4 py-3">
+                  <p className="text-xs text-stone-400 mb-0.5">Claiming listing for</p>
+                  <p className="font-semibold text-stone-800 text-sm">{shopName}</p>
                 </div>
 
                 {/* Owner name */}
@@ -133,37 +127,23 @@ export default function ClaimListingButton({ shopName, shopSlug }: Props) {
                     required
                     value={form.email}
                     onChange={change}
-                    placeholder="you@example.com"
+                    placeholder="you@yourbusiness.com"
                     className="w-full border border-stone-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                   />
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label className="block text-sm font-medium text-stone-700 mb-1">
-                    Contact Number
-                  </label>
-                  <input
-                    name="phone"
-                    type="tel"
-                    value={form.phone}
-                    onChange={change}
-                    placeholder="(555) 000-0000"
-                    className="w-full border border-stone-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
-                  />
+                  <p className="text-xs text-stone-400 mt-1">We&apos;ll send a confirmation here — no spam, ever.</p>
                 </div>
 
                 {/* Optional message */}
                 <div>
                   <label className="block text-sm font-medium text-stone-700 mb-1">
-                    Message <span className="text-stone-400 font-normal">(optional)</span>
+                    Anything to update? <span className="text-stone-400 font-normal">(optional)</span>
                   </label>
                   <textarea
                     name="message"
-                    rows={3}
+                    rows={2}
                     value={form.message}
                     onChange={change}
-                    placeholder="e.g. Our hours have changed, or I've owned this store since 2018…"
+                    placeholder="e.g. New address, updated hours, wrong phone number…"
                     className="w-full border border-stone-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
                   />
                 </div>
@@ -189,7 +169,7 @@ export default function ClaimListingButton({ shopName, shopSlug }: Props) {
                     disabled={status === "loading"}
                     className="flex-1 bg-terra-500 hover:bg-terra-600 disabled:opacity-60 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors"
                   >
-                    {status === "loading" ? "Sending…" : "Submit"}
+                    {status === "loading" ? "Sending…" : "Claim listing →"}
                   </button>
                 </div>
               </form>
