@@ -41,7 +41,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const page = Math.max(1, parseInt(searchParams?.page ?? "1") || 1);
   const skip = (page - 1) * PAGE_SIZE;
 
-  const [total, shops] = await Promise.all([
+  const [total, rawShops] = await Promise.all([
     prisma.shop.count({ where: { active: true, categories: { has: cat.name } } }),
     prisma.shop.findMany({
       where: { active: true, categories: { has: cat.name } },
@@ -50,6 +50,12 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       take: PAGE_SIZE,
     }),
   ]);
+
+  // Reorder categories so the matching one always shows first in the badge list
+  const shops = rawShops.map(shop => ({
+    ...shop,
+    categories: [cat.name, ...shop.categories.filter(c => c !== cat.name)],
+  }));
 
   const totalPages = Math.ceil(total / PAGE_SIZE);
   const baseUrl = `/category/${params.slug}`;
