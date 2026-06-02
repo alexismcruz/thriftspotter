@@ -15,6 +15,17 @@ const TOP_STATES = [
   { abbr: "NY", name: "New York", slug: "new-york" },
 ];
 
+const CATEGORIES = [
+  { name: "Thrift Store",     slug: "thrift-store",     emoji: "🛍️" },
+  { name: "Clothing Resale",  slug: "clothing-resale",  emoji: "👗" },
+  { name: "Furniture & Home", slug: "furniture-home",   emoji: "🛋️" },
+  { name: "Vintage Store",    slug: "vintage-store",    emoji: "✨" },
+  { name: "Books & Media",    slug: "books-media",      emoji: "📚" },
+  { name: "Nonprofit Resale", slug: "nonprofit-resale", emoji: "💚" },
+  { name: "Electronics",      slug: "electronics",      emoji: "💻" },
+  { name: "Consignment Shop", slug: "consignment-shop", emoji: "🏷️" },
+];
+
 const TOP_CITIES = [
   { city: "Chicago", state: "IL", slug: "illinois/chicago" },
   { city: "Portland", state: "OR", slug: "oregon/portland" },
@@ -84,14 +95,14 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Popular Cities + Links */}
+          {/* Categories + Links */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Popular Cities</h4>
+            <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Browse by Category</h4>
             <ul className="space-y-2 text-sm">
-              {TOP_CITIES.map(({ city, state, slug }) => (
+              {CATEGORIES.map(({ name, slug, emoji }) => (
                 <li key={slug}>
-                  <Link href={`/${slug}`} className="hover:text-white transition-colors">
-                    {city}, {state}
+                  <Link href={`/category/${slug}`} className="hover:text-white transition-colors">
+                    {emoji} {name}
                   </Link>
                 </li>
               ))}
@@ -102,7 +113,7 @@ export default function Footer() {
               <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
               <li><Link href="/advertise" className="hover:text-white transition-colors">Advertise</Link></li>
               <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-              <li><Link href="/near-me" className="hover:text-white transition-colors">Stores Near Me</Link></li>
+              <li><Link href="/near-me" className="hover:text-white transition-colors">📍 Stores Near Me</Link></li>
               <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
