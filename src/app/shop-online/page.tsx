@@ -9,6 +9,90 @@ export const metadata: Metadata = {
 
 const PLATFORMS = [
   {
+    name: "Depop",
+    emoji: "👕",
+    tagline: "Buy & sell vintage & streetwear",
+    description: "Depop is the go-to app for Gen Z fashion lovers. Browse thousands of curated vintage clothing, streetwear, and designer pieces from independent sellers.",
+    highlights: ["Vintage & streetwear", "100+ million items", "Buyer protection", "Easy returns"],
+    color: "bg-blue-50 border-blue-200",
+    accentColor: "bg-blue-600",
+    textColor: "text-blue-700",
+    url: "https://www.depop.com/?utm_source=thriftspotter",
+    cta: "Shop Depop →",
+  },
+  {
+    name: "Vinted",
+    emoji: "🎨",
+    tagline: "Secondhand marketplace for all",
+    description: "Vinted is a community-powered secondhand marketplace with millions of items including clothing, shoes, and home goods at unbeatable prices.",
+    highlights: ["All clothing categories", "Affordable prices", "Secure payments", "Fast shipping"],
+    color: "bg-emerald-50 border-emerald-200",
+    accentColor: "bg-emerald-600",
+    textColor: "text-emerald-700",
+    url: "https://www.vinted.com/?utm_source=thriftspotter",
+    cta: "Shop Vinted →",
+  },
+  {
+    name: "Mercari",
+    emoji: "💎",
+    tagline: "Buy & sell secondhand treasures",
+    description: "Mercari is America's mobile marketplace for buying and selling secondhand items including fashion, collectibles, home goods, and more.",
+    highlights: ["Fashion & electronics", "Great deals", "Buyer protection", "Free shipping on select items"],
+    color: "bg-pink-50 border-pink-200",
+    accentColor: "bg-pink-600",
+    textColor: "text-pink-700",
+    url: "https://www.mercari.com/?utm_source=thriftspotter",
+    cta: "Shop Mercari →",
+  },
+  {
+    name: "Etsy",
+    emoji: "🎭",
+    tagline: "Vintage, handmade & unique items",
+    description: "Etsy is the largest marketplace for vintage goods, handmade items, and unique finds. Perfect for one-of-a-kind treasures and collectibles.",
+    highlights: ["Vintage & handmade", "Unique & rare items", "Support independent sellers", "Global marketplace"],
+    color: "bg-purple-50 border-purple-200",
+    accentColor: "bg-purple-600",
+    textColor: "text-purple-700",
+    url: "https://www.etsy.com/search/vintage?utm_source=thriftspotter",
+    cta: "Shop Etsy →",
+  },
+  {
+    name: "Grailed",
+    emoji: "👞",
+    tagline: "Menswear & streetwear marketplace",
+    description: "Grailed is the premier destination for designer menswear, vintage clothing, sneakers, and streetwear from sellers worldwide.",
+    highlights: ["Designer menswear", "Sneakers & collectibles", "Auction & fixed price", "Authentication available"],
+    color: "bg-slate-50 border-slate-200",
+    accentColor: "bg-slate-700",
+    textColor: "text-slate-700",
+    url: "https://www.grailed.com/?utm_source=thriftspotter",
+    cta: "Shop Grailed →",
+  },
+  {
+    name: "The RealReal",
+    emoji: "💼",
+    tagline: "Luxury consignment & designer resale",
+    description: "The RealReal is the leading online luxury consignment marketplace. Shop authenticated designer handbags, clothing, jewelry, and more.",
+    highlights: ["Luxury designer items", "Authenticated goods", "Concierge service", "Free shipping over $250"],
+    color: "bg-amber-50 border-amber-200",
+    accentColor: "bg-amber-700",
+    textColor: "text-amber-700",
+    url: "https://www.therealreal.com/?utm_source=thriftspotter",
+    cta: "Shop The RealReal →",
+  },
+  {
+    name: "Vestiaire Collective",
+    emoji: "✨",
+    tagline: "Pre-owned fashion from around the world",
+    description: "Vestiaire Collective is the global secondhand fashion marketplace with over 5 million items from luxury to everyday brands.",
+    highlights: ["Designer fashion", "Global community", "Buyer protection", "Easy returns"],
+    color: "bg-rose-50 border-rose-200",
+    accentColor: "bg-rose-600",
+    textColor: "text-rose-700",
+    url: "https://www.vestiairecollective.com/?utm_source=thriftspotter",
+    cta: "Shop Vestiaire →",
+  },
+  {
     name: "eBay",
     emoji: "🛒",
     tagline: "Vintage, antiques & secondhand finds",
@@ -30,7 +114,6 @@ const PLATFORMS = [
     accentColor: "bg-orange-500",
     textColor: "text-orange-700",
     url: "https://www.amazon.com/second-chance?tag=thriftspotter-20",
-    // eBay affiliate campid=7372111
     cta: "Shop Amazon →",
   },
 ];
@@ -82,7 +165,7 @@ export default function ShopOnlinePage() {
       </div>
 
       {/* Platform cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {PLATFORMS.map((p) => (
           <div key={p.name} className={`rounded-2xl border p-6 flex flex-col ${p.color}`}>
             <div className="flex items-center gap-3 mb-3">
