@@ -9,19 +9,6 @@ export const metadata: Metadata = {
 
 const PLATFORMS = [
   {
-    name: "ThredUp",
-    emoji: "👗",
-    tagline: "The world's largest online thrift store",
-    description: "ThredUp carries 35,000+ brands of gently used women's and kids' clothing at up to 90% off retail. New arrivals every day.",
-    highlights: ["35,000+ brands", "Up to 90% off retail", "Free returns on select items", "Clean Out Kits to sell your clothes"],
-    color: "bg-green-50 border-green-200",
-    accentColor: "bg-green-600",
-    textColor: "text-green-700",
-    // Replace with your affiliate link once approved
-    url: "https://www.thredup.com",
-    cta: "Shop ThredUp →",
-  },
-  {
     name: "eBay",
     emoji: "🛒",
     tagline: "Vintage, antiques & secondhand finds",
@@ -30,7 +17,7 @@ const PLATFORMS = [
     color: "bg-yellow-50 border-yellow-200",
     accentColor: "bg-yellow-500",
     textColor: "text-yellow-700",
-    url: "https://www.ebay.com",
+    url: "https://ebay.com/sch/i.html?_nkw=vintage+secondhand&campid=7372111",
     cta: "Shop eBay →",
   },
   {
@@ -43,6 +30,7 @@ const PLATFORMS = [
     accentColor: "bg-orange-500",
     textColor: "text-orange-700",
     url: "https://www.amazon.com/second-chance?tag=thriftspotter-20",
+    // eBay affiliate campid=7372111
     cta: "Shop Amazon →",
   },
 ];
