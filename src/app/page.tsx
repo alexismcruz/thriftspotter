@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import SearchBar from "@/components/SearchBar";
 import StateGrid from "@/components/StateGrid";
 import ShopCard from "@/components/ShopCard";
+import ProductCarousel from "@/components/ProductCarousel";
 import Link from "next/link";
 import { stateSlug, slugify } from "@/lib/utils";
 
@@ -154,6 +155,9 @@ export default async function HomePage() {
             ))}
           </div>
         </section>
+
+        {/* Product Carousel */}
+        <ProductCarousel />
 
         {/* Featured / Sponsored shops */}
         {featured.length > 0 && (

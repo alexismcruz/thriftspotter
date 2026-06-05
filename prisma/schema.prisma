@@ -35,3 +35,22 @@ model Shop {
   @@index([city])
   @@index([state, city])
 }
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  imageUrl    String?
+  price       String?
+  affiliate   String   // "ebay" or "amazon"
+  affiliateUrl String
+  source      String?  // e.g. "eBay", "Amazon"
+  category    String?  // e.g. "vintage-clothing", "furniture"
+  position    Int      @default(0) // order in carousel
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([affiliate])
+  @@index([active])
+}
