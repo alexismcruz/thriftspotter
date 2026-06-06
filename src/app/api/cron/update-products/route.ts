@@ -93,8 +93,11 @@ async function fetchEbayProducts(token: string): Promise<{
       const itemId = item.itemId?.replace("v1|", "").split("|")[0];
       const affiliateUrl = `https://www.ebay.com/itm/${itemId}?campid=${CAMPAIGN_ID}&mkevt=1&mkrid=711-53200-19255-0&mkcid=1`;
 
-      // Get image URL
-      const imageUrl = item.image?.imageUrl ?? item.thumbnailImages?.[0]?.imageUrl ?? null;
+      // Get image URL — upgrade to 500px size for better display
+      const rawImage = item.image?.imageUrl ?? item.thumbnailImages?.[0]?.imageUrl ?? null;
+      const imageUrl = rawImage
+        ? rawImage.replace(/s-l\d+\.jpg/, "s-l500.jpg").replace(/s-l\d+\.webp/, "s-l500.webp")
+        : null;
 
       // Determine category from item
       const catName = item.categories?.[0]?.categoryName?.toLowerCase() ?? "";
