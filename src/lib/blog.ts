@@ -7,7 +7,9 @@ export type BlogPost = {
   state?: string;
   stateSlug?: string;
   citySlug?: string;
-  category?: string; // e.g. "guide", "tips", "sustainability"
+  category?: string;
+  imageUrl?: string;   // Unsplash hero image (free to use)
+  imageAlt?: string;
   content: string;
 };
 
@@ -21,6 +23,8 @@ export const BLOG_POSTS: BlogPost[] = [
     state: "IL",
     stateSlug: "illinois",
     citySlug: "chicago",
+    imageUrl: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200&h=500&fit=crop",
+    imageAlt: "Chicago city skyline",
     content: `
 Chicago is one of the best cities in the US for thrift shopping. With dozens of thrift stores, consignment shops, vintage boutiques, and nonprofit resale stores spread across its many neighborhoods, the Windy City offers something for every secondhand shopper — whether you're hunting for vintage streetwear, mid-century furniture, or everyday essentials at rock-bottom prices.
 
@@ -61,6 +65,8 @@ ThriftSpotter lists all the major thrift stores and consignment shops in Chicago
     state: "CA",
     stateSlug: "california",
     citySlug: "los-angeles",
+    imageUrl: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?w=1200&h=500&fit=crop",
+    imageAlt: "Los Angeles skyline at sunset",
     content: `
 Los Angeles is legendary in the thrift and vintage world. From the iconic Melrose Trading Post to hidden-gem Goodwill outlets, LA has a thriving secondhand scene that attracts everyone from budget shoppers to celebrity stylists hunting for vintage gold.
 
@@ -101,6 +107,8 @@ ThriftSpotter lists hundreds of thrift stores across LA County. Browse by city, 
     state: "TX",
     stateSlug: "texas",
     citySlug: "houston",
+    imageUrl: "https://images.unsplash.com/photo-1605723517503-3cadb5818a0c?w=1200&h=500&fit=crop",
+    imageAlt: "Houston Texas cityscape",
     content: `
 Houston is one of America's largest cities — and its thrift store scene matches its size. From massive Goodwill and Salvation Army locations to independent resale boutiques scattered across the Heights, Montrose, and Midtown, Houston has something for every type of secondhand shopper.
 
@@ -146,6 +154,8 @@ Use ThriftSpotter to browse all thrift stores in Houston and surrounding suburbs
     state: "NY",
     stateSlug: "new-york",
     citySlug: "new-york-city",
+    imageUrl: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=1200&h=500&fit=crop",
+    imageAlt: "New York City street view",
     content: `
 New York City has one of the most exciting and diverse thrift scenes in the world. From the beloved Housing Works thrift shops to overflowing Goodwill stores in the outer boroughs, NYC offers endless secondhand shopping for every budget and taste.
 
@@ -186,6 +196,8 @@ ThriftSpotter lists thrift stores and consignment shops across all five NYC boro
     state: "AZ",
     stateSlug: "arizona",
     citySlug: "phoenix",
+    imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=500&fit=crop",
+    imageAlt: "Phoenix Arizona desert landscape",
     content: `
 Phoenix and the surrounding Valley of the Sun — including Mesa, Tempe, Scottsdale, and Chandler — have a remarkably active thrift store scene. With a large retiree population, frequent relocations, and a year-round warm climate that keeps donations flowing, Phoenix is a consistently excellent place to go thrifting.
 
@@ -235,6 +247,8 @@ ThriftSpotter lists thrift stores across Phoenix and all Valley cities. Browse b
     description: "Fast fashion is one of the world's biggest polluters. Here's the data — and how choosing secondhand clothing is one of the easiest ways to make a real difference.",
     publishedAt: "2026-06-07",
     category: "Sustainability",
+    imageUrl: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1200&h=500&fit=crop",
+    imageAlt: "Clothing hanging on racks in a thrift store",
     content: `
 *affiliate-disclosure*
 
@@ -303,6 +317,8 @@ ThriftSpotter makes it easy to find thrift stores, consignment shops, and second
     description: "Whether you're trying to save money, find unique pieces, or just live more sustainably — thrift shopping has something for everyone. Here are 10 reasons to start.",
     publishedAt: "2026-06-07",
     category: "Tips & Guides",
+    imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=500&fit=crop",
+    imageAlt: "Colorful secondhand clothing on display in a shop",
     content: `
 *affiliate-disclosure*
 
@@ -375,6 +391,8 @@ The best thing about thrifting is there's no barrier to entry. You don't need a 
     description: "Planning a road trip? These 10 American cities have thriving thrift scenes worth a detour. From Chicago to Portland, here's where to hunt for secondhand treasures on the road.",
     publishedAt: "2026-06-08",
     category: "Road Trip Guide",
+    imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&h=500&fit=crop",
+    imageAlt: "Open road through America on a road trip",
     content: `
 *affiliate-disclosure*
 
@@ -473,6 +491,8 @@ ThriftSpotter lists thrift stores across all 50 states. Before you leave, map yo
     description: "You don't need to spend thousands to dress well. Here's a practical guide to building a complete, stylish wardrobe using thrift stores and secondhand platforms — for under $200.",
     publishedAt: "2026-06-08",
     category: "Style Guide",
+    imageUrl: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=1200&h=500&fit=crop",
+    imageAlt: "Stylish wardrobe with organized clothing",
     content: `
 *affiliate-disclosure*
 
@@ -563,6 +583,8 @@ The thrifters with the best wardrobes aren't the ones who spend the most. They'r
     description: "Never been to a thrift store? Or been but didn't know where to start? This complete guide covers everything you need to know to start thrifting like a pro.",
     publishedAt: "2026-06-08",
     category: "Beginner's Guide",
+    imageUrl: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=1200&h=500&fit=crop",
+    imageAlt: "Person browsing clothing racks at a thrift store",
     content: `
 *affiliate-disclosure*
 
