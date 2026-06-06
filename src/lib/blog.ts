@@ -3,10 +3,11 @@ export type BlogPost = {
   title: string;
   description: string;
   publishedAt: string;
-  city: string;
-  state: string;
-  stateSlug: string;
-  citySlug: string;
+  city?: string;
+  state?: string;
+  stateSlug?: string;
+  citySlug?: string;
+  category?: string; // e.g. "guide", "tips", "sustainability"
   content: string;
 };
 
@@ -224,6 +225,433 @@ A few factors make Phoenix particularly good for secondhand shopping:
 ## Find Thrift Stores in Phoenix on ThriftSpotter
 
 ThriftSpotter lists thrift stores across Phoenix and all Valley cities. Browse by city, get directions, and find your next great deal — free.
+    `.trim(),
+  },
+
+  // ── Affiliate / Guide Posts ─────────────────────────────────────────────────
+  {
+    slug: "fast-fashion-environmental-impact-why-thrift",
+    title: "The True Cost of Fast Fashion (And Why Thrifting is the Answer)",
+    description: "Fast fashion is one of the world's biggest polluters. Here's the data — and how choosing secondhand clothing is one of the easiest ways to make a real difference.",
+    publishedAt: "2026-06-07",
+    category: "Sustainability",
+    content: `
+*affiliate-disclosure*
+
+Every year, the fashion industry produces over 92 million tons of textile waste. That's the equivalent of a garbage truck full of clothes dumped into a landfill every single second. Behind food and oil, fashion is the world's third-largest polluter — and fast fashion is driving most of it.
+
+But there's an easy, affordable, and actually enjoyable alternative: **buying secondhand**.
+
+## What Is Fast Fashion?
+
+Fast fashion refers to cheap, trend-driven clothing produced at high speed by mass-market retailers. Brands like Shein, H&M, Zara, and others churn out thousands of new styles every week, designed to be worn a few times and discarded. The business model depends on low prices, rapid production cycles, and consumers buying more than they need.
+
+The environmental cost is enormous.
+
+## The Environmental Impact of Fast Fashion
+
+**Water consumption:** It takes approximately 2,700 liters of water to produce a single cotton T-shirt — the equivalent of what one person drinks over two and a half years. The fashion industry consumes 79 trillion liters of water per year globally.
+
+**Carbon emissions:** The fashion industry is responsible for 10% of global carbon emissions annually — more than all international flights and maritime shipping combined. Synthetic fabrics like polyester are derived from fossil fuels and release microplastics with every wash.
+
+**Textile waste:** Americans throw away about 81 pounds of clothing per person every year. 85% of all textiles end up in landfills or incinerators — including donations that can't be resold.
+
+**Toxic chemicals:** Dyeing and finishing textiles accounts for 20% of global water pollution. Many factories in developing countries discharge untreated wastewater directly into rivers and waterways.
+
+**Worker exploitation:** The fast fashion model depends on ultra-cheap labor. Garment workers — mostly women in developing countries — are often paid poverty wages in unsafe conditions.
+
+## Why Thrifting Is One of the Best Things You Can Do
+
+Buying secondhand directly counters every one of those problems:
+
+- **No new production** = no new water use, emissions, or chemical processes
+- **Extends the life of clothing** that would otherwise end up in landfill
+- **Supports circular economy** — keeping garments in use longer reduces waste
+- **Saves money** — secondhand clothing costs a fraction of retail
+- **Reduces demand** for fast fashion, which signals to brands that overconsumption isn't sustainable
+
+A 2019 ThredUp study found that buying one used item instead of new saves an average of 82% of the CO₂, 66% of the energy, and 57% of the water that would have gone into making that item new.
+
+## Where to Start: In-Store and Online
+
+The easiest way to start buying secondhand is to visit your local thrift store. [ThriftSpotter lists 5,600+ thrift stores across the US](https://www.thriftspotter.com) — free to browse, no sign-up needed.
+
+If you prefer shopping online, here are the best options:
+
+**[Shop pre-owned luxury on The RealReal](https://www.therealreal.com/?utm_source=thriftspotter)** — authenticated designer clothing, handbags, and jewelry at a fraction of retail. Buying luxury secondhand is one of the most impactful choices you can make, because luxury goods are built to last — they just need a new home.
+
+**[Browse vintage finds on eBay](https://www.ebay.com/sch/i.html?_nkw=vintage+secondhand+clothing&campid=7372111)** — millions of secondhand clothing items, accessories, and home goods from independent sellers across the US.
+
+**[Open-box and refurbished deals on Amazon](https://www.amazon.com/second-chance?tag=thriftspotter-20)** — great for electronics, kitchen appliances, and home goods that have been returned or lightly used.
+
+## Small Actions, Big Impact
+
+You don't have to overhaul your entire wardrobe overnight. Even buying just **one secondhand item per month instead of new** makes a measurable difference over time. If every American bought one used item a year instead of new, it would save 5.7 billion pounds of CO₂.
+
+The next time you need something — a jacket, a piece of furniture, a birthday gift — try secondhand first. Your wallet and the planet will both thank you.
+
+## Find a Thrift Store Near You
+
+ThriftSpotter makes it easy to find thrift stores, consignment shops, and secondhand stores anywhere in the US. Browse by city or state, get directions, and discover stores you never knew existed — completely free.
+
+[Find thrift stores near you →](https://www.thriftspotter.com/near-me)
+    `.trim(),
+  },
+  {
+    slug: "10-reasons-to-start-thrifting",
+    title: "10 Reasons to Start Thrifting Today (And Never Stop)",
+    description: "Whether you're trying to save money, find unique pieces, or just live more sustainably — thrift shopping has something for everyone. Here are 10 reasons to start.",
+    publishedAt: "2026-06-07",
+    category: "Tips & Guides",
+    content: `
+*affiliate-disclosure*
+
+Thrift shopping used to carry a stigma. Now it's one of the fastest-growing retail trends in America — and for good reason. Whether you're a college student on a tight budget, a vintage fashion enthusiast, or someone who just wants to live a little more sustainably, there's a compelling case for making secondhand your first choice.
+
+Here are 10 reasons to start thrifting — and why you won't want to stop.
+
+## 1. Save Serious Money
+
+The average American spends over $1,800 per year on clothing. Thrift store prices are typically 70–90% less than retail. A name-brand jacket that costs $120 new might be $8 at Goodwill. Over a year, regular thrifters can save hundreds — sometimes thousands — of dollars.
+
+## 2. Find Truly Unique Pieces
+
+Mass-market retail means millions of people wearing the same thing. Thrift stores are full of one-of-a-kind items that nobody else will have — vintage denim from the 80s, a hand-painted ceramic vase, a barely-used designer bag at a fraction of retail. Every visit is a treasure hunt.
+
+**[Browse unique vintage finds on eBay →](https://www.ebay.com/sch/i.html?_nkw=vintage+unique+finds&campid=7372111)**
+
+## 3. It's Good for the Planet
+
+The fashion industry is one of the world's biggest polluters. Buying secondhand extends the life of clothing and reduces the demand for new production, cutting carbon emissions, water use, and textile waste. One secondhand purchase can save up to 82% of the CO₂ that would have gone into making that item new.
+
+## 4. Better Quality Than You'd Expect
+
+Older clothing was often made to last. Pre-1990s denim, wool coats, leather goods — many of these items have outlasted decades of use and still have years left in them. The quality of vintage clothing often far exceeds what you'd find at a fast fashion retailer today.
+
+## 5. Score Designer and Luxury Items
+
+Consignment stores and online platforms carry authenticated luxury goods — designer handbags, jewelry, high-end clothing — at a fraction of their original price.
+
+**[Shop authenticated luxury on The RealReal →](https://www.therealreal.com/?utm_source=thriftspotter)**
+
+## 6. Support Local Communities
+
+Most nonprofit thrift stores — Goodwill, Salvation Army, Habitat for Humanity ReStores — funnel their profits back into community programs, job training, housing, and social services. Every dollar you spend there does double duty.
+
+## 7. Thrift Shopping Is Actually Fun
+
+There's a reason people call it a treasure hunt. The unpredictability is part of the appeal. You never know what you'll find — and the thrill of discovering something amazing for a few dollars is hard to match.
+
+## 8. Great for Home Décor
+
+Thrift stores aren't just for clothes. Furniture, art, kitchenware, lighting, books — all at prices that make decorating your home actually affordable. Many thrifters furnish entire rooms for under $200.
+
+**[Find secondhand home goods on eBay →](https://www.ebay.com/sch/i.html?_nkw=vintage+home+decor&campid=7372111)**
+
+## 9. Care for Your Finds — Tools That Help
+
+Once you start thrifting, a few affordable tools make a big difference:
+
+- A **[clothes steamer](https://www.amazon.com/s?k=clothes+steamer&tag=thriftspotter-20)** freshens up finds without washing
+- A **[fabric shaver](https://www.amazon.com/s?k=fabric+shaver&tag=thriftspotter-20)** removes pilling from older garments
+- A **[garment rack](https://www.amazon.com/s?k=garment+rack&tag=thriftspotter-20)** lets you sort and display your hauls
+
+## 10. There's a Thrift Store Everywhere
+
+With over 25,000 thrift stores across the US, you're never far from a good one. ThriftSpotter lists 5,600+ stores across all 50 states — browse by city or use your location to find the closest one.
+
+**[Find thrift stores near you →](https://www.thriftspotter.com/near-me)**
+
+## Ready to Start?
+
+The best thing about thrifting is there's no barrier to entry. You don't need a membership, a special app, or any upfront investment. Just walk into your nearest thrift store and start exploring. You might be surprised what you find.
+
+[Browse thrift stores in your state →](https://www.thriftspotter.com)
+    `.trim(),
+  },
+  {
+    slug: "road-trip-thrift-stores-across-america",
+    title: "The Ultimate Road Trip Thrift Store Guide: 10 US Cities Worth a Stop",
+    description: "Planning a road trip? These 10 American cities have thriving thrift scenes worth a detour. From Chicago to Portland, here's where to hunt for secondhand treasures on the road.",
+    publishedAt: "2026-06-08",
+    category: "Road Trip Guide",
+    content: `
+*affiliate-disclosure*
+
+Road trips are one of the great American traditions. And if you're a thrift lover, the open road means one thing: new cities, new stores, and totally different inventory you'd never find at home.
+
+We've put together a guide to 10 US cities with thriving thrift scenes that are worth building into your route. Whether you're driving cross-country or taking a weekend trip, these cities will reward you with incredible finds.
+
+**Before you go:** Pack a [foldable storage bin](https://www.amazon.com/s?k=foldable+storage+bins+car&tag=thriftspotter-20) for your trunk, a [reusable tote bag](https://www.amazon.com/s?k=reusable+tote+bags+large&tag=thriftspotter-20) for each store, and a [portable garment steamer](https://www.amazon.com/s?k=portable+travel+steamer+clothes&tag=thriftspotter-20) for freshening finds before you check into your next hotel.
+
+## 1. Chicago, IL
+
+Chicago is one of America's best thrifting cities. Wicker Park and Logan Square are packed with vintage boutiques, while South Side Goodwill locations have incredible inventory and turnover. The sheer size of the city means donations are plentiful and varied.
+
+[Browse thrift stores in Chicago →](https://www.thriftspotter.com/illinois/chicago)
+
+## 2. Portland, OR
+
+Portland has a cult following in the thrift world. The city's commitment to sustainability has created a culture where secondhand is the default, not the exception. Expect highly curated vintage stores alongside massive Goodwill outlets with rotating stock.
+
+[Browse thrift stores in Portland →](https://www.thriftspotter.com/oregon/portland)
+
+## 3. Austin, TX
+
+Austin's eclectic culture makes for an eclectic thrift scene. Vintage western wear, vinyl records, quirky home décor — Austin thrift stores reflect the city's creative personality. The Hyde Park and South Congress neighborhoods are especially good for independent vintage shops.
+
+[Browse thrift stores in Austin →](https://www.thriftspotter.com/texas/austin)
+
+## 4. Los Angeles, CA
+
+LA is legendary for thrifting. The Goodwill Outlet (aka "the bins") lets you buy by the pound. Melrose Avenue has dozens of vintage shops. And with a huge population constantly turning over wardrobes, inventory is always fresh.
+
+[Browse thrift stores in Los Angeles →](https://www.thriftspotter.com/california/los-angeles)
+
+## 5. Denver, CO
+
+Denver's outdoor culture means thrift stores are full of barely-used hiking gear, ski equipment, and outdoor clothing. It's one of the best cities in the country for finding quality outdoor gear at secondhand prices.
+
+[Browse thrift stores in Denver →](https://www.thriftspotter.com/colorado/denver)
+
+## 6. Nashville, TN
+
+Nashville's thrift scene has exploded with the city's growth. Vintage western wear, cowboy boots, and country music memorabilia are common finds. The East Nashville neighborhood has particularly great independent stores.
+
+[Browse thrift stores in Tennessee →](https://www.thriftspotter.com/tennessee)
+
+## 7. New York City, NY
+
+NYC has some of the most famous thrift stores in the world — Housing Works, Beacon's Closet, and dozens of Goodwill and Salvation Army locations across the five boroughs. Donation volumes are staggering and quality is high.
+
+[Browse thrift stores in New York City →](https://www.thriftspotter.com/new-york/new-york)
+
+## 8. Seattle, WA
+
+Seattle's progressive culture embraces secondhand shopping. The city has excellent consignment stores, vintage shops, and a thriving Goodwill network. Tech worker relocations mean high-quality electronics and home goods show up regularly.
+
+[Browse thrift stores in Seattle →](https://www.thriftspotter.com/washington/seattle)
+
+## 9. Phoenix, AZ
+
+Phoenix is a hidden gem for thrifters. The snowbird population (seasonal residents who head north in spring) donates heavily, creating a surge of high-quality goods every April and May. Furniture, home goods, and outdoor equipment are standout finds here.
+
+[Browse thrift stores in Phoenix →](https://www.thriftspotter.com/arizona/phoenix)
+
+## 10. Kansas City, MO
+
+Kansas City is underrated on the thrifting circuit. Lower competition, excellent Goodwill and Salvation Army locations, and a growing vintage scene in the Crossroads Arts District make it a must-stop for serious thrifters driving through the Midwest.
+
+[Browse thrift stores in Kansas City →](https://www.thriftspotter.com/missouri/kansas-city)
+
+## Road Trip Thrifting Tips
+
+- **Call ahead** to check store hours before making a long detour
+- **Go early** — the best finds disappear fast, especially on weekends
+- **Bring a measuring tape** for furniture and home goods
+- **Ship large finds home** rather than cramming them in your car
+- **Budget per city** — it's easy to overspend when every store is new to you
+
+## Can't Stop In Person?
+
+If you can't make every city on your list, you can still shop their thrift scene online.
+
+**[Browse vintage finds on eBay →](https://www.ebay.com/sch/i.html?_nkw=vintage+thrift+find&campid=7372111)** — sellers across all these cities list items daily.
+
+**[Shop authenticated pre-owned luxury on The RealReal →](https://www.therealreal.com/?utm_source=thriftspotter)** — great for higher-end pieces from consignment stores you didn't get to visit.
+
+## Find Every Store on Your Route
+
+ThriftSpotter lists thrift stores across all 50 states. Before you leave, map your route and look up stores in every city you're passing through.
+
+[Start planning your thrift road trip →](https://www.thriftspotter.com)
+    `.trim(),
+  },
+  {
+    slug: "build-stylish-wardrobe-secondhand-under-200",
+    title: "How to Build a Stylish Wardrobe for Under $200 with Secondhand Shopping",
+    description: "You don't need to spend thousands to dress well. Here's a practical guide to building a complete, stylish wardrobe using thrift stores and secondhand platforms — for under $200.",
+    publishedAt: "2026-06-08",
+    category: "Style Guide",
+    content: `
+*affiliate-disclosure*
+
+The average American spends over $1,800 per year on clothing. But with a strategic approach to thrift shopping, you can build a complete, versatile, and genuinely stylish wardrobe for under $200 — and have money left over.
+
+This isn't about looking cheap. It's about shopping smart.
+
+## Why Secondhand First?
+
+Buying secondhand gives you access to:
+- **Higher quality clothing** at lower prices (older garments were often better made)
+- **Unique pieces** nobody else will have
+- **Brand names and designer items** at a fraction of retail
+- **A more sustainable wardrobe** that's better for the planet
+
+The key is knowing what to look for, where to find it, and how to care for what you buy.
+
+## Your $200 Wardrobe Budget Breakdown
+
+Here's a realistic budget for building a complete wardrobe from scratch:
+
+- **Tops (5–8 pieces):** $25–40
+- **Bottoms (3–4 pieces):** $20–35
+- **Outerwear (1–2 pieces):** $30–50
+- **Shoes (1–2 pairs):** $20–40
+- **Accessories:** $10–20
+- **Care tools:** $15–25
+
+Total: under $200 — with room to spare.
+
+## What to Prioritize at Thrift Stores
+
+**Invest in classics:** Look for timeless pieces — a well-fitted denim jacket, a white button-down, a neutral blazer, dark jeans. These never go out of style and work across dozens of outfits.
+
+**Check the fabric:** Natural fibers (cotton, wool, silk, linen) look better, last longer, and feel better than synthetics. Check labels before buying.
+
+**Inspect carefully:** Hold items up to the light. Check seams, zippers, collars, and armpits for stains or damage. Minor repairs are fine; major damage usually isn't worth it.
+
+**Think in outfits:** Don't buy individual pieces — buy things that work together. A $4 shirt only adds value if it pairs with things you already own.
+
+## Best Places to Shop
+
+### In-Store
+[Find thrift stores near you on ThriftSpotter →](https://www.thriftspotter.com/near-me) — search by city or use your location to find stores within a few miles.
+
+### Online
+**[Shop vintage clothing on eBay →](https://www.ebay.com/sch/i.html?_nkw=vintage+clothing+lot&campid=7372111)** — search by size, brand, or style. Great for building a specific aesthetic.
+
+**[Shop authenticated designer on The RealReal →](https://www.therealreal.com/?utm_source=thriftspotter)** — if you want one or two investment pieces (a great bag, a designer coat), The RealReal has authenticated luxury at consignment prices.
+
+**[Browse pre-owned Amazon items →](https://www.amazon.com/second-chance?tag=thriftspotter-20)** — excellent for basics like belts, bags, and accessories.
+
+## How to Care for Your Finds
+
+Thrifted clothing sometimes needs a little TLC before it's wear-ready. A few affordable tools go a long way:
+
+**[Clothes steamer](https://www.amazon.com/s?k=clothes+steamer&tag=thriftspotter-20)** — removes wrinkles and freshens fabric without washing. A must-have for thrifters. (~$25–40)
+
+**[Fabric shaver](https://www.amazon.com/s?k=fabric+shaver&tag=thriftspotter-20)** — removes pilling from sweaters and wool items, making them look brand new. (~$10–15)
+
+**[Laundry mesh bags](https://www.amazon.com/s?k=mesh+laundry+bags&tag=thriftspotter-20)** — protect delicate thrifted items in the wash. (~$8–12)
+
+**[Stain remover pen](https://www.amazon.com/s?k=stain+remover+pen+clothes&tag=thriftspotter-20)** — essential for treating small stains before they set. (~$5–8)
+
+With proper care, secondhand clothing can last for years — often longer than new fast fashion items.
+
+## Building vs. Buying: The Long Game
+
+The best thrift wardrobes are built slowly. Resist the urge to buy everything at once. Instead:
+
+- Shop with intention — know what gaps you're filling
+- Set a per-visit budget and stick to it
+- Take photos of items you already own so you can check fit and color when you're in the store
+- Return regularly — inventory changes constantly, and patience always pays off
+
+The thrifters with the best wardrobes aren't the ones who spend the most. They're the ones who shop the smartest.
+
+## Start Today
+
+[Find a thrift store near you on ThriftSpotter →](https://www.thriftspotter.com/near-me)
+
+[Shop secondhand online →](https://www.thriftspotter.com/shop-online)
+    `.trim(),
+  },
+  {
+    slug: "beginners-guide-thrift-store-shopping",
+    title: "The Complete Beginner's Guide to Thrift Store Shopping",
+    description: "Never been to a thrift store? Or been but didn't know where to start? This complete guide covers everything you need to know to start thrifting like a pro.",
+    publishedAt: "2026-06-08",
+    category: "Beginner's Guide",
+    content: `
+*affiliate-disclosure*
+
+Walking into a thrift store for the first time can be overwhelming. Rows and rows of clothing, random housewares, stacks of books, mismatched furniture — where do you even begin?
+
+The answer: with a plan. This beginner's guide covers everything you need to know to thrift confidently, find great pieces, and avoid the common mistakes first-timers make.
+
+## What Is a Thrift Store?
+
+A thrift store (also called a secondhand store or resale shop) sells donated or consigned goods at reduced prices. Most thrift stores accept clothing, furniture, housewares, books, electronics, and more from community members, then resell those items — often at 80–95% below retail.
+
+Common types of thrift stores include:
+
+- **Nonprofit thrift stores** (Goodwill, Salvation Army, Habitat ReStore) — profits support community programs
+- **Consignment shops** — sellers receive a percentage when their items sell
+- **Vintage stores** — curated secondhand, often priced higher
+- **Online thrift platforms** — eBay, The RealReal, Amazon Second Chance
+
+## What to Bring
+
+Before your first thrift store visit, pack:
+
+- A **[reusable tote bag](https://www.amazon.com/s?k=large+reusable+tote+bag&tag=thriftspotter-20)** — many stores charge for bags or don't provide them
+- Your **measurements** (chest, waist, hips, inseam) saved in your phone — sizes vary wildly in older clothing
+- A **[small measuring tape](https://www.amazon.com/s?k=tape+measure+small&tag=thriftspotter-20)** — useful for furniture and home goods
+- **Comfortable clothes** you can move around in (some stores have no fitting rooms)
+- **A budget** — it's easy to overbuy when prices are low
+
+## When to Go
+
+Timing your thrift store visit makes a real difference:
+
+**Best days:** Weekdays (Tuesday–Thursday) typically have less competition. Weekends bring bigger crowds.
+
+**Best times:** Mid-morning to early afternoon, after the store has restocked from the previous day's donations.
+
+**Best seasons:**
+- **January** — post-holiday donations surge
+- **April/May** — spring cleaning donations
+- **August/September** — back-to-school and college move-out donations
+
+## How to Shop Efficiently
+
+Thrift stores are organized by category and color, not brand or style. Here's how to navigate them:
+
+**Start with your list.** Know what you're looking for before you walk in. Are you looking for work clothes? A winter coat? Kitchen items? A specific color palette? Going in with intention keeps you from buying things you don't need.
+
+**Shop by section.** Move through sections methodically — don't just browse randomly. Go through women's tops, then bottoms, then outerwear, and so on.
+
+**Check every tag.** Sizes in thrifted clothing are unreliable. A garment marked "Large" from the 1980s may fit like a modern Small. Check tags for brand, size, and material — and always try things on if possible.
+
+**Inspect everything.** Hold clothing up to the light to check for holes and stains. Check zippers, buttons, and seams. Look for pilling, fading, and odors. Some issues are easy fixes; others are deal-breakers.
+
+## Caring for Your Finds
+
+Once you get home, give everything a proper clean before wearing:
+
+- Machine wash clothing according to label instructions
+- Use a **[clothes steamer](https://www.amazon.com/s?k=clothes+steamer&tag=thriftspotter-20)** to freshen and dewrinkle items quickly
+- Use a **[fabric shaver](https://www.amazon.com/s?k=fabric+shaver&tag=thriftspotter-20)** to remove pilling from sweaters and knitwear
+- Treat any stains immediately with a **[stain remover](https://www.amazon.com/s?k=laundry+stain+remover&tag=thriftspotter-20)**
+
+## Common Beginner Mistakes
+
+**Buying things just because they're cheap.** A $2 item you'll never wear is still $2 wasted. Only buy things you'd be excited to own at any price.
+
+**Skipping the inspection.** Always check for damage before you buy. A small stain on the front of a shirt is rarely worth fixing.
+
+**Going without a plan.** Random thrifting leads to random purchases. Know what you're looking for.
+
+**Giving up after one visit.** Thrift store inventory changes daily. If your first visit is disappointing, try again — or try a different store.
+
+## Shopping Online: When In-Store Isn't Enough
+
+Can't find what you're looking for locally? Online secondhand platforms have millions of items:
+
+**[eBay](https://www.ebay.com/sch/i.html?_nkw=secondhand+vintage&campid=7372111)** — the largest secondhand marketplace in the world. Great for clothing, furniture, collectibles, and electronics.
+
+**[The RealReal](https://www.therealreal.com/?utm_source=thriftspotter)** — authenticated luxury and designer goods at consignment prices.
+
+**[Amazon Second Chance](https://www.amazon.com/second-chance?tag=thriftspotter-20)** — open-box and refurbished electronics and home goods from Amazon's network.
+
+## Find a Thrift Store Near You
+
+ThriftSpotter lists 5,600+ thrift stores, consignment shops, and secondhand stores across all 50 US states. Browse by city or use your current location — it's completely free.
+
+[Find thrift stores near you →](https://www.thriftspotter.com/near-me)
+
+Happy thrifting! 🛍️
     `.trim(),
   },
 ];

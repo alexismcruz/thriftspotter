@@ -26,30 +26,72 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function renderInline(text: string, keyPrefix: number): React.ReactNode {
+  // Handle [text](url) links + **bold**
+  const parts = text.split(/(\[.*?\]\(.*?\)|\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    const linkMatch = part.match(/^\[(.*?)\]\((.*?)\)$/);
+    if (linkMatch) {
+      const isAffiliate = linkMatch[2].includes("campid=") || linkMatch[2].includes("tag=") || linkMatch[2].includes("therealreal");
+      return (
+        <a
+          key={`${keyPrefix}-${i}`}
+          href={linkMatch[2]}
+          target="_blank"
+          rel={isAffiliate ? "noopener noreferrer nofollow sponsored" : "noopener noreferrer"}
+          className="text-brand-600 font-medium underline hover:text-brand-700 transition-colors"
+        >
+          {linkMatch[1]}
+        </a>
+      );
+    }
+    const boldMatch = part.match(/^\*\*(.*?)\*\*$/);
+    if (boldMatch) return <strong key={`${keyPrefix}-${i}`}>{boldMatch[1]}</strong>;
+    return part;
+  });
+}
+
 function renderContent(content: string) {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
   let key = 0;
+  let inList = false;
+  let listItems: React.ReactNode[] = [];
+
+  const flushList = () => {
+    if (listItems.length > 0) {
+      elements.push(<ul key={key++} className="list-disc ml-6 space-y-1 my-2">{listItems}</ul>);
+      listItems = [];
+      inList = false;
+    }
+  };
 
   for (const line of lines) {
     if (line.startsWith("## ")) {
+      flushList();
       elements.push(<h2 key={key++} className="text-xl font-bold text-stone-900 mt-8 mb-3">{line.slice(3)}</h2>);
-    } else if (line.startsWith("**") && line.endsWith("**")) {
-      elements.push(<p key={key++} className="font-semibold text-stone-800 mt-4 mb-1">{line.slice(2, -2)}</p>);
+    } else if (line.startsWith("### ")) {
+      flushList();
+      elements.push(<h3 key={key++} className="text-lg font-bold text-stone-800 mt-6 mb-2">{line.slice(4)}</h3>);
     } else if (line.startsWith("- ")) {
-      elements.push(<li key={key++} className="ml-4 text-stone-600">{line.slice(2)}</li>);
+      inList = true;
+      listItems.push(<li key={listItems.length} className="text-stone-600">{renderInline(line.slice(2), key)}</li>);
     } else if (line.trim() === "") {
+      flushList();
       elements.push(<div key={key++} className="h-2" />);
-    } else {
-      // Handle inline bold
-      const parts = line.split(/\*\*(.*?)\*\*/g);
-      const rendered = parts.map((part, i) =>
-        i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+    } else if (line.startsWith("*affiliate-disclosure*")) {
+      flushList();
+      elements.push(
+        <p key={key++} className="text-xs text-stone-400 italic border-t border-stone-100 pt-4 mt-4">
+          This post contains affiliate links. ThriftSpotter may earn a commission at no extra cost to you.
+        </p>
       );
-      elements.push(<p key={key++} className="text-stone-600 leading-relaxed">{rendered}</p>);
+    } else {
+      flushList();
+      elements.push(<p key={key++} className="text-stone-600 leading-relaxed">{renderInline(line, key)}</p>);
     }
   }
-
+  flushList();
   return elements;
 }
 
@@ -77,13 +119,13 @@ export default function BlogPostPage({ params }: Props) {
           <span className="mx-2">›</span>
           <Link href="/blog" className="hover:text-brand-600">Blog</Link>
           <span className="mx-2">›</span>
-          <span className="text-stone-800 font-medium">{post.city}</span>
+          <span className="text-stone-800 font-medium">{post.city ?? post.category ?? "Guide"}</span>
         </nav>
 
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-xs bg-brand-50 text-brand-600 border border-brand-100 px-2 py-0.5 rounded-full font-medium">
-              {post.city}, {post.state}
+              {post.city ? `${post.city}, ${post.state}` : (post.category ?? "Thrift Guide")}
             </span>
             <span className="text-xs text-stone-400">
               {new Date(post.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
@@ -99,14 +141,37 @@ export default function BlogPostPage({ params }: Props) {
 
         {/* CTA */}
         <div className="mt-12 bg-brand-50 border border-brand-100 rounded-2xl p-6 text-center">
-          <h3 className="font-bold text-stone-900 mb-2">Find thrift stores in {post.city}</h3>
-          <p className="text-stone-500 text-sm mb-4">Browse all listings, get directions, and discover new spots — free.</p>
-          <Link
-            href={`/${post.stateSlug}/${post.citySlug}`}
-            className="inline-block bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-brand-700 transition-colors text-sm"
-          >
-            Browse {post.city} thrift stores →
-          </Link>
+          {post.city && post.stateSlug && post.citySlug ? (
+            <>
+              <h3 className="font-bold text-stone-900 mb-2">Find thrift stores in {post.city}</h3>
+              <p className="text-stone-500 text-sm mb-4">Browse all listings, get directions, and discover new spots — free.</p>
+              <Link
+                href={`/${post.stateSlug}/${post.citySlug}`}
+                className="inline-block bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-brand-700 transition-colors text-sm"
+              >
+                Browse {post.city} thrift stores →
+              </Link>
+            </>
+          ) : (
+            <>
+              <h3 className="font-bold text-stone-900 mb-2">Find thrift stores near you</h3>
+              <p className="text-stone-500 text-sm mb-4">Browse 5,600+ thrift stores across all 50 US states — free, no sign-up needed.</p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href="/"
+                  className="inline-block bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-brand-700 transition-colors text-sm"
+                >
+                  Find stores near me →
+                </Link>
+                <Link
+                  href="/shop-online"
+                  className="inline-block border border-brand-300 text-brand-600 font-semibold px-6 py-3 rounded-xl hover:bg-brand-50 transition-colors text-sm"
+                >
+                  Shop thrift online →
+                </Link>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Related posts */}
