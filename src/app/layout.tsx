@@ -27,12 +27,6 @@ export const metadata: Metadata = {
     title: "ThriftSpotter — Find Thrift Stores Near You",
     description: "Discover thrift stores, consignment shops, and secondhand stores across all 50 states. Free directory, no sign-up needed.",
   },
-  verification: {
-    yandex: "0dd9cc69ad01a924",
-    other: {
-      "msvalidate.01": ["5A05CE81891A60CA87B2515CD7F821CA"],
-    },
-  },
 };
 
 export const viewport = {
@@ -43,6 +37,10 @@ export const viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="msvalidate.01" content="5A05CE81891A60CA87B2515CD7F821CA" />
+        <meta name="yandex-verification" content="0dd9cc69ad01a924" />
+      </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
         <header className="bg-white border-b border-stone-200 sticky top-0 z-50">
           <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
