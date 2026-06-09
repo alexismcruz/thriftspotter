@@ -28,7 +28,10 @@ export const metadata: Metadata = {
     description: "Discover thrift stores, consignment shops, and secondhand stores across all 50 states. Free directory, no sign-up needed.",
   },
   verification: {
-    other: { "msvalidate.01": "5A05CE81891A60CA87B2515CD7F821CA" },
+    other: {
+      "msvalidate.01": "5A05CE81891A60CA87B2515CD7F821CA",
+      "yandex-verification": "0dd9cc69ad01a924",
+    },
   },
 };
 
