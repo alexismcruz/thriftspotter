@@ -70,11 +70,12 @@ export default function AdvertisePage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-14 text-center">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-14 text-center">
         {[
+          { stat: "2,000+", label: "Monthly visitors" },
+          { stat: "5,900+", label: "Monthly page views" },
           { stat: "5,600+", label: "Businesses listed" },
           { stat: "50", label: "States covered" },
-          { stat: "100%", label: "Free to get listed" },
         ].map(({ stat, label }) => (
           <div key={label} className="bg-white rounded-xl border border-stone-200 py-6 px-4">
             <div className="text-3xl font-bold text-brand-600 mb-1">{stat}</div>
