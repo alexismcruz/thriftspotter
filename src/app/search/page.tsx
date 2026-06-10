@@ -20,8 +20,11 @@ export default async function SearchPage({ searchParams }: Props) {
           OR: [
             { name: { contains: q, mode: "insensitive" } },
             { city: { contains: q, mode: "insensitive" } },
+            { state: { contains: q, mode: "insensitive" } },
             { zip: { contains: q } },
             { address: { contains: q, mode: "insensitive" } },
+            { categories: { has: q } },
+            { categories: { hasSome: [q, q.charAt(0).toUpperCase() + q.slice(1).toLowerCase()] } },
           ],
         },
         orderBy: [{ featured: "desc" }, { rating: "desc" }],
