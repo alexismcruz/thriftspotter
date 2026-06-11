@@ -145,6 +145,52 @@ export default function AdvertisePage() {
         ))}
       </div>
 
+      {/* Comparison Table */}
+      <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden mb-14">
+        <div className="px-8 py-6 border-b border-stone-100">
+          <h2 className="text-2xl font-bold text-stone-900 mb-1">What's the difference?</h2>
+          <p className="text-stone-500 text-sm">See exactly what you get with each plan</p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-stone-50">
+                <th className="text-left px-6 py-3 font-medium text-stone-500 border-b border-stone-100 w-1/2">Feature</th>
+                <th className="text-center px-4 py-3 font-medium text-stone-500 border-b border-stone-100">Free</th>
+                <th className="text-center px-4 py-3 font-medium text-brand-700 border-b border-brand-100 bg-brand-50">Featured · $29/mo</th>
+                <th className="text-center px-4 py-3 font-medium text-stone-500 border-b border-stone-100">Premium · $59/mo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { feature: "Listed in directory", free: true, featured: true, premium: true },
+                { feature: "Address & phone number", free: true, featured: true, premium: true },
+                { feature: "Website link", free: true, featured: true, premium: true },
+                { feature: "Business description", free: false, featured: true, premium: true },
+                { feature: "Photos", free: false, featured: true, premium: true },
+                { feature: "Pinned to top of city page", free: false, featured: true, premium: true },
+                { feature: "⭐ Featured badge", free: false, featured: true, premium: true },
+                { feature: "State page banner", free: false, featured: false, premium: true },
+                { feature: "Monthly performance report", free: false, featured: false, premium: true },
+              ].map(({ feature, free, featured, premium }, i) => (
+                <tr key={feature} className={i % 2 === 0 ? "bg-white" : "bg-stone-50/50"}>
+                  <td className="px-6 py-3.5 text-stone-700 font-medium border-b border-stone-100">{feature}</td>
+                  <td className="px-4 py-3.5 text-center border-b border-stone-100">
+                    {free ? <span className="text-brand-600 font-bold text-base">✓</span> : <span className="text-stone-300">—</span>}
+                  </td>
+                  <td className="px-4 py-3.5 text-center border-b border-brand-100 bg-brand-50/40">
+                    {featured ? <span className="text-brand-600 font-bold text-base">✓</span> : <span className="text-stone-300">—</span>}
+                  </td>
+                  <td className="px-4 py-3.5 text-center border-b border-stone-100">
+                    {premium ? <span className="text-brand-600 font-bold text-base">✓</span> : <span className="text-stone-300">—</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* How it works */}
       <div className="bg-white rounded-2xl border border-stone-200 p-8 mb-10">
         <h2 className="text-2xl font-bold mb-8 text-center">How it works</h2>
