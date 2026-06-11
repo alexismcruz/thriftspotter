@@ -6,7 +6,6 @@ import { STATE_CENTERS, getStateZoom } from "@/lib/state-centers";
 import ShopMapWrapper from "@/components/ShopMapWrapper";
 import FeaturedBanner from "@/components/FeaturedBanner";
 import BusinessRequestModal from "@/components/BusinessRequestModal";
-import SearchBar from "@/components/SearchBar";
 import type { Metadata } from "next";
 
 type Props = { params: { state: string } };
@@ -101,7 +100,6 @@ export default async function StatePage({ params }: Props) {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2">
-          <SearchBar placeholder={`Search in ${stateName}…`} />
           <BusinessRequestModal stateName={stateName} stateAbbr={abbr} />
         </div>
       </div>
@@ -134,6 +132,30 @@ export default async function StatePage({ params }: Props) {
         </div>
       ) : (
         <>
+          {/* Category Cards */}
+          <h2 className="text-xl font-semibold mb-4">Browse by Category</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+            {[
+              { label: "Thrift Stores", emoji: "🛍️", slug: "thrift-stores" },
+              { label: "Clothing & Resale", emoji: "👗", slug: "clothing-resale" },
+              { label: "Furniture & Home", emoji: "🪑", slug: "furniture-home" },
+              { label: "Vintage & Antiques", emoji: "🏺", slug: "vintage-antiques" },
+              { label: "Books & Media", emoji: "📚", slug: "books-media" },
+              { label: "Consignment Shops", emoji: "🏷️", slug: "consignment-shops" },
+              { label: "Halloween & Costumes", emoji: "🎃", slug: "halloween-costumes" },
+              { label: "Specialty & Other", emoji: "✨", slug: "specialty-other" },
+            ].map(({ label, emoji, slug }) => (
+              <Link
+                key={slug}
+                href={`/category/${slug}`}
+                className="flex items-center gap-3 bg-white rounded-xl border border-stone-200 px-4 py-3 hover:border-brand-400 hover:shadow-md transition-all group"
+              >
+                <span className="text-2xl">{emoji}</span>
+                <span className="text-sm font-semibold text-stone-700 group-hover:text-brand-600 transition-colors leading-tight">{label}</span>
+              </Link>
+            ))}
+          </div>
+
           <h2 className="text-xl font-semibold mb-4">Browse by City</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {cities.map(({ city, _count }) => {
