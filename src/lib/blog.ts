@@ -837,8 +837,8 @@ Love the thrill of in-person thrifting? ThriftSpotter lists 5,600+ thrift stores
     description: "Celebrate Independence Day without breaking the bank. Here's how to find the best 4th of July outfits, decorations, and party supplies at thrift stores near you.",
     publishedAt: "2026-06-13",
     category: "Seasonal Guide",
-    imageUrl: "https://images.unsplash.com/photo-1527525443983-6e60c75fff46?w=1200&h=500&fit=crop",
-    imageAlt: "4th of July fireworks celebration",
+    imageUrl: "https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=1200&h=500&fit=crop",
+    imageAlt: "Family enjoying a summer BBQ picnic outdoors",
     content: `
 *affiliate-disclosure*
 
