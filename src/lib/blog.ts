@@ -676,6 +676,241 @@ ThriftSpotter lists 5,600+ thrift stores, consignment shops, and secondhand stor
 Happy thrifting! 🛍️
     `.trim(),
   },
+  {
+    slug: "best-thrift-stores-san-francisco-ca",
+    title: "Best Thrift Stores in San Francisco, CA",
+    description: "From the Haight-Ashbury vintage scene to hidden gem consignment shops in the Mission, here's your guide to the best thrift stores in San Francisco.",
+    publishedAt: "2026-06-13",
+    city: "San Francisco",
+    state: "CA",
+    stateSlug: "california",
+    citySlug: "san-francisco",
+    imageUrl: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200&h=500&fit=crop",
+    imageAlt: "San Francisco Golden Gate Bridge",
+    content: `
+*affiliate-disclosure*
+
+San Francisco is one of America's most iconic cities for thrift and vintage shopping. From the legendary Haight-Ashbury district — birthplace of 1960s counterculture — to the vibrant Mission neighborhood, the Bay City is packed with secondhand stores, consignment boutiques, and vintage shops for every style and budget.
+
+## Why San Francisco is a Thrifter's Dream
+
+San Francisco's culture of creativity, sustainability, and individual expression has made thrift shopping a way of life here long before it became trendy. The city's residents are avid donors, and the high cost of living means frequent turnover — people move often, and what they leave behind ends up on thrift store shelves.
+
+The result? An incredible ecosystem of secondhand shopping across the city's distinctive neighborhoods.
+
+## Best Neighborhoods for Thrifting in SF
+
+### Haight-Ashbury
+The Haight is ground zero for vintage shopping in San Francisco. Dozens of independent vintage stores line Haight Street, selling everything from 70s band tees to 90s grunge finds. Prices lean higher here due to the area's reputation, but the selection is unmatched.
+
+### The Mission District
+The Mission has a more eclectic, community-driven thrift scene. You'll find Goodwill and Salvation Army locations alongside independent consignment shops and pop-up vintage markets. Prices are generally more affordable than Haight-Ashbury.
+
+### Castro and Noe Valley
+These neighborhoods have excellent consignment boutiques, especially for upscale and designer secondhand clothing. The demographics mean high-quality donations cycle through regularly.
+
+### Sunset and Richmond Districts
+Outer neighborhoods like the Sunset and Richmond are underrated for thrifting — less foot traffic, lower prices, and excellent Goodwill and community thrift stores with great turnover.
+
+## Top Types of Stores to Visit
+
+**Goodwill** has several locations across San Francisco offering clothing, housewares, books, and electronics at affordable prices. The SoMa location is particularly well-stocked.
+
+**Salvation Army** stores in SF are great for furniture, home goods, and everyday clothing. Check their weekly sale schedules for extra discounts.
+
+**Sunset Mercantile** in San Francisco is a local favorite for curated secondhand and vintage finds. A great stop for shoppers looking for something unique and carefully selected.
+
+**Independent vintage boutiques** on Haight Street offer curated collections from specific decades — perfect if you're hunting for a particular era or aesthetic.
+
+## Tips for Thrifting in San Francisco
+
+- **Weekday mornings are best** — weekends in tourist-heavy areas like the Haight get crowded fast
+- **Layer up** — SF weather changes quickly, so having options while you shop matters
+- **Check the Mission for deals** — you'll often find the same quality items at lower prices than Haight-Ashbury
+- **Visit after tech layoffs** — unfortunate but true, waves of tech worker relocations mean quality electronics and furniture cycle through thrift stores
+
+## Shop Online if You Can't Make It
+
+Can't visit SF in person? Browse secondhand finds from the comfort of home:
+
+- [Shop vintage finds on eBay](https://ebay.com/sch/i.html?_nkw=vintage+san+francisco&campid=7372111&mkevt=1&mkrid=711-53200-19255-0&mkcid=1) — millions of secondhand items shipped nationwide
+- [Amazon Second Chance](https://www.amazon.com/second-chance?tag=thriftspotter-20) — open-box and refurbished deals
+
+## Find Thrift Stores in San Francisco on ThriftSpotter
+
+ThriftSpotter lists thrift stores, consignment shops, and vintage boutiques across San Francisco and the greater Bay Area. Browse addresses, get directions, and discover new spots — all free.
+
+[Browse San Francisco thrift stores →](https://www.thriftspotter.com/california/san-francisco)
+    `.trim(),
+  },
+  {
+    slug: "best-online-thrift-stores-2026",
+    title: "10 Best Online Thrift Stores in 2026",
+    description: "Can't find what you're looking for locally? These are the best online thrift stores and secondhand platforms to shop in 2026 — from eBay vintage finds to luxury consignment.",
+    publishedAt: "2026-06-13",
+    category: "Shopping Guide",
+    imageUrl: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&h=500&fit=crop",
+    imageAlt: "Online shopping on laptop",
+    content: `
+*affiliate-disclosure*
+
+Online thrift shopping has exploded in recent years. Whether you're hunting for vintage denim, designer handbags, or everyday home goods, there are now dozens of platforms dedicated to secondhand shopping — no thrift store trip required.
+
+Here are the best online thrift stores and resale platforms to know in 2026.
+
+## 1. eBay — Best for Variety
+
+eBay is the granddaddy of online resale and still the best place to find virtually anything secondhand. With millions of active listings across every category imaginable, eBay is unmatched for variety — from vintage clothing and collectibles to furniture and electronics.
+
+**Best for:** Vintage finds, collectibles, electronics, one-of-a-kind items
+
+[Browse eBay secondhand deals →](https://ebay.com/sch/i.html?_nkw=vintage+secondhand&campid=7372111&mkevt=1&mkrid=711-53200-19255-0&mkcid=1)
+
+## 2. Amazon Second Chance — Best for Electronics & Appliances
+
+Amazon's Second Chance program connects shoppers with open-box, refurbished, and trade-in products at significant discounts. It's the safest way to buy secondhand electronics online — backed by Amazon's return policy.
+
+**Best for:** Electronics, appliances, tools, and home goods
+
+[Shop Amazon Second Chance →](https://www.amazon.com/second-chance?tag=thriftspotter-20)
+
+## 3. The RealReal — Best for Luxury Consignment
+
+If you're looking for authenticated pre-owned designer goods — Gucci, Chanel, Louis Vuitton — The RealReal is the gold standard. Every item is authenticated by their team of experts before listing.
+
+**Best for:** Designer clothing, luxury handbags, fine jewelry, watches
+
+[Browse The RealReal →](https://www.therealreal.com/?utm_source=thriftspotter)
+
+## 4. ThredUp — Best for Everyday Clothing
+
+ThredUp is one of the largest online consignment stores for clothing. They accept shipments of secondhand clothes, process them, and resell them at significant discounts. Great for building a wardrobe on a budget.
+
+**Best for:** Women's and kids' everyday clothing
+
+## 5. Poshmark — Best for Brand-Name Fashion
+
+Poshmark is a peer-to-peer marketplace for fashion. Sellers list their own items and buyers can make offers. You'll find everything from fast fashion to luxury brands, often at great prices.
+
+**Best for:** Brand-name clothing, shoes, and accessories
+
+## 6. Goodwill Online (ShopGoodwill.com) — Best for Unexpected Finds
+
+ShopGoodwill.com is the official online auction platform of Goodwill Industries. Local Goodwill stores list unique and high-value items here — collectibles, art, vintage items, and more.
+
+**Best for:** Collectibles, vintage items, antiques, books
+
+## 7. Facebook Marketplace — Best for Local Pickup
+
+Facebook Marketplace isn't exclusively thrift, but it's one of the best places to find secondhand furniture, appliances, and household items from local sellers — often at rock-bottom prices or even free.
+
+**Best for:** Furniture, appliances, kids' gear, local deals
+
+## 8. Craigslist — Best for Furniture & Big Items
+
+Old faithful. Craigslist is still one of the best platforms for large secondhand items that are impractical to ship — furniture, gym equipment, musical instruments, and more.
+
+**Best for:** Furniture, large appliances, sporting goods
+
+## 9. Vestiaire Collective — Best for European Fashion
+
+Vestiaire Collective is a luxury fashion resale platform with a strong European heritage. Their authentication process is rigorous and the selection of high-end European designers is excellent.
+
+**Best for:** Luxury and designer fashion, particularly European brands
+
+## 10. Swap.com — Best for Kids & Baby
+
+Swap.com specializes in secondhand clothing for kids and babies — a category where buying new feels especially wasteful given how quickly children grow. Large selection, good prices.
+
+**Best for:** Children's clothing, baby gear, maternity wear
+
+## Find Physical Thrift Stores Near You
+
+Love the thrill of in-person thrifting? ThriftSpotter lists 5,600+ thrift stores, consignment shops, and vintage boutiques across all 50 US states — completely free.
+
+[Find thrift stores near you →](https://www.thriftspotter.com/near-me)
+    `.trim(),
+  },
+  {
+    slug: "4th-of-july-thrift-store-finds",
+    title: "4th of July on a Budget: Best Thrift Store Finds for Independence Day",
+    description: "Celebrate Independence Day without breaking the bank. Here's how to find the best 4th of July outfits, decorations, and party supplies at thrift stores near you.",
+    publishedAt: "2026-06-13",
+    category: "Seasonal Guide",
+    imageUrl: "https://images.unsplash.com/photo-1527525443983-6e60c75fff46?w=1200&h=500&fit=crop",
+    imageAlt: "4th of July fireworks celebration",
+    content: `
+*affiliate-disclosure*
+
+The 4th of July is one of America's biggest celebrations — and one of the easiest holidays to shop for at thrift stores. Red, white, and blue never goes out of style, and thrift stores across the country are packed with patriotic finds in the weeks leading up to Independence Day.
+
+Here's everything you can find at your local thrift store to make this 4th of July memorable without spending a fortune.
+
+## 🎆 4th of July Outfits
+
+### What to Look For
+Thrift stores are goldmines for patriotic clothing — American flag tees, red and white striped shirts, blue denim shorts, and star-spangled accessories. Since these items are only "seasonal" in most people's minds, donations spike after every July 4th, meaning stores are well-stocked heading into the holiday.
+
+**Pro tip:** Shop the week before July 4th for the best selection. Many stores do special sales on patriotic items in late June.
+
+### What to Buy
+- **Denim cutoffs** — a 4th of July classic and thrift store staple year-round
+- **Red, white & blue tees** — check the regular T-shirt section, not just seasonal
+- **White linen shirts** — perfect for summer BBQs and easy to style patriotically
+- **Bandanas and hair accessories** in red, white, and blue
+
+[Shop vintage Americana on eBay →](https://ebay.com/sch/i.html?_nkw=americana+vintage+4th+of+july&campid=7372111&mkevt=1&mkrid=711-53200-19255-0&mkcid=1)
+
+## 🏡 4th of July Decorations
+
+### Outdoor Decor
+Thrift stores almost always have a seasonal section, and in June you'll find flags, bunting, and patriotic decorations at a fraction of retail prices. Check:
+
+- **American flags** of all sizes
+- **Bunting and garlands** in red, white, and blue
+- **Lanterns and candle holders** — paint them patriotic colors at home
+- **Vintage Americana** collectibles and signs
+
+### Table Settings
+Hosting a BBQ or block party? Skip the expensive party store and hit your local thrift store for:
+
+- Red, white, or blue plates and bowls
+- Mason jars for drinks (add red and blue ribbons!)
+- Vintage serving platters and trays
+- Picnic baskets and coolers
+
+## 🎉 Party Supplies & Entertainment
+
+### Games and Activities
+July 4th is peak outdoor party season. Thrift stores often carry:
+
+- **Lawn games** — bocce, horseshoes, croquet sets
+- **Outdoor speakers and radios** for patriotic playlists
+- **Folding chairs and tables** — essential for backyard gatherings
+- **Coolers** — thrift stores frequently have them in great condition
+
+### Kids' Activities
+- Craft supplies for making patriotic decorations
+- Water toys and sprinklers for summer fun
+- Buckets and sand toys for outdoor play
+
+## 💡 DIY Ideas with Thrift Store Finds
+
+**Mason jar centerpieces:** Fill thrifted mason jars with red and blue flowers, tiny flags, or LED fairy lights for easy patriotic centerpieces.
+
+**Flag bunting:** Buy old red, white, and blue fabric or clothing and cut into triangles for homemade bunting — costs almost nothing and looks great.
+
+**Vintage Americana display:** Collect vintage Americana items — old flags, tin signs, enamelware — from thrift stores for a nostalgic 4th of July display.
+
+## Find Thrift Stores Near You This 4th of July
+
+ThriftSpotter lists 5,600+ thrift stores across all 50 US states. Find a store near you and start hunting for your Independence Day haul — completely free.
+
+[Find thrift stores near me →](https://www.thriftspotter.com/near-me)
+
+Happy 4th of July! 🇺🇸🎆
+    `.trim(),
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
