@@ -128,16 +128,15 @@ export default function AdvertisePage() {
               ))}
             </ul>
             {plan.name === "Featured Listing" ? (
-              <PayPalSubscribeButton
-                planId="P-9JJ64136PU5034937NILO52I"
-                containerId="paypal-featured"
-              />
+              <>
+                <PayPalSubscribeButton planId="P-9JJ64136PU5034937NILO52I" containerId="paypal-featured" />
+                <p className="text-xs text-center mt-2 text-brand-200">No contracts. Cancel anytime.</p>
+              </>
             ) : plan.name === "Premium Sponsor" ? (
-              <PayPalSubscribeButton
-                planId="P-6BY101962J9092244NILO7YI"
-                containerId="paypal-premium"
-                dark
-              />
+              <>
+                <PayPalSubscribeButton planId="P-6BY101962J9092244NILO7YI" containerId="paypal-premium" dark />
+                <p className={`text-xs text-center mt-2 text-stone-400 group-hover:text-brand-200`}>No contracts. Cancel anytime.</p>
+              </>
             ) : (
               <ListingRequestButton />
             )}
@@ -188,6 +187,9 @@ export default function AdvertisePage() {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="px-8 py-4 bg-stone-50 border-t border-stone-100 text-center">
+          <p className="text-xs text-stone-400">✅ No contracts. Cancel anytime. Billed monthly via PayPal.</p>
         </div>
       </div>
 
