@@ -136,18 +136,18 @@ export default async function StatePage({ params }: Props) {
           <h2 className="text-xl font-semibold mb-4">Browse by Category</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
             {[
-              { label: "Thrift Stores", emoji: "🛍️", slug: "thrift-stores" },
+              { label: "Thrift Stores", emoji: "🛍️", slug: "thrift-store" },
               { label: "Clothing & Resale", emoji: "👗", slug: "clothing-resale" },
               { label: "Furniture & Home", emoji: "🪑", slug: "furniture-home" },
-              { label: "Vintage & Antiques", emoji: "🏺", slug: "vintage-antiques" },
+              { label: "Vintage Stores", emoji: "✨", slug: "vintage-store" },
               { label: "Books & Media", emoji: "📚", slug: "books-media" },
-              { label: "Consignment Shops", emoji: "🏷️", slug: "consignment-shops" },
-              { label: "Halloween & Costumes", emoji: "🎃", slug: "halloween-costumes" },
-              { label: "Specialty & Other", emoji: "✨", slug: "specialty-other" },
+              { label: "Consignment Shops", emoji: "🏷️", slug: "consignment-shop" },
+              { label: "Nonprofit Resale", emoji: "💚", slug: "nonprofit-resale" },
+              { label: "Electronics", emoji: "💻", slug: "electronics" },
             ].map(({ label, emoji, slug }) => (
               <Link
                 key={slug}
-                href={`/category/${slug}`}
+                href={`/${params.state}/category/${slug}`}
                 className="flex items-center gap-3 bg-white rounded-xl border border-stone-200 px-4 py-3 hover:border-brand-400 hover:shadow-md transition-all group"
               >
                 <span className="text-2xl">{emoji}</span>
