@@ -195,9 +195,9 @@ export default async function ShopPage({ params }: Props) {
                   <span className="break-all">{shop.website.replace(/^https?:\/\//, "")}</span>
                 </a>
               )}
-              {shop.lat && shop.lng && (
+              {(shop.lat && shop.lng || shop.address) && (
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${shop.lat},${shop.lng}`}
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${shop.name} ${shop.address} ${shop.city} ${shop.state}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 mt-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium px-4 py-2 rounded-lg transition-colors"
