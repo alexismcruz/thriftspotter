@@ -8,7 +8,22 @@ import type { Metadata } from "next";
 
 const PAGE_SIZE = 21;
 
-type Props = { params: { state: string; city: string }; searchParams?: { page?: string } };
+type Props = { params: { state: string; city: string }; searchParams?: { page?: string; category?: string } };
+
+const CATEGORY_EMOJIS: Record<string, string> = {
+  "Thrift Store": "🛍️",
+  "Clothing Resale": "👗",
+  "Furniture & Home": "🪑",
+  "Vintage Store": "✨",
+  "Books & Media": "📚",
+  "Nonprofit Resale": "💚",
+  "Electronics": "💻",
+  "Consignment Shop": "🏷️",
+  "Sports & Outdoors": "⚽",
+  "Kids & Baby": "👶",
+  "Jewelry & Accessories": "💎",
+  "Building Materials": "🔨",
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const abbr = stateFromSlug(params.state)?.toUpperCase();
@@ -44,10 +59,16 @@ export default async function CityPage({ params, searchParams }: Props) {
 
   const page = Math.max(1, parseInt(searchParams?.page ?? "1") || 1);
   const skip = (page - 1) * PAGE_SIZE;
+  const activeCategory = searchParams?.category ?? null;
 
-  const cityWhere = { state: abbr, active: true, city: { equals: cityQuery, mode: "insensitive" as const } };
+  const cityWhere = {
+    state: abbr,
+    active: true,
+    city: { equals: cityQuery, mode: "insensitive" as const },
+    ...(activeCategory ? { categories: { has: activeCategory } } : {}),
+  };
 
-  const [totalCount, featuredShops, regularShops, featuredShop, nearbyCities] = await Promise.all([
+  const [totalCount, featuredShops, regularShops, featuredShop, nearbyCities, allCityShops] = await Promise.all([
     prisma.shop.count({ where: { ...cityWhere, featured: false } }),
     page === 1
       ? prisma.shop.findMany({ where: { ...cityWhere, featured: true }, orderBy: { rating: "desc" } })
@@ -59,7 +80,7 @@ export default async function CityPage({ params, searchParams }: Props) {
       take: PAGE_SIZE,
     }),
     prisma.shop.findFirst({
-      where: { ...cityWhere, featured: true },
+      where: { state: abbr, active: true, city: { equals: cityQuery, mode: "insensitive" }, featured: true },
       select: { id: true, name: true, slug: true, address: true, city: true, state: true, phone: true, website: true, description: true },
     }),
     prisma.shop.groupBy({
@@ -69,7 +90,21 @@ export default async function CityPage({ params, searchParams }: Props) {
       orderBy: { _count: { id: "desc" } },
       take: 6,
     }),
+    // Fetch all categories for this city (unfiltered) for the filter pills
+    prisma.shop.findMany({
+      where: { state: abbr, active: true, city: { equals: cityQuery, mode: "insensitive" } },
+      select: { categories: true },
+    }),
   ]);
+
+  // Build available category list from all city shops
+  const allCategoryCounts = allCityShops.flatMap((s) => s.categories).reduce<Record<string, number>>((acc, cat) => {
+    acc[cat] = (acc[cat] ?? 0) + 1;
+    return acc;
+  }, {});
+  const availableCategories = Object.entries(allCategoryCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([cat, count]) => ({ cat, count }));
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
   const totalShops = totalCount + featuredShops.length;
@@ -184,6 +219,36 @@ export default async function CityPage({ params, searchParams }: Props) {
       {page === 1 && (
         <div className="mb-8">
           <FeaturedBanner shop={featuredShop} locationLabel={`${cityName}, ${abbr}`} />
+        </div>
+      )}
+
+      {/* Category filter pills */}
+      {availableCategories.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-6">
+          <Link
+            href={`/${params.state}/${citySlugInput}`}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+              !activeCategory
+                ? "bg-brand-600 text-white border-brand-600"
+                : "bg-white text-stone-600 border-stone-200 hover:border-brand-400 hover:text-brand-600"
+            }`}
+          >
+            All
+          </Link>
+          {availableCategories.map(({ cat, count }) => (
+            <Link
+              key={cat}
+              href={`/${params.state}/${citySlugInput}?category=${encodeURIComponent(cat)}`}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+                activeCategory === cat
+                  ? "bg-brand-600 text-white border-brand-600"
+                  : "bg-white text-stone-600 border-stone-200 hover:border-brand-400 hover:text-brand-600"
+              }`}
+            >
+              {CATEGORY_EMOJIS[cat] ?? "🏪"} {cat}
+              <span className={`text-xs ${activeCategory === cat ? "text-brand-200" : "text-stone-400"}`}>({count})</span>
+            </Link>
+          ))}
         </div>
       )}
 

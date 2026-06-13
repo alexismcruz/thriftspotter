@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import ShopCard from "@/components/ShopCard";
-import SearchBar from "@/components/SearchBar";
+import SearchInput from "@/components/SearchInput";
 import type { Metadata } from "next";
 
 type Props = { searchParams: { q?: string } };
@@ -35,10 +35,8 @@ export default async function SearchPage({ searchParams }: Props) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <Link href="/" className="text-sm text-stone-500 hover:text-brand-600">← Back</Link>
-        </div>
-        <SearchBar placeholder="Search again…" />
+        <Link href="/" className="text-sm text-stone-500 hover:text-brand-600 mb-4 inline-block">← Back</Link>
+        <SearchInput defaultValue={q} />
       </div>
 
       {q && (
