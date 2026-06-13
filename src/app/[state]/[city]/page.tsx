@@ -210,21 +210,14 @@ export default async function CityPage({ params, searchParams }: Props) {
 
       {/* Intro paragraph — only on page 1 */}
       {page === 1 && (
-        <p className="text-stone-600 text-sm leading-relaxed mb-8 max-w-3xl">
+        <p className="text-stone-600 text-sm leading-relaxed mb-6 max-w-3xl">
           {cityIntro}
         </p>
       )}
 
-      {/* Featured banner — only on page 1 */}
-      {page === 1 && (
-        <div className="mb-8">
-          <FeaturedBanner shop={featuredShop} locationLabel={`${cityName}, ${abbr}`} />
-        </div>
-      )}
-
       {/* Category filter pills */}
       {availableCategories.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-8">
           <Link
             href={`/${params.state}/${citySlugInput}`}
             className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all ${
@@ -249,6 +242,13 @@ export default async function CityPage({ params, searchParams }: Props) {
               <span className={`text-xs ${activeCategory === cat ? "text-brand-200" : "text-stone-400"}`}>({count})</span>
             </Link>
           ))}
+        </div>
+      )}
+
+      {/* Featured banner — only on page 1 */}
+      {page === 1 && (
+        <div className="mb-8">
+          <FeaturedBanner shop={featuredShop} locationLabel={`${cityName}, ${abbr}`} />
         </div>
       )}
 
