@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
-import { US_STATES, stateFromSlug, stateSlug } from "@/lib/utils";
+import { US_STATES, stateFromSlug, stateSlug, slugify } from "@/lib/utils";
 import ShopCard from "@/components/ShopCard";
 import FeaturedBanner from "@/components/FeaturedBanner";
 import type { Metadata } from "next";
@@ -29,10 +29,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const abbr = stateFromSlug(params.state)?.toUpperCase();
   const stateName = abbr ? US_STATES[abbr] : null;
   if (!stateName) return {};
-  const cityName = params.city.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-  const shopCount = await prisma.shop.count({
-    where: { state: abbr, active: true, city: { equals: params.city.replace(/-/g, " "), mode: "insensitive" } },
+  // Resolve real city name by slug match (handles punctuation like "Lee's Summit")
+  const citiesInState = await prisma.shop.findMany({
+    where: { state: abbr, active: true },
+    select: { city: true },
+    distinct: ["city"],
   });
+  const matchedCity = citiesInState.find((c) => slugify(c.city) === params.city)?.city;
+  const cityName = matchedCity ?? params.city.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const shopCount = matchedCity
+    ? await prisma.shop.count({ where: { state: abbr, active: true, city: { equals: matchedCity, mode: "insensitive" } } })
+    : 0;
   const canonical = `https://www.thriftspotter.com/${params.state}/${params.city}`;
   return {
     title: `Thrift Stores in ${cityName}, ${abbr}`,
@@ -55,7 +62,18 @@ export default async function CityPage({ params, searchParams }: Props) {
 
   const stateName = US_STATES[abbr];
   const citySlugInput = params.city;
-  const cityQuery = citySlugInput.replace(/-/g, " ");
+
+  // Resolve the real city name by slug match. slugify() strips punctuation
+  // (periods, apostrophes), so a naive dash→space reversal misses cities like
+  // "Lee's Summit" (lees-summit) or "St. Chico" (st-chico) and 404s them.
+  const citiesInState = await prisma.shop.findMany({
+    where: { state: abbr, active: true },
+    select: { city: true },
+    distinct: ["city"],
+  });
+  const matchedCity = citiesInState.find((c) => slugify(c.city) === citySlugInput)?.city;
+  if (!matchedCity) notFound();
+  const cityQuery = matchedCity;
 
   const page = Math.max(1, parseInt(searchParams?.page ?? "1") || 1);
   const skip = (page - 1) * PAGE_SIZE;
