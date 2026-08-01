@@ -25,6 +25,7 @@ const PLANS = [
   {
     name: "Featured Listing",
     price: "$14.50/mo",
+    originalPrice: "$29/mo",
     description: "Stand out at the top of your city page.",
     features: [
       "Everything in Basic",
@@ -39,6 +40,7 @@ const PLANS = [
   {
     name: "Premium Sponsor",
     price: "$29.50/mo",
+    originalPrice: "$59/mo",
     description: "Maximum visibility across the entire state.",
     features: [
       "Everything in Featured",
@@ -60,6 +62,11 @@ export default function AdvertisePage() {
         <span className="inline-block bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
           For Business Owners
         </span>
+        <div className="mb-4">
+          <span className="inline-block bg-amber-100 text-amber-700 text-sm font-bold px-4 py-1.5 rounded-full">
+            🎉 Limited-time offer — 50% off all paid plans
+          </span>
+        </div>
         <h1 className="text-4xl sm:text-5xl font-heading font-bold mb-4 leading-tight">
           Put your business in front of<br className="hidden sm:block" /> people ready to shop
         </h1>
@@ -113,9 +120,16 @@ export default function AdvertisePage() {
             }`}>
               {plan.name}
             </h3>
-            <div className={`text-3xl font-bold mb-2 ${
+            <div className={`text-3xl font-bold mb-2 flex items-baseline gap-2 ${
               plan.highlighted ? "text-white" : "text-brand-600 group-hover:text-white"
             }`}>
+              {plan.originalPrice && (
+                <span className={`text-lg font-semibold line-through ${
+                  plan.highlighted ? "text-brand-200" : "text-stone-400 group-hover:text-brand-200"
+                }`}>
+                  {plan.originalPrice}
+                </span>
+              )}
               {plan.price}
             </div>
             <p className={`text-sm mb-6 ${
