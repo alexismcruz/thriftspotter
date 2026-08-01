@@ -24,7 +24,7 @@ const PLANS = [
   },
   {
     name: "Featured Listing",
-    price: "$29/mo",
+    price: "$14.50/mo",
     description: "Stand out at the top of your city page.",
     features: [
       "Everything in Basic",
@@ -38,7 +38,7 @@ const PLANS = [
   },
   {
     name: "Premium Sponsor",
-    price: "$59/mo",
+    price: "$29.50/mo",
     description: "Maximum visibility across the entire state.",
     features: [
       "Everything in Featured",
@@ -90,7 +90,14 @@ export default function AdvertisePage() {
         {PLANS.map((plan) => (
           <div
             key={plan.name}
-            className={`group rounded-2xl border p-6 flex flex-col transition-all duration-200 hover:scale-105 hover:shadow-xl hover:bg-brand-600 hover:border-brand-500 ${
+            id={
+              plan.name === "Featured Listing"
+                ? "featured"
+                : plan.name === "Premium Sponsor"
+                ? "premium"
+                : undefined
+            }
+            className={`group rounded-2xl border p-6 flex flex-col transition-all duration-200 hover:scale-105 hover:shadow-xl hover:bg-brand-600 hover:border-brand-500 scroll-mt-24 ${
               plan.highlighted
                 ? "border-brand-500 bg-brand-600 shadow-lg"
                 : "border-stone-200 bg-white"
@@ -156,8 +163,8 @@ export default function AdvertisePage() {
               <tr className="bg-stone-50">
                 <th className="text-left px-6 py-3 font-medium text-stone-500 border-b border-stone-100 w-1/2">Feature</th>
                 <th className="text-center px-4 py-3 font-medium text-stone-500 border-b border-stone-100">Free</th>
-                <th className="text-center px-4 py-3 font-medium text-brand-700 border-b border-brand-100 bg-brand-50">Featured · $29/mo</th>
-                <th className="text-center px-4 py-3 font-medium text-stone-500 border-b border-stone-100">Premium · $59/mo</th>
+                <th className="text-center px-4 py-3 font-medium text-brand-700 border-b border-brand-100 bg-brand-50">Featured · $14.50/mo</th>
+                <th className="text-center px-4 py-3 font-medium text-stone-500 border-b border-stone-100">Premium · $29.50/mo</th>
               </tr>
             </thead>
             <tbody>
