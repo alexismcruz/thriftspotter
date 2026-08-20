@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | ThriftSpotter",
+  title: "Terms of Service",
   description: "ThriftSpotter's terms of service — the rules for using our directory and paid business listing subscriptions.",
   alternates: { canonical: "https://www.thriftspotter.com/terms" },
   robots: { index: true, follow: true },

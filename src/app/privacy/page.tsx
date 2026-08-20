@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | ThriftSpotter",
+  title: "Privacy Policy",
   description: "ThriftSpotter's privacy policy — how we collect, use, and protect your information.",
   alternates: { canonical: "https://www.thriftspotter.com/privacy" },
   robots: { index: true, follow: true },
