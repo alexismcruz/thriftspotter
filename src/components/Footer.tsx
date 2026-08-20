@@ -116,6 +116,7 @@ export default function Footer() {
               <li><Link href="/near-me" className="hover:text-white transition-colors">📍 Stores Near Me</Link></li>
               <li><Link href="/shop-online" className="hover:text-white transition-colors">🛒 Shop Online</Link></li>
               <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
 
