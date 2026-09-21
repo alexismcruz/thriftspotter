@@ -911,6 +911,91 @@ ThriftSpotter lists 5,600+ thrift stores across all 50 US states. Find a store n
 Happy 4th of July! 🇺🇸🎆
     `.trim(),
   },
+  {
+    slug: "thrift-store-halloween-costumes-on-a-budget",
+    title: "Thrift Store Halloween Costumes: How to Build a Standout Look for Less",
+    description: "The best costumes start at the thrift store. Here's how to build a show-stopping Halloween, cosplay, or themed-party look on a budget — plus where to grab the wigs, masks, and FX makeup that finish it off.",
+    publishedAt: "2026-09-21",
+    category: "Costume Guide",
+    imageUrl: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=1200&h=500&fit=crop",
+    imageAlt: "Halloween skeleton decorations lit up in colorful pink and purple light",
+    content: `
+*affiliate-disclosure*
+
+Ask anyone who wins the office costume contest every year and they'll tell you the same secret: the best costumes don't come out of a plastic bag from a pop-up Halloween store. They're built — a thrifted blazer here, a wig there, a little FX makeup to tie it all together. And the base of almost every great costume starts at a thrift store.
+
+Whether you're putting together a last-minute Halloween look, a cosplay for a convention, a themed-party outfit, or a theater costume, thrifting gives you three things a costume shop can't: rock-bottom prices, one-of-a-kind pieces nobody else will be wearing, and the freedom to cut, dye, and customize without crying over the receipt.
+
+Here's how to build a standout costume for a fraction of the cost.
+
+## Step 1: Build Your Base at a Thrift Store
+
+Every costume needs a foundation — the clothing that does the heavy lifting. This is where thrift stores shine:
+
+- **Blazers, trench coats, and suits** — the backbone of detective, spy, mobster, and "corporate zombie" looks
+- **Dresses and gowns** — vintage prom dresses become everything from Disney princesses to zombie brides
+- **Flannel and denim** — instant lumberjack, cowboy, or '90s grunge
+- **White button-downs and slacks** — the blank canvas for dozens of characters
+
+Thrift stores rotate inventory constantly, so start browsing early — the perfect piece is often a one-time find. Use ThriftSpotter to [find thrift stores near you](https://www.thriftspotter.com/near-me) and [search for costume and vintage shops in your area](https://www.thriftspotter.com/search?q=halloween).
+
+## Step 2: The Finishing Touches Make the Costume
+
+A thrifted base gets you 70% of the way there. The last 30% — the wig, the mask, the makeup, the props — is what turns "guy in a coat" into "the character." This is where a specialty costume shop earns its keep. Our friends at [Abracadabra NYC](https://www.dpbolvw.net/click-101773002-17277658) — a legendary NYC costume and trinket emporium — have exactly the pieces that finish a look:
+
+### Wigs — the fastest transformation there is
+
+Nothing changes your look faster than hair. A good wig turns a plain outfit into an unmistakable character in seconds. [Shop wigs at Abracadabra NYC →](https://www.jdoqocy.com/click-101773002-17267171) — instant transformations, no stylist needed.
+
+### FX Makeup — pro-level looks without the guesswork
+
+Scars, wounds, aged skin, full character faces — special-effects makeup is what separates a costume from a *costume*. [Shop FX makeup →](https://www.jdoqocy.com/click-101773002-17267170) for pro-level results you can actually pull off at home.
+
+### Masks — designs that steal the show
+
+When you want maximum impact with minimum effort, a great mask does it all. [Browse Halloween masks →](https://www.jdoqocy.com/click-101773002-17267167) — realistic designs that get a reaction the second you walk in.
+
+### Props & accessories — the details that sell it
+
+The little things make a costume believable. The right prop, hat, or accessory is the difference between "I think I get it" and "oh, that's amazing." [Shop props →](https://www.dpbolvw.net/click-101773002-17267169) and [finish the look with statement hats →](https://www.kqzyfj.com/click-101773002-17267172).
+
+### Short on time? Grab a ready-made costume
+
+Some years you just need it done. Abracadabra has [costumes on sale up to 70% off →](https://www.dpbolvw.net/click-101773002-17267156) and [trending character themes and best-sellers →](https://www.kqzyfj.com/click-101773002-17267160) if you'd rather skip straight to the finish line.
+
+## 5 Costume Ideas: Thrift Base + Finishing Touch
+
+1. **Vintage Hollywood glamour** — a thrifted satin gown + a sleek [wig](https://www.jdoqocy.com/click-101773002-17267171) + bold red lip
+2. **Zombie office worker** — a thrifted suit (rough it up) + [FX makeup](https://www.jdoqocy.com/click-101773002-17267170) for the gory details
+3. **Classic monster** — thrifted tattered clothes + a [realistic mask](https://www.jdoqocy.com/click-101773002-17267167)
+4. **Fortune teller / mystic** — a thrifted flowy dress and scarves + a few [magic and mystic props](https://www.jdoqocy.com/click-101773002-17267165)
+5. **Any pop-culture character** — thrifted base pieces + a matching [character theme kit](https://www.kqzyfj.com/click-101773002-17267160)
+
+## Beyond Halloween: Year-Round Costume & Party Finds
+
+Here's the thing — thrifting-plus-accessories isn't just an October trick. Cosplayers building convention looks, community theater groups, murder-mystery-party hosts, and cosplay-curious beginners all use the exact same playbook year-round. And a good costume shop is a year-round resource, not just a Halloween one:
+
+- [Magic tricks](https://www.jdoqocy.com/click-101773002-17267165) that impress at any party
+- [Practical jokes and pranks](https://www.kqzyfj.com/click-101773002-17267161) for April Fools' and beyond
+- [Collectibles](https://www.jdoqocy.com/click-101773002-17267159) — rare finds and fan-favorite pieces
+- [Unique gifts](https://www.tkqlhce.com/click-101773002-17267163) for the person who has everything
+
+Bookmark this one for birthdays, conventions, and themed nights all year.
+
+## Pro Tips for Costume Thrifting
+
+- **Start early.** Thrift inventory is first-come, first-served, and the best pieces vanish in the weeks before Halloween.
+- **Think in pieces, not costumes.** Don't look for "a pirate costume" — look for a billowy shirt, a wide belt, tall boots. Build it.
+- **Don't be afraid to alter.** At thrift prices, you can cut, dye, distress, and safety-pin with zero guilt.
+- **Check every department.** Curtains become capes, tablecloths become togas, and a men's XL shirt becomes a dress.
+
+## Find Thrift Stores Near You
+
+Great costumes are built, not bought — and it all starts with the right base pieces at the right price. ThriftSpotter lists 5,600+ thrift stores, consignment shops, and vintage boutiques across all 50 US states, completely free.
+
+[Find thrift stores near you →](https://www.thriftspotter.com/near-me) and start building your best costume yet. 🎃
+    `.trim(),
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
