@@ -14,15 +14,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {};
   const canonical = `https://www.thriftspotter.com/blog/${post.slug}`;
   return {
-    title: post.title,
+    title: post.seoTitle ?? post.title,
     description: post.description,
+    ...(post.keywords ? { keywords: post.keywords } : {}),
     alternates: { canonical },
     openGraph: {
       title: post.title,
       description: post.description,
       url: canonical,
       type: "article",
-      images: post.imageUrl ? [{ url: post.imageUrl }] : [],
+      publishedTime: post.publishedAt,
+      ...(post.updatedAt ? { modifiedTime: post.updatedAt } : {}),
+      images: post.imageUrl ? [{ url: post.imageUrl, alt: post.imageAlt ?? post.title }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.seoTitle ?? post.title,
+      description: post.description,
+      ...(post.imageUrl ? { images: [post.imageUrl] } : {}),
     },
   };
 }
@@ -135,23 +144,59 @@ export default function BlogPostPage({ params }: Props) {
   const post = getBlogPost(params.slug);
   if (!post) notFound();
 
+  const canonical = `https://www.thriftspotter.com/blog/${post.slug}`;
+
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
     datePublished: post.publishedAt,
-    image: post.imageUrl,
-    author: { "@type": "Organization", name: "ThriftSpotter" },
-    publisher: { "@type": "Organization", name: "ThriftSpotter", url: "https://www.thriftspotter.com" },
-    url: `https://www.thriftspotter.com/blog/${post.slug}`,
+    dateModified: post.updatedAt ?? post.publishedAt,
+    ...(post.imageUrl ? { image: { "@type": "ImageObject", url: post.imageUrl, width: 1200, height: 500 } } : {}),
+    ...(post.keywords ? { keywords: post.keywords.join(", ") } : {}),
+    author: { "@type": "Organization", name: "ThriftSpotter", url: "https://www.thriftspotter.com" },
+    publisher: {
+      "@type": "Organization",
+      name: "ThriftSpotter",
+      url: "https://www.thriftspotter.com",
+      logo: { "@type": "ImageObject", url: "https://www.thriftspotter.com/logo-square.svg" },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
+    url: canonical,
   };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.thriftspotter.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.thriftspotter.com/blog" },
+      { "@type": "ListItem", position: 3, name: post.title },
+    ],
+  };
+
+  const faqSchema = post.faqs && post.faqs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: post.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
 
   const relatedPosts = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 4);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
 
       {/* Hero Image */}
       {post.imageUrl && (
@@ -204,6 +249,26 @@ export default function BlogPostPage({ params }: Props) {
             <div className="space-y-2">
               {renderContent(post.content)}
             </div>
+
+            {/* FAQ */}
+            {post.faqs && post.faqs.length > 0 && (
+              <section className="mt-12">
+                <h2 className="text-2xl font-bold text-stone-900 mb-4">Frequently Asked Questions</h2>
+                <div className="space-y-3">
+                  {post.faqs.map((f) => (
+                    <details key={f.q} className="group bg-white border border-stone-200 rounded-xl overflow-hidden">
+                      <summary className="flex items-center justify-between px-5 py-4 cursor-pointer font-medium text-stone-800 text-sm hover:bg-stone-50 transition-colors list-none">
+                        {f.q}
+                        <span className="text-stone-400 group-open:rotate-180 transition-transform shrink-0 ml-3">▾</span>
+                      </summary>
+                      <div className="px-5 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
+                        {f.a}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* CTA */}
             <div className="mt-12 bg-gradient-to-br from-brand-600 to-brand-700 rounded-2xl p-6 text-white text-center">

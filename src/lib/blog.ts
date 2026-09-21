@@ -3,6 +3,9 @@ export type BlogPost = {
   title: string;
   description: string;
   publishedAt: string;
+  updatedAt?: string;  // for dateModified in structured data
+  seoTitle?: string;   // concise <title> for SERPs (falls back to title)
+  keywords?: string[]; // topical keywords for metadata
   city?: string;
   state?: string;
   stateSlug?: string;
@@ -10,6 +13,7 @@ export type BlogPost = {
   category?: string;
   imageUrl?: string;   // Unsplash hero image (free to use)
   imageAlt?: string;
+  faqs?: { q: string; a: string }[]; // renders FAQ section + FAQPage schema
   content: string;
 };
 
@@ -914,11 +918,43 @@ Happy 4th of July! 🇺🇸🎆
   {
     slug: "thrift-store-halloween-costumes-on-a-budget",
     title: "Thrift Store Halloween Costumes: How to Build a Standout Look for Less",
+    seoTitle: "Thrift Store Halloween Costume Ideas on a Budget (2026)",
     description: "The best costumes start at the thrift store. Here's how to build a show-stopping Halloween, cosplay, or themed-party look on a budget — plus where to grab the wigs, masks, and FX makeup that finish it off.",
+    keywords: [
+      "thrift store halloween costumes",
+      "diy costume ideas",
+      "halloween costume on a budget",
+      "cheap halloween costumes",
+      "cosplay on a budget",
+      "where to buy wigs and fx makeup",
+      "thrift store costume ideas",
+    ],
     publishedAt: "2026-09-21",
     category: "Costume Guide",
     imageUrl: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=1200&h=500&fit=crop",
     imageAlt: "Halloween skeleton decorations lit up in colorful pink and purple light",
+    faqs: [
+      {
+        q: "Can you really make a good Halloween costume from thrift store clothes?",
+        a: "Absolutely — thrift stores are the secret behind most award-winning costumes. You get a unique base for a few dollars and the freedom to cut, dye, and distress it without worrying about the cost. Pair thrifted clothing with a wig, mask, or a little FX makeup and you'll out-do any bagged costume-store kit.",
+      },
+      {
+        q: "When should I start shopping for a Halloween costume?",
+        a: "Start in late September or early October. Thrift inventory is first-come, first-served, and the best pieces disappear in the two to three weeks before Halloween. Shopping early also gives you time to alter pieces and order any wigs, masks, or accessories you need.",
+      },
+      {
+        q: "Where can I buy wigs, masks, and FX makeup to finish a costume?",
+        a: "Specialty costume shops carry the finishing touches thrift stores don't. Abracadabra NYC, a longtime costume and trinket emporium, stocks wigs, realistic masks, special-effects makeup, props, and hats — the details that turn a thrifted outfit into a complete character.",
+      },
+      {
+        q: "What are some easy thrift store costume ideas?",
+        a: "A thrifted satin gown plus a wig makes vintage Hollywood glamour; a thrifted suit plus FX makeup makes a zombie office worker; tattered thrift clothes plus a realistic mask make a classic monster; and a flowy dress plus a few mystic props makes a fortune teller. Think in pieces, not full costumes.",
+      },
+      {
+        q: "Do thrift store costumes work for cosplay and themed parties too?",
+        a: "Yes. The same approach — a thrifted base plus wigs, makeup, and accessories — is how many cosplayers and themed-party hosts build looks year-round, not just at Halloween. It's cheaper than buying a full costume and far more customizable.",
+      },
+    ],
     content: `
 *affiliate-disclosure*
 
